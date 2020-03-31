@@ -2,7 +2,7 @@ package com.depa.form.model.field;
 
 import java.util.List;
 
-public class Field {
+public abstract class Field {
     private FieldType fieldType;
 
     private FieldData fieldData;
