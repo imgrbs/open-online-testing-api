@@ -10,6 +10,26 @@ public class FieldDTO {
     private List<Attribute> attributes;
     private List<String> choiceList;
 
+    public FieldDTO() {
+    }
+
+    public FieldDTO(Field field) {
+        this.fieldType = field.getFieldType();
+        this.fieldData = field.getFieldData();
+        this.attributes = field.getAttributes();
+
+        if (this.fieldType.equals(FieldType.CHECKBOX)) {
+            this.choiceList = ((Checkbox) field).getChoiceList();
+        }
+    }
+
+    public FieldDTO(FieldType fieldType, FieldData fieldData, List<Attribute> attributes, List<String> choiceList) {
+        this.fieldType = fieldType;
+        this.fieldData = fieldData;
+        this.attributes = attributes;
+        this.choiceList = choiceList;
+    }
+
     public FieldType getFieldType() {
         return fieldType;
     }
