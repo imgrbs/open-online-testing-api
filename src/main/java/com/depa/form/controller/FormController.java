@@ -4,10 +4,7 @@ import com.depa.form.dto.FormDTO;
 import com.depa.form.model.form.Form;
 import com.depa.form.service.FormService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +22,11 @@ public class FormController {
         return formService.toFormDTO(responseForm);
     }
 
+    @GetMapping("/form/{uid}")
+    public FormDTO getFormByUid(@PathVariable String uid) {
+        Form responseForm = formService.getFormByUid(uid);
+        return formService.toFormDTO(responseForm);
+    }
 
     @GetMapping("/forms")
     public List<FormDTO> getForms() {

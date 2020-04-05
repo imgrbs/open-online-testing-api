@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FormRepository extends JpaRepository<Form, String> {
     Form save(Form form);
+
+    Form findByUid(String uid);
 }

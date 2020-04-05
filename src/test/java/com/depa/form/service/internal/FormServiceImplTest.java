@@ -56,4 +56,27 @@ class FormServiceImplTest {
             }
         });
     }
+
+    @Test
+    void testGetFormByUid() {
+        String uid = "16092526-7741-11ea-bc55-0242ac130003";
+        Form expectedForm = createForm();
+
+        expectedGetFormByUid(uid, expectedForm);
+
+        Form actualForm = underTest.getFormByUid(uid);
+
+        Assert.assertThat(actualForm.getName(), CoreMatchers.equalTo(expectedForm.getName()));
+        Assert.assertThat(actualForm.getDescription(), CoreMatchers.equalTo(expectedForm.getDescription()));
+        Assert.assertThat(actualForm.getName(), CoreMatchers.equalTo(expectedForm.getName()));
+    }
+
+    private void expectedGetFormByUid(String uid, Form expectedForm) {
+        mockery.checking(new Expectations() {
+            {
+                oneOf(mockFormRepository).findByUid(uid);
+                will(returnValue(expectedForm));
+            }
+        });
+    }
 }

@@ -109,4 +109,27 @@ class FormControllerTest {
             }
         });
     }
+
+    @Test
+    void testGetFormByUid() {
+        String uid = "16092526-7741-11ea-bc55-0242ac130003";
+        Form expectedForm = new Form();
+        FormDTO expectedFormDTO = new FormDTO(expectedForm);
+
+        mockery.checking(new Expectations() {
+            {
+                oneOf(mockFormService).getFormByUid(uid);
+                will(returnValue(expectedForm));
+
+                oneOf(mockFormService).toFormDTO(expectedForm);
+                will(returnValue(expectedFormDTO));
+            }
+        });
+
+        FormDTO actualForm = underTest.getFormByUid(uid);
+
+        Assert.assertThat(expectedFormDTO.getName(), CoreMatchers.equalTo(actualForm.getName()));
+        Assert.assertThat(expectedFormDTO.getDescription(), CoreMatchers.equalTo(actualForm.getDescription()));
+        Assert.assertThat(expectedFormDTO.getFields(), CoreMatchers.equalTo(actualForm.getFields()));
+    }
 }

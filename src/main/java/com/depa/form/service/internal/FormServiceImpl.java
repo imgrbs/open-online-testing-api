@@ -31,8 +31,8 @@ public class FormServiceImpl implements FormService {
     }
 
     @Override
-    public FormDTO getFormByUid() {
-        return null;
+    public Form getFormByUid(String uid) {
+        return this.formRepository.findByUid(uid);
     }
 
     @Override
