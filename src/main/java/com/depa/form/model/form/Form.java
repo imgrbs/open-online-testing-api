@@ -15,9 +15,12 @@ public class Form {
         this.name = formDTO.getName();
         this.description = formDTO.getDescription();
         this.fields = new ArrayList<>();
-        formDTO.getFields().forEach(fieldDTO -> {
-            this.fields.add(fieldDTO.toField());
-        });
+
+        if (formDTO.getFields() != null) {
+            formDTO.getFields().forEach(fieldDTO -> {
+                this.fields.add(fieldDTO.toField());
+            });
+        }
     }
 
     public Form() {
@@ -46,4 +49,5 @@ public class Form {
     public List<Field> getFields() {
         return this.fields;
     }
+
 }
