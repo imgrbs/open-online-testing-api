@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 class FormControllerTest {
     private Mockery mockery = new JUnit4Mockery();
@@ -66,6 +67,45 @@ class FormControllerTest {
 
                 oneOf(mockFormService).toFormDTO(expectedForm);
                 will(returnValue(expectedDTO));
+            }
+        });
+    }
+
+    @Test
+    void testGetForms() {
+        Form form1 = new Form();
+        Form form2 = new Form();
+        Form form3 = new Form();
+
+        List<Form> expectedForms = new ArrayList<>();
+        expectedForms.add(form1);
+        expectedForms.add(form2);
+        expectedForms.add(form3);
+
+        expectedGetForms(form1, form2, form3, expectedForms);
+
+        List<FormDTO> actualForms = underTest.getForms();
+
+        Assert.assertThat(actualForms.size(), CoreMatchers.equalTo(3));
+    }
+
+    private void expectedGetForms(Form form1, Form form2, Form form3, List<Form> expectedForms) {
+        mockery.checking(new Expectations() {
+            {
+                oneOf(mockFormService).getForms();
+                will(returnValue(expectedForms));
+
+                oneOf(mockFormService).toFormDTO(form1);
+                will(returnValue(new FormDTO(form1)));
+
+                oneOf(mockFormService).toFormDTO(form2);
+                will(returnValue(new FormDTO(form2)));
+
+                oneOf(mockFormService).toFormDTO(form3);
+                will(returnValue(new FormDTO(form3)));
+
+                oneOf(mockFormService).getForms();
+                will(returnValue(expectedForms));
             }
         });
     }

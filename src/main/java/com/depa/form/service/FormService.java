@@ -4,12 +4,14 @@ import com.depa.form.dto.FormDTO;
 import com.depa.form.model.form.Form;
 import com.depa.form.repository.FormRepository;
 
+import java.util.List;
+
 public interface FormService {
     void setFormRepository(FormRepository mockFormRepository);
 
     Form createForm(Form form);
 
-    FormDTO getForms();
+    List<Form> getForms();
 
     FormDTO getFormByUid();
 

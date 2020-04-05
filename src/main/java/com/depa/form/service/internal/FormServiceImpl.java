@@ -7,6 +7,8 @@ import com.depa.form.service.FormService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class FormServiceImpl implements FormService {
 
@@ -24,8 +26,8 @@ public class FormServiceImpl implements FormService {
     }
 
     @Override
-    public FormDTO getForms() {
-        return null;
+    public List<Form> getForms() {
+        return this.formRepository.findAll();
     }
 
     @Override

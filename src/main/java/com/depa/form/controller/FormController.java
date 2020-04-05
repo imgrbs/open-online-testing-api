@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 public class FormController {
 
@@ -22,6 +25,17 @@ public class FormController {
         return formService.toFormDTO(responseForm);
     }
 
+
+    @GetMapping("/forms")
+    public List<FormDTO> getForms() {
+        List<Form> forms = formService.getForms();
+
+        List<FormDTO> responseForms = new ArrayList<>();
+        forms.forEach(form -> {
+            responseForms.add(formService.toFormDTO(form));
+        });
+
+        return responseForms;
     }
 
     public void setFormService(FormService formService) {
