@@ -1,46 +1,45 @@
 package com.depa.form.service.internal;
 
-import com.depa.form.model.field.Field;
-import com.depa.form.model.field.Input;
-import com.depa.form.model.field.TextField;
+import com.depa.form.dto.FormDTO;
 import com.depa.form.model.form.Form;
+import com.depa.form.repository.FormRepository;
 import com.depa.form.service.FormService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class FormServiceImpl implements FormService {
+
+    @Autowired
+    private FormRepository formRepository;
+
     @Override
-    public Form createForm(Form form) {
-        System.out.println("===============");
-        System.out.println("FormServiceImpl");
-        System.out.println("===============");
-        System.out.println(form.getName());
-        System.out.println(form.getDescription());
-        System.out.println(form.getFields().get(0).getFieldType());
-        System.out.println(form.getFields().get(0).getFieldData().toString());
-        System.out.println(form.getFields().get(0).getAttributes());
-        return form;
+    public void setFormRepository(FormRepository formRepository) {
+        this.formRepository = formRepository;
     }
 
-    public Form mock() {
-        Form form = null;
-//        Form form = new Form();
-//        List<Field> fields = new ArrayList<Field>();
-//
-////        fields.add(new Input());
-////        fields.add(new TextField());
-////        fields.add(new Field());
-//        fields.add(Input.create(fieldData, attributes));
-//        Field field = Input.create(fieldData, attributes);
-//        fields.add(TextField.create(fieldData, attributes));
-//
-////        Field input = new Input();
-////        input.setType(Radio);
-//
-//        form.setFields(fields);
-        return form;
+    @Override
+    public Form createForm(Form form) {
+        return formRepository.save(form);
+    }
+
+    @Override
+    public FormDTO getForms() {
+        return null;
+    }
+
+    @Override
+    public FormDTO getFormByUid() {
+        return null;
+    }
+
+    @Override
+    public Form toForm(FormDTO formDTO) {
+        return new Form(formDTO);
+    }
+
+    @Override
+    public FormDTO toFormDTO(Form form) {
+        return new FormDTO(form);
     }
 }
