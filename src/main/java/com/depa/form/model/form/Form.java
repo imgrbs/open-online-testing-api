@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Form {
+    private String uid;
     private String name;
     private String description;
     private List<Field> fields;
@@ -24,6 +25,10 @@ public class Form {
     }
 
     public Form() {
+    }
+
+    public String getUid() {
+        return uid;
     }
 
     public void setName(String name) {
