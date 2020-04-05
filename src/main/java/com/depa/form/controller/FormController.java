@@ -22,10 +22,6 @@ public class FormController {
         return formService.toFormDTO(responseForm);
     }
 
-    @GetMapping("/form/mock")
-    public Form getForm() {
-        Form responseForm = formService.mock();
-        return responseForm;
     }
 
     public void setFormService(FormService formService) {
