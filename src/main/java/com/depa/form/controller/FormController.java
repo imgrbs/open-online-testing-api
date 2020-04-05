@@ -16,10 +16,10 @@ public class FormController {
     private FormService formService;
 
     @PostMapping("/form")
-    public Form createForm(@RequestBody FormDTO formDTO) {
-        Form form = new Form(formDTO);
+    public FormDTO createForm(@RequestBody FormDTO formDTO) {
+        Form form = formService.toForm(formDTO);
         Form responseForm = formService.createForm(form);
-        return responseForm;
+        return formService.toFormDTO(responseForm);
     }
 
     @GetMapping("/form/mock")
