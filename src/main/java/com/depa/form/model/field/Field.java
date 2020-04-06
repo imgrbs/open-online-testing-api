@@ -1,7 +1,8 @@
 package com.depa.form.model.field;
 
-import java.util.List;
 import org.springframework.data.annotation.Id;
+
+import java.util.List;
 
 
 public abstract class Field {
@@ -15,7 +16,7 @@ public abstract class Field {
     
     private List<Attribute> attributes;
 
-    private Field() {
+    public Field() {
     }
 
     public Field(FieldType fieldType) {
