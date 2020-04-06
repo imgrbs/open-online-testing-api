@@ -1,9 +1,7 @@
 package com.depa.form.model.field;
 
 import java.util.List;
-import javax.persistence.Entity;
 
-@Entity
 public class Input extends Field {
 
     private Input(FieldType type) {

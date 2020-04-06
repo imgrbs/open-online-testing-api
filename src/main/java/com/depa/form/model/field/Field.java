@@ -1,27 +1,18 @@
 package com.depa.form.model.field;
 
 import java.util.List;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.OneToMany;
+import org.springframework.data.annotation.Id;
 
-@Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+
 public abstract class Field {
     
     @Id
     private long fieldId;
     
-    @Embedded
     private FieldType fieldType;
 
-    @Embedded
     private FieldData fieldData;
     
-    @OneToMany
     private List<Attribute> attributes;
 
     private Field() {

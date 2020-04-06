@@ -1,10 +1,10 @@
 package com.depa.form.model.field;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import org.springframework.data.annotation.Id;
 
-@Entity
+
 public class Attribute {
+    
     @Id
     private int id;
     private String name;
