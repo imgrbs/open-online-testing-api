@@ -1,23 +1,12 @@
 package com.depa.form.model.field;
 
-import org.springframework.data.annotation.Id;
 
 
 public class Attribute {
     
-    @Id
-    private int id;
     private String name;
     private String value;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-    
     public String getName() {
         return name;
     }
@@ -33,4 +22,10 @@ public class Attribute {
     public void setValue(String value) {
         this.value = value;
     }
+
+    @Override
+    public String toString() {
+        return "Attribute{" + "name=" + name + ", value=" + value + '}';
+    }
+    
 }

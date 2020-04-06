@@ -49,4 +49,10 @@ public abstract class Field {
     public List<Attribute> getAttributes() {
         return this.attributes;
     }
+
+    @Override
+    public String toString() {
+        return "Field{" + "fieldId=" + fieldId + ", fieldType=" + fieldType + ", fieldData=" + fieldData + ", attributes=" + attributes + '}';
+    }
+    
 }

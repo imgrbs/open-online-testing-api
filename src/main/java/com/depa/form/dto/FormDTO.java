@@ -49,4 +49,9 @@ public class FormDTO {
         this.fields = fields;
     }
 
+    @Override
+    public String toString() {
+        return "FormDTO{" + "name=" + name + ", description=" + description + ", fields=" + fields + '}';
+    }
+    
 }

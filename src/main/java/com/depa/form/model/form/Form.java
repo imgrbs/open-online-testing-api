@@ -26,7 +26,9 @@ public class Form {
         this.fields = new ArrayList<>();
 
         if (formDTO.getFields() != null) {
+            System.out.println("Field != null");
             formDTO.getFields().forEach(fieldDTO -> {
+                System.out.println(fieldDTO);
                 this.fields.add(fieldDTO.toField());
             });
         }

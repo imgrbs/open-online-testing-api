@@ -7,6 +7,8 @@ public enum FieldType {
     INPUT,
     @JsonProperty("textfield")
     TEXTFIELD,
+    @JsonProperty(value = "textarea")
+    TEXTAREA,
     @JsonProperty("number")
     NUMBER,
     @JsonProperty("checkbox")

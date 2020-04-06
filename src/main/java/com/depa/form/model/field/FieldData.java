@@ -1,10 +1,22 @@
 package com.depa.form.model.field;
 
+import java.util.List;
+
 public class FieldData {
     private String label;
     private int order;
     private boolean required;
+    
+    private String placeholder;
 
+    public String getPlaceholder() {
+        return placeholder;
+    }
+
+    public void setPlaceholder(String placeholder) {
+        this.placeholder = placeholder;
+    }
+    
     public void setLabel(String label) {
         this.label = label;
     }
