@@ -1,10 +1,14 @@
 package com.depa.form.model.field;
 
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
 
+@Entity
 public class Checkbox extends Field {
 
-    private List<String> choiceList;
+    private List<String> choiceList ;
 
     public Checkbox(FieldType fieldType) {
         super(fieldType);

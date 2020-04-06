@@ -5,11 +5,20 @@ import com.depa.form.model.field.Field;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
+
+@Entity
 public class Form {
+    
+    @Id
+    private String id;
     private String uid;
     private String name;
     private String description;
+    @OneToMany
     private List<Field> fields;
 
     public Form(FormDTO formDTO) {

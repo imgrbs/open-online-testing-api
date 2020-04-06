@@ -1,9 +1,7 @@
 package com.depa.form.service.internal;
 
-import com.depa.form.dto.FormDTO;
 import com.depa.form.model.form.Form;
 import com.depa.form.repository.FormRepository;
-import com.depa.form.service.FormService;
 import org.hamcrest.CoreMatchers;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -78,5 +76,10 @@ class FormServiceImplTest {
                 will(returnValue(expectedForm));
             }
         });
+    }
+    
+    @Test
+    public void createFormAndFieldTest(){
+        Assert.assertTrue(true);
     }
 }
