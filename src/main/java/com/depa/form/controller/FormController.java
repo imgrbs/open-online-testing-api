@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class FormController {
 
     @Autowired
@@ -18,6 +19,7 @@ public class FormController {
     @PostMapping("/form")
     public FormDTO createForm(@RequestBody FormDTO formDTO) {
         Form form = formService.toForm(formDTO);
+        System.out.println(form);
         Form responseForm = formService.createForm(form);
         return formService.toFormDTO(responseForm);
     }

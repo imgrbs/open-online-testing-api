@@ -63,4 +63,9 @@ public class Form {
         return this.fields;
     }
 
+    @Override
+    public String toString() {
+        return "Form{" + "id=" + id + ", uid=" + uid + ", name=" + name + ", description=" + description + ", fields=" + fields + '}';
+    }
+
 }
