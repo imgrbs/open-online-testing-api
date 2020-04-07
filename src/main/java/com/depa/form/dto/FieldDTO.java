@@ -68,7 +68,6 @@ public class FieldDTO {
             return TextField.create(fieldData, attributes);
         }
         else if (fieldType.equals(FieldType.TEXTAREA)) {
-            System.out.println("Fuck you !!!");
             System.out.println(attributes);
             return TextArea.create(fieldData, attributes);
         }

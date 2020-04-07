@@ -11,9 +11,9 @@ public enum FieldType {
     TEXTAREA,
     @JsonProperty("number")
     NUMBER,
-    @JsonProperty("checkbox")
+    @JsonProperty("select")
     CHECKBOX,
-    @JsonProperty(value = "select")
+    @JsonProperty(value = "radio")
     RADIO,
  
 }
