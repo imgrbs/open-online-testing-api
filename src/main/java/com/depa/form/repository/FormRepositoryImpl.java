@@ -1,7 +1,6 @@
 package com.depa.form.repository;
 
 import com.depa.form.dto.FormDTO;
-import com.depa.form.model.field.Field;
 import com.depa.form.model.form.Form;
 import lombok.AccessLevel;
 import lombok.Setter;
@@ -11,9 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.aggregation.Aggregation;
-import org.springframework.data.mongodb.core.aggregation.AggregationResults;
-import org.springframework.data.mongodb.core.aggregation.ProjectionOperation;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
