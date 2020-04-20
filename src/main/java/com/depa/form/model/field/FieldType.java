@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public enum FieldType {
     @JsonProperty("input")
     INPUT,
-    @JsonProperty("textfield")
-    TEXTFIELD,
+    @JsonProperty("textarea")
+    TEXTAREA,
     @JsonProperty("number")
     NUMBER,
     @JsonProperty("checkbox")
