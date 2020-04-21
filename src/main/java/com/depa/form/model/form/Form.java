@@ -5,16 +5,22 @@ import com.depa.form.model.field.Field;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
 @Document("forms")
+@RequiredArgsConstructor
+@Setter
+@Getter
 public class Form {
-    
     @Id
-    private String id;
-    private String uid;
+    private ObjectId id;
     private String name;
     private String description;
     
@@ -34,40 +40,9 @@ public class Form {
         }
     }
 
-    public Form() {
-    }
-
-    public String getUid() {
-        return uid;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setFields(List<Field> fields) {
-        this.fields = fields;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public List<Field> getFields() {
-        return this.fields;
-    }
-
     @Override
     public String toString() {
-        return "Form{" + "id=" + id + ", uid=" + uid + ", name=" + name + ", description=" + description + ", fields=" + fields + '}';
+        return "Form{" + "id=" + id + ", name=" + name + ", description=" + description + ", fields=" + fields + '}';
     }
 
 }

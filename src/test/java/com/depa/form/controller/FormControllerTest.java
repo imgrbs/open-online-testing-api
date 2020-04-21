@@ -118,7 +118,7 @@ class FormControllerTest {
 
         mockery.checking(new Expectations() {
             {
-                oneOf(mockFormService).getFormByUid(uid);
+                oneOf(mockFormService).getFormById(uid);
                 will(returnValue(expectedForm));
 
                 oneOf(mockFormService).toFormDTO(expectedForm);

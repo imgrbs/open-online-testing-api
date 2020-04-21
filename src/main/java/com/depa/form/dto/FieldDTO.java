@@ -1,9 +1,15 @@
 package com.depa.form.dto;
 
 import com.depa.form.model.field.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
+@AllArgsConstructor
+@Setter
+@Getter
 public class FieldDTO {
 
     private FieldType fieldType;
@@ -64,8 +70,8 @@ public class FieldDTO {
     }
 
     public Field toField() {
-        if (fieldType.equals(FieldType.TEXTFIELD)) {
-            return TextField.create(fieldData, attributes);
+        if (fieldType.equals(FieldType.TEXTAREA)) {
+            return TextArea.create(fieldData, attributes);
         }
         else if (fieldType.equals(FieldType.TEXTAREA)) {
             System.out.println(attributes);

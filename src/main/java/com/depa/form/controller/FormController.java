@@ -3,6 +3,8 @@ package com.depa.form.controller;
 import com.depa.form.dto.FormDTO;
 import com.depa.form.model.form.Form;
 import com.depa.form.service.FormService;
+import lombok.AccessLevel;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,19 +16,19 @@ import java.util.List;
 public class FormController {
 
     @Autowired
+    @Setter(AccessLevel.PROTECTED)
     private FormService formService;
 
     @PostMapping("/form")
     public FormDTO createForm(@RequestBody FormDTO formDTO) {
         Form form = formService.toForm(formDTO);
-        System.out.println(form);
         Form responseForm = formService.createForm(form);
         return formService.toFormDTO(responseForm);
     }
 
     @GetMapping("/form/{uid}")
     public FormDTO getFormByUid(@PathVariable String uid) {
-        Form responseForm = formService.getFormByUid(uid);
+        Form responseForm = formService.getFormById(uid);
         return formService.toFormDTO(responseForm);
     }
 
@@ -42,7 +44,4 @@ public class FormController {
         return responseForms;
     }
 
-    public void setFormService(FormService formService) {
-        this.formService = formService;
-    }
 }

@@ -1,9 +1,18 @@
 package com.depa.form.model.field;
 
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.annotation.Id;
 
+import java.util.List;
 
+
+@Getter
+@Setter
+@AllArgsConstructor
 public abstract class Field {
     
     @Id
@@ -18,36 +27,8 @@ public abstract class Field {
     private Field() {
     }
 
-    public Field(FieldType fieldType) {
-        this.fieldType = fieldType;
-    }
-
-    public long getFieldId() {
-        return fieldId;
-    }
-
-    public void setFieldId(long fieldId) {
-        this.fieldId = fieldId;
-    }
-    
-    public void setFieldData(FieldData fieldData) {
-        this.fieldData = fieldData;
-    }
-
-    public void setAttributes(List<Attribute> attributes) {
-        this.attributes = attributes;
-    }
-
-    public FieldType getFieldType() {
-        return this.fieldType;
-    }
-
-    public FieldData getFieldData() {
-        return this.fieldData;
-    }
-
-    public List<Attribute> getAttributes() {
-        return this.attributes;
+    public Field(FieldType type) {
+        this.fieldType = type;
     }
 
     @Override

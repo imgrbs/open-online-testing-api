@@ -1,17 +1,20 @@
 package com.depa.form.dto;
 
 import com.depa.form.model.form.Form;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@RequiredArgsConstructor
+@Getter
+@Setter
 public class FormDTO {
     private String name;
     private String description;
     private List<FieldDTO> fields;
-
-    public FormDTO() {
-    }
 
     public FormDTO(Form form) {
         this.name = form.getName();

@@ -11,6 +11,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 class FormServiceImplTest {
     private Mockery mockery = new JUnit4Mockery();
@@ -56,30 +58,48 @@ class FormServiceImplTest {
     }
 
     @Test
-    void testGetFormByUid() {
+    void testGetFormById() {
         String uid = "16092526-7741-11ea-bc55-0242ac130003";
         Form expectedForm = createForm();
 
         expectedGetFormByUid(uid, expectedForm);
 
-        Form actualForm = underTest.getFormByUid(uid);
+        Form actualForm = underTest.getFormById(uid);
 
         Assert.assertThat(actualForm.getName(), CoreMatchers.equalTo(expectedForm.getName()));
         Assert.assertThat(actualForm.getDescription(), CoreMatchers.equalTo(expectedForm.getDescription()));
         Assert.assertThat(actualForm.getName(), CoreMatchers.equalTo(expectedForm.getName()));
     }
 
-    private void expectedGetFormByUid(String uid, Form expectedForm) {
+    private void expectedGetFormByUid(String id, Form expectedForm) {
         mockery.checking(new Expectations() {
             {
-                oneOf(mockFormRepository).findByUid(uid);
-                will(returnValue(expectedForm));
+                oneOf(mockFormRepository).findById(id);
+                will(returnValue(Optional.of(expectedForm)));
             }
         });
     }
-    
+
     @Test
-    public void createFormAndFieldTest(){
-        Assert.assertTrue(true);
+    void testGetForms() {
+        Form form = createForm();
+        List<Form> expectedForms = new ArrayList<>();
+        expectedForms.add(form);
+
+        expectFindAll(expectedForms);
+
+        List<Form> actualForms = underTest.getForms();
+
+        Assert.assertThat(actualForms.size(), CoreMatchers.equalTo(expectedForms.size()));
+        Assert.assertThat(actualForms.get(0), CoreMatchers.equalTo(expectedForms.get(0)));
+    }
+
+    private void expectFindAll(List<Form> expectedForms) {
+        mockery.checking(new Expectations() {
+            {
+                oneOf(mockFormRepository).findAll();
+                will(returnValue(expectedForms));
+            }
+        });
     }
 }

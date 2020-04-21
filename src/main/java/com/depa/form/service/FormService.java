@@ -13,7 +13,7 @@ public interface FormService {
 
     List<Form> getForms();
 
-    Form getFormByUid(String uid);
+    Form getFormById(String uid);
 
     Form toForm(FormDTO formDTO);
 
