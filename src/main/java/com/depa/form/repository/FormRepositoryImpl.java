@@ -36,7 +36,7 @@ public class FormRepositoryImpl implements FormRepository {
 
     @Override
     public Optional<Form> findById(String id) {
-        FormDTO formDTO = mongoTemplate.findById(id, FormDTO.class, "forms");
+        FormDTO formDTO = mongoTemplate.findById(id, FormDTO.class, COLLECTION_NAME);
         Form form = new Form(formDTO);
         return Optional.of(form);
     }
