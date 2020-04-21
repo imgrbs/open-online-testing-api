@@ -26,7 +26,7 @@ public class FormRepositoryImpl implements FormRepository {
 
     @Override
     public <S extends Form> S save(S s) {
-        return null;
+        return mongoTemplate.save(s);
     }
 
     @Override

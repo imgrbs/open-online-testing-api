@@ -30,4 +30,10 @@ public abstract class Field {
     public Field(FieldType type) {
         this.fieldType = type;
     }
+
+    @Override
+    public String toString() {
+        return "Field{" + "fieldId=" + fieldId + ", fieldType=" + fieldType + ", fieldData=" + fieldData + ", attributes=" + attributes + '}';
+    }
+    
 }

@@ -5,13 +5,13 @@ import java.util.List;
 
 public class Checkbox extends Field {
 
-    private List<String> choiceList ;
+    private List<ChoiceList> choiceList ;
 
     public Checkbox(FieldType fieldType) {
         super(fieldType);
     }
 
-    public static Checkbox create(FieldData fieldData, List<Attribute> attributes, List<String> choiceList) {
+    public static Checkbox create(FieldData fieldData, List<Attribute> attributes, List<ChoiceList> choiceList) {
         Checkbox field = new Checkbox(FieldType.CHECKBOX);
         field.setFieldData(fieldData);
         field.setAttributes(attributes);
@@ -19,11 +19,21 @@ public class Checkbox extends Field {
         return field;
     }
 
-    public List<String> getChoiceList() {
+//    public List<String> getChoiceList() {
+//        return choiceList;
+//    }
+//
+//    public void setChoiceList(List<String> choiceList) {
+//        this.choiceList = choiceList;
+//    }
+
+    public List<ChoiceList> getChoiceList() {
         return choiceList;
     }
 
-    public void setChoiceList(List<String> choiceList) {
+    public void setChoiceList(List<ChoiceList> choiceList) {
         this.choiceList = choiceList;
     }
+
+    
 }
