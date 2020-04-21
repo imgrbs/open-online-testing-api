@@ -22,7 +22,11 @@ public class FormController {
     @PostMapping("/form")
     public FormDTO createForm(@RequestBody FormDTO formDTO) {
         Form form = formService.toForm(formDTO);
+        System.out.println("CAsting workkk !!!!!");
+        System.out.println(form);
         Form responseForm = formService.createForm(form);
+        System.out.println("Response From Create Form Work !!!!!!!!!!!!!!!!!!");
+        System.out.println(responseForm);
         return formService.toFormDTO(responseForm);
     }
 

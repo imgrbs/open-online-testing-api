@@ -15,7 +15,7 @@ public class FormDTO {
     private String name;
     private String description;
     private List<FieldDTO> fields;
-
+  
     public FormDTO(Form form) {
         this.name = form.getName();
         this.description = form.getDescription();

@@ -30,13 +30,6 @@ public class FieldDTO {
         }
     }
 
-    public FieldDTO(FieldType fieldType, FieldData fieldData, List<Attribute> attributes, List<ChoiceList> choiceList) {
-        this.fieldType = fieldType;
-        this.fieldData = fieldData;
-        this.attributes = attributes;
-        this.choiceList = choiceList;
-    }
-
     public FieldType getFieldType() {
         return fieldType;
     }

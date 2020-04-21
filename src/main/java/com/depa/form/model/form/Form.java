@@ -39,7 +39,7 @@ public class Form {
             });
         }
     }
-
+    
     @Override
     public String toString() {
         return "Form{" + "id=" + id + ", name=" + name + ", description=" + description + ", fields=" + fields + '}';
