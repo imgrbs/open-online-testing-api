@@ -5,14 +5,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class QuestionRepositoryMongo implements QuestionRepository {
+    public static final String COLLECTION_NAME = "questions";
 
     @Autowired
     private MongoTemplate mongoTemplate;
 
     @Override
     public Question save(Question question) {
-        return mongoTemplate.save(question, "questions");
+        return mongoTemplate.save(question, COLLECTION_NAME);
+    }
+
+    @Override
+    public List<Question> findAll() {
+        return mongoTemplate.findAll(Question.class, COLLECTION_NAME);
     }
 }

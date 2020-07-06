@@ -7,10 +7,9 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Setter
 @RestController
@@ -23,5 +22,11 @@ public class QuestionController {
     @PostMapping("/question")
     public ResponseEntity<Question> createQuestion(@RequestBody Question question) {
         return new ResponseEntity<>(questionService.createQuestion(question), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/questions")
+    public ResponseEntity<List<Question>> getQuestions() {
+        List<Question> questions = questionService.getQuestions();
+        return new ResponseEntity<>(questions, HttpStatus.OK);
     }
 }
