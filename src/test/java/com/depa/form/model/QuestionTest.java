@@ -7,7 +7,7 @@ import com.depa.form.model.question.TextQuestion;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class QuestionTest {
+public class QuestionTest extends ChoiceQuestionTest {
     @Test
     public void shouldAbleToCreateQuestionTextType() {
         Question textQuestion = new TextQuestion();
@@ -20,17 +20,6 @@ public class QuestionTest {
         Question choiceQuestion = new ChoiceQuestion();
 
         Assert.assertEquals(QuestionType.CHOICE, choiceQuestion.getType());
-    }
-
-    @Test
-    public void shouldAbleToAddChoiceWhenQuestionTypeIsChoice() {
-        int expectedChoicesSize = 2;
-
-        ChoiceQuestion choiceQuestion = new ChoiceQuestion();
-        choiceQuestion.addChoice("choice 1");
-        choiceQuestion.addChoice("choice 2");
-
-        Assert.assertEquals(expectedChoicesSize, choiceQuestion.getChoices().size());
     }
 
 }
