@@ -1,5 +1,6 @@
 package com.depa.form.dto;
 
+import com.depa.form.dto.impl.QuestionDTOImpl;
 import com.depa.form.model.question.ObjectiveQuestion;
 import com.depa.form.model.question.Question;
 import com.depa.form.model.question.QuestionType;
@@ -11,13 +12,13 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 
-class QuestionDTOTest {
+class QuestionDTOImplTest {
 
     @Test
     public void testCreateQuestionDTO() {
-        QuestionDTO questionDTO = new QuestionDTO();
+        QuestionDTOImpl questionDTO = new QuestionDTOImpl();
 
-        Assert.assertThat(questionDTO.getQuestionType(), CoreMatchers.nullValue());
+        Assert.assertThat(questionDTO.getType(), CoreMatchers.nullValue());
         Assert.assertThat(questionDTO.getAttributes(), CoreMatchers.nullValue());
         Assert.assertThat(questionDTO.getChoices(), CoreMatchers.nullValue());
     }
@@ -26,9 +27,9 @@ class QuestionDTOTest {
     void testCreateObjectiveQuestionDTO() {
         Question question = ObjectiveQuestion.create(null, new ArrayList<>());
 
-        QuestionDTO questionDTO = new QuestionDTO(question);
+        QuestionDTOImpl questionDTO = new QuestionDTOImpl(question);
 
-        Assert.assertThat(questionDTO.getQuestionType(), CoreMatchers.equalTo(QuestionType.OBJECTIVE));
+        Assert.assertThat(questionDTO.getType(), CoreMatchers.equalTo(QuestionType.OBJECTIVE));
         Assert.assertThat(questionDTO.getAttributes(), CoreMatchers.nullValue());
         Assert.assertThat(questionDTO.getChoices().size(), CoreMatchers.equalTo(0));
     }
@@ -37,9 +38,9 @@ class QuestionDTOTest {
     void testCreateSubjectiveQuestionDTO() {
         Question question = SubjectiveQuestion.create("1 + 1 = ?", null);
 
-        QuestionDTO questionDTO = new QuestionDTO(question);
+        QuestionDTOImpl questionDTO = new QuestionDTOImpl(question);
 
-        Assert.assertThat(questionDTO.getQuestionType(), CoreMatchers.equalTo(QuestionType.SUBJECTIVE));
+        Assert.assertThat(questionDTO.getType(), CoreMatchers.equalTo(QuestionType.SUBJECTIVE));
         Assert.assertThat(questionDTO.getAttributes(), CoreMatchers.nullValue());
         Assert.assertThat(questionDTO.getChoices(), CoreMatchers.nullValue());
     }

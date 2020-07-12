@@ -1,40 +1,25 @@
 package com.depa.form.dto;
 
-import com.depa.form.model.question.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import com.depa.form.model.question.Question;
 
-import java.util.List;
+public interface QuestionDTO {
 
-@AllArgsConstructor
-@Setter
-@Getter
-public class QuestionDTO {
+    Question toQuestion();
 
-    private String name;
-    private QuestionType questionType;
-    private List<Attribute> attributes;
-    private List<ChoiceList> choices;
+    void setName(String name);
 
-    public QuestionDTO() {
-    }
+    void setType(com.depa.form.model.question.QuestionType type);
 
-    public QuestionDTO(Question question) {
-        this.name = question.getName();
-        this.questionType = question.getType();
-        this.attributes = question.getAttributes();
+    void setAttributes(java.util.List<com.depa.form.model.question.Attribute> attributes);
 
-        if (this.questionType.equals(QuestionType.OBJECTIVE)) {
-            this.choices = ((ObjectiveQuestion) question).getChoices();
-        }
-    }
+    void setChoices(java.util.List<com.depa.form.model.question.Choice> choices);
 
-    public Question toQuestion() {
-        if (questionType.equals(QuestionType.OBJECTIVE)) {
-            return ObjectiveQuestion.create(attributes, choices);
-        }
-        return SubjectiveQuestion.create(name, attributes);
-    }
+    String getName();
+
+    com.depa.form.model.question.QuestionType getType();
+
+    java.util.List<com.depa.form.model.question.Attribute> getAttributes();
+
+    java.util.List<com.depa.form.model.question.Choice> getChoices();
 
 }
