@@ -1,5 +1,6 @@
 package com.depa.form.model;
 
+import com.depa.form.model.question.ObjectiveQuestion;
 import com.depa.form.model.question.Question;
 import com.depa.form.model.question.QuestionType;
 import com.depa.form.model.question.SubjectiveQuestion;
@@ -7,14 +8,26 @@ import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 class QuestionTest {
 
     @Test
-    public void testInputQuestion() {
-        Question underTest = SubjectiveQuestion.create("input question",null);
+    public void testSubjectiveQuestion() {
+        Question underTest = SubjectiveQuestion.create("input question", null);
 
         Assert.assertThat(underTest.getName(), CoreMatchers.equalTo("input question"));
         Assert.assertThat(underTest.getType(), CoreMatchers.equalTo(QuestionType.SUBJECTIVE));
+        Assert.assertThat(underTest.getAttributes(), CoreMatchers.nullValue());
+    }
+
+    @Test
+    public void testObjectiveQuestion() {
+        ObjectiveQuestion underTest = ObjectiveQuestion.create("input question", new ArrayList<>(), null);
+
+        Assert.assertThat(underTest.getName(), CoreMatchers.equalTo("input question"));
+        Assert.assertThat(underTest.getType(), CoreMatchers.equalTo(QuestionType.OBJECTIVE));
+        Assert.assertThat(underTest.getChoices().size(), CoreMatchers.equalTo(0));
         Assert.assertThat(underTest.getAttributes(), CoreMatchers.nullValue());
     }
 }

@@ -1,8 +1,6 @@
 package com.depa.form.model.question;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -13,7 +11,7 @@ import java.util.List;
 @Document("questions")
 @Getter
 @Setter
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public abstract class Question {
     
     @Id
@@ -24,9 +22,6 @@ public abstract class Question {
     private QuestionType type;
     
     private List<Attribute> attributes;
-
-    private Question() {
-    }
 
     public Question(QuestionType type) {
         this.type = type;
