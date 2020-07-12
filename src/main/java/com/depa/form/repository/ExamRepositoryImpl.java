@@ -1,7 +1,7 @@
 package com.depa.form.repository;
 
-import com.depa.form.dto.FormDTO;
-import com.depa.form.model.form.Form;
+import com.depa.form.dto.ExamDTO;
+import com.depa.form.model.exam.Exam;
 import lombok.AccessLevel;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class FormRepositoryImpl implements FormRepository {
+public class ExamRepositoryImpl implements ExamRepository {
     public static final String COLLECTION_NAME = "forms";
 
     @Autowired
@@ -25,20 +25,20 @@ public class FormRepositoryImpl implements FormRepository {
     private MongoTemplate mongoTemplate;
 
     @Override
-    public <S extends Form> S save(S s) {
+    public <S extends Exam> S save(S s) {
         return mongoTemplate.save(s);
     }
 
     @Override
-    public <S extends Form> List<S> saveAll(Iterable<S> iterable) {
+    public <S extends Exam> List<S> saveAll(Iterable<S> iterable) {
         return null;
     }
 
     @Override
-    public Optional<Form> findById(String id) {
-        FormDTO formDTO = mongoTemplate.findById(id, FormDTO.class, COLLECTION_NAME);
-        Form form = new Form(formDTO);
-        return Optional.of(form);
+    public Optional<Exam> findById(String id) {
+        ExamDTO examDTO = mongoTemplate.findById(id, ExamDTO.class, COLLECTION_NAME);
+        Exam exam = new Exam(examDTO);
+        return Optional.of(exam);
     }
 
     @Override
@@ -47,15 +47,15 @@ public class FormRepositoryImpl implements FormRepository {
     }
 
     @Override
-    public List<Form> findAll() {
-        List<FormDTO> formDTOList = mongoTemplate.findAll(FormDTO.class, COLLECTION_NAME);
-        List<Form> forms = new ArrayList<>();
-        formDTOList.forEach(formDTO -> forms.add(new Form(formDTO)));
-        return forms;
+    public List<Exam> findAll() {
+        List<ExamDTO> examDTOList = mongoTemplate.findAll(ExamDTO.class, COLLECTION_NAME);
+        List<Exam> exams = new ArrayList<>();
+        examDTOList.forEach(formDTO -> exams.add(new Exam(formDTO)));
+        return exams;
     }
 
     @Override
-    public Iterable<Form> findAllById(Iterable<String> iterable) {
+    public Iterable<Exam> findAllById(Iterable<String> iterable) {
         return null;
     }
 
@@ -70,12 +70,12 @@ public class FormRepositoryImpl implements FormRepository {
     }
 
     @Override
-    public void delete(Form form) {
+    public void delete(Exam exam) {
 
     }
 
     @Override
-    public void deleteAll(Iterable<? extends Form> iterable) {
+    public void deleteAll(Iterable<? extends Exam> iterable) {
 
     }
 
@@ -85,52 +85,52 @@ public class FormRepositoryImpl implements FormRepository {
     }
 
     @Override
-    public List<Form> findAll(Sort sort) {
+    public List<Exam> findAll(Sort sort) {
         return null;
     }
 
     @Override
-    public Page<Form> findAll(Pageable pageable) {
+    public Page<Exam> findAll(Pageable pageable) {
         return null;
     }
 
     @Override
-    public <S extends Form> S insert(S s) {
+    public <S extends Exam> S insert(S s) {
         return null;
     }
 
     @Override
-    public <S extends Form> List<S> insert(Iterable<S> iterable) {
+    public <S extends Exam> List<S> insert(Iterable<S> iterable) {
         return null;
     }
 
     @Override
-    public <S extends Form> Optional<S> findOne(Example<S> example) {
+    public <S extends Exam> Optional<S> findOne(Example<S> example) {
         return Optional.empty();
     }
 
     @Override
-    public <S extends Form> List<S> findAll(Example<S> example) {
+    public <S extends Exam> List<S> findAll(Example<S> example) {
         return null;
     }
 
     @Override
-    public <S extends Form> List<S> findAll(Example<S> example, Sort sort) {
+    public <S extends Exam> List<S> findAll(Example<S> example, Sort sort) {
         return null;
     }
 
     @Override
-    public <S extends Form> Page<S> findAll(Example<S> example, Pageable pageable) {
+    public <S extends Exam> Page<S> findAll(Example<S> example, Pageable pageable) {
         return null;
     }
 
     @Override
-    public <S extends Form> long count(Example<S> example) {
+    public <S extends Exam> long count(Example<S> example) {
         return 0;
     }
 
     @Override
-    public <S extends Form> boolean exists(Example<S> example) {
+    public <S extends Exam> boolean exists(Example<S> example) {
         return false;
     }
 }

@@ -1,9 +1,6 @@
 package com.depa.form.repository;
 
-import com.depa.form.dto.FormDTO;
-import com.depa.form.model.form.Form;
 import org.hamcrest.CoreMatchers;
-import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Assert;
@@ -11,17 +8,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
-import java.util.Optional;
-
-class FormRepositoryImplTest {
+class ExamRepositoryImplTest {
     public static final String COLLECTION_NAME = "forms";
     private Mockery mockery = new JUnit4Mockery();
     private MongoTemplate mockMongoTemplate;
-    private FormRepositoryImpl underTest;
+    private ExamRepositoryImpl underTest;
 
     @BeforeEach
     void setUp() {
-        underTest = new FormRepositoryImpl();
+        underTest = new ExamRepositoryImpl();
         mockMongoTemplate = mockery.mock(MongoTemplate.class);
         underTest.setMongoTemplate(mockMongoTemplate);
     }

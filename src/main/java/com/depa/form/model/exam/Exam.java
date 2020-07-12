@@ -1,6 +1,6 @@
 package com.depa.form.model.exam;
 
-import com.depa.form.dto.FormDTO;
+import com.depa.form.dto.ExamDTO;
 import com.depa.form.model.question.Question;
 
 import java.util.ArrayList;
@@ -26,16 +26,16 @@ public class Exam {
     
     private List<Question> questions;
 
-    public Exam(FormDTO formDTO) {
-        this.name = formDTO.getName();
-        this.description = formDTO.getDescription();
+    public Exam(ExamDTO examDTO) {
+        this.name = examDTO.getName();
+        this.description = examDTO.getDescription();
         this.questions = new ArrayList<>();
 
-        if (formDTO.getFields() != null) {
+        if (examDTO.getFields() != null) {
             System.out.println("Field != null");
-            formDTO.getFields().forEach(fieldDTO -> {
+            examDTO.getFields().forEach(fieldDTO -> {
                 System.out.println(fieldDTO);
-                this.questions.add(fieldDTO.toField());
+                this.questions.add(fieldDTO.toQuestion());
             });
         }
     }

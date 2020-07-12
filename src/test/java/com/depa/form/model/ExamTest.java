@@ -1,7 +1,7 @@
 package com.depa.form.model;
 
-import com.depa.form.dto.FieldDTO;
-import com.depa.form.dto.FormDTO;
+import com.depa.form.dto.QuestionDTO;
+import com.depa.form.dto.ExamDTO;
 import com.depa.form.model.exam.Exam;
 import com.depa.form.model.question.QuestionType;
 import org.hamcrest.CoreMatchers;
@@ -24,14 +24,14 @@ class ExamTest {
 
     @Test
     public void testCreateFormWithFormDTO() {
-        List<FieldDTO> fields = new ArrayList<>();
-        FieldDTO input = new FieldDTO();
+        List<QuestionDTO> fields = new ArrayList<>();
+        QuestionDTO input = new QuestionDTO();
         input.setQuestionType(QuestionType.INPUT);
         fields.add(input);
-        FormDTO formDTO = new FormDTO();
-        formDTO.setFields(fields);
+        ExamDTO examDTO = new ExamDTO();
+        examDTO.setFields(fields);
 
-        Exam underTest = new Exam(formDTO);
+        Exam underTest = new Exam(examDTO);
 
         Assert.assertThat(underTest.getName(), CoreMatchers.equalTo(null));
         Assert.assertThat(underTest.getDescription(), CoreMatchers.equalTo(null));
