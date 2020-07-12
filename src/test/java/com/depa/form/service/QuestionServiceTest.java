@@ -40,6 +40,8 @@ class QuestionServiceTest {
         List<QuestionDTO> actualResult = underTest.getQuestions();
 
         Assert.assertThat(actualResult.size(), CoreMatchers.equalTo(1));
-        Assert.assertThat(actualResult.get(0), CoreMatchers.equalTo(question));
+        Assert.assertThat(actualResult.get(0).getName(), CoreMatchers.equalTo(question.getName()));
+        Assert.assertThat(actualResult.get(0).getAttributes(), CoreMatchers.equalTo(question.getAttributes()));
+        Assert.assertThat(actualResult.get(0).getQuestionType(), CoreMatchers.equalTo(question.getType()));
     }
 }

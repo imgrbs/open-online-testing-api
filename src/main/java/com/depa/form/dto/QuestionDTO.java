@@ -21,6 +21,7 @@ public class QuestionDTO {
     }
 
     public QuestionDTO(Question question) {
+        this.name = question.getName();
         this.questionType = question.getType();
         this.attributes = question.getAttributes();
 
