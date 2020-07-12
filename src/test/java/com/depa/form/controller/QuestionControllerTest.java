@@ -1,6 +1,7 @@
 package com.depa.form.controller;
 
 import com.depa.form.dto.QuestionDTO;
+import com.depa.form.dto.impl.QuestionDTOImpl;
 import com.depa.form.model.question.SubjectiveQuestion;
 import com.depa.form.model.question.Question;
 import com.depa.form.service.QuestionService;
@@ -18,7 +19,6 @@ import java.util.Arrays;
 import java.util.List;
 
 class QuestionControllerTest {
-
     private Mockery mockery = new JUnit4Mockery();
 
     private QuestionController underTest;
@@ -34,7 +34,7 @@ class QuestionControllerTest {
     @Test
     void testGetQuestionsShouldReturnListOfQuestionModel() {
         SubjectiveQuestion expectedQuestion = SubjectiveQuestion.create("1 + 1 = ?", null);
-        QuestionDTO expectedQuestionDTO = new QuestionDTO(expectedQuestion);
+        QuestionDTO expectedQuestionDTO = new QuestionDTOImpl(expectedQuestion);
         expectedGetQuestions(expectedQuestionDTO);
 
         ResponseEntity<List<QuestionDTO>> result = underTest.getQuestions();
@@ -47,7 +47,7 @@ class QuestionControllerTest {
     @Test
     void testCreateQuestion() {
         Question question = SubjectiveQuestion.create("1 + 1 = ?", null);
-        QuestionDTO request = new QuestionDTO(question);
+        QuestionDTO request = new QuestionDTOImpl(question);
 
         expectedCreateQuestion(request);
 
