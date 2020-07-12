@@ -27,7 +27,7 @@ class QuestionDTOImplTest {
     void testCreateObjectiveQuestionDTO() {
         Question question = ObjectiveQuestion.create(null, new ArrayList<>());
 
-        QuestionDTOImpl questionDTO = new QuestionDTOImpl(question);
+        QuestionDTO questionDTO = new QuestionDTOImpl(question);
 
         Assert.assertThat(questionDTO.getType(), CoreMatchers.equalTo(QuestionType.OBJECTIVE));
         Assert.assertThat(questionDTO.getAttributes(), CoreMatchers.nullValue());
@@ -38,7 +38,7 @@ class QuestionDTOImplTest {
     void testCreateSubjectiveQuestionDTO() {
         Question question = SubjectiveQuestion.create("1 + 1 = ?", null);
 
-        QuestionDTOImpl questionDTO = new QuestionDTOImpl(question);
+        QuestionDTO questionDTO = new QuestionDTOImpl(question);
 
         Assert.assertThat(questionDTO.getType(), CoreMatchers.equalTo(QuestionType.SUBJECTIVE));
         Assert.assertThat(questionDTO.getAttributes(), CoreMatchers.nullValue());
