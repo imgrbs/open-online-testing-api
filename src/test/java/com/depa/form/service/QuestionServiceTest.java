@@ -1,7 +1,7 @@
 package com.depa.form.service;
 
 import com.depa.form.dto.QuestionDTO;
-import com.depa.form.model.question.Input;
+import com.depa.form.model.question.SubjectiveQuestion;
 import com.depa.form.repository.QuestionRepository;
 import com.depa.form.service.internal.QuestionServiceImpl;
 import org.hamcrest.CoreMatchers;
@@ -29,7 +29,7 @@ class QuestionServiceTest {
 
     @Test
     public void testGetQuestions() {
-        Input question = Input.create("1 + 1 = ?", null);
+        SubjectiveQuestion question = SubjectiveQuestion.create("1 + 1 = ?", null);
         mockery.checking(new Expectations(){
             {
                 oneOf(questionRepository).findAll();

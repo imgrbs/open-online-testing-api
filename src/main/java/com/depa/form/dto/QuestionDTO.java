@@ -15,7 +15,7 @@ public class QuestionDTO {
     private String name;
     private QuestionType questionType;
     private List<Attribute> attributes;
-    private List<ChoiceList> choiceList;
+    private List<ChoiceList> choices;
 
     public QuestionDTO() {
     }
@@ -25,22 +25,16 @@ public class QuestionDTO {
         this.questionType = question.getType();
         this.attributes = question.getAttributes();
 
-        if (this.questionType.equals(QuestionType.CHECKBOX)) {
-            this.choiceList = ((Checkbox) question).getChoiceList();
+        if (this.questionType.equals(QuestionType.OBJECTIVE)) {
+            this.choices = ((ObjectiveQuestion) question).getChoices();
         }
     }
 
     public Question toQuestion() {
-        if (questionType.equals(QuestionType.TEXTAREA)) {
-            return TextArea.create(attributes);
+        if (questionType.equals(QuestionType.OBJECTIVE)) {
+            return ObjectiveQuestion.create(attributes, choices);
         }
-        else if (questionType.equals(QuestionType.TEXTAREA)) {
-            return TextArea.create(attributes);
-        }
-        else if (questionType.equals(QuestionType.CHECKBOX)) {
-            return Checkbox.create(attributes, choiceList);
-        }
-        return Input.create(name, attributes);
+        return SubjectiveQuestion.create(name, attributes);
     }
 
 }

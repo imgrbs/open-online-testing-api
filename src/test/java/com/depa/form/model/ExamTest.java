@@ -26,7 +26,7 @@ class ExamTest {
     public void testCreateFormWithFormDTO() {
         List<QuestionDTO> fields = new ArrayList<>();
         QuestionDTO input = new QuestionDTO();
-        input.setQuestionType(QuestionType.INPUT);
+        input.setQuestionType(QuestionType.SUBJECTIVE);
         fields.add(input);
         ExamDTO examDTO = new ExamDTO();
         examDTO.setFields(fields);
