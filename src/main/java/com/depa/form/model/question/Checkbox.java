@@ -17,14 +17,6 @@ public class Checkbox extends Question {
         return field;
     }
 
-//    public List<String> getChoiceList() {
-//        return choiceList;
-//    }
-//
-//    public void setChoiceList(List<String> choiceList) {
-//        this.choiceList = choiceList;
-//    }
-
     public List<ChoiceList> getChoiceList() {
         return choiceList;
     }
