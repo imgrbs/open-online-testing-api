@@ -1,6 +1,11 @@
 package com.depa.form.dto;
 
+import com.depa.form.model.question.Attribute;
+import com.depa.form.model.question.Choice;
 import com.depa.form.model.question.Question;
+import com.depa.form.model.question.QuestionType;
+
+import java.util.List;
 
 public interface QuestionDTO {
 
@@ -8,18 +13,18 @@ public interface QuestionDTO {
 
     void setName(String name);
 
-    void setType(com.depa.form.model.question.QuestionType type);
+    void setType(QuestionType type);
 
-    void setAttributes(java.util.List<com.depa.form.model.question.Attribute> attributes);
+    void setAttributes(List<Attribute> attributes);
 
-    void setChoices(java.util.List<com.depa.form.model.question.Choice> choices);
+    void setChoices(List<Choice> choices);
 
     String getName();
 
-    com.depa.form.model.question.QuestionType getType();
+    QuestionType getType();
 
-    java.util.List<com.depa.form.model.question.Attribute> getAttributes();
+    java.util.List<Attribute> getAttributes();
 
-    java.util.List<com.depa.form.model.question.Choice> getChoices();
+    java.util.List<Choice> getChoices();
 
 }
