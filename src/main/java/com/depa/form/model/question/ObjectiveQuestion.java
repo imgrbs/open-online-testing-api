@@ -6,8 +6,8 @@ public class ObjectiveQuestion extends Question {
 
     private List<Choice> choices;
 
-    public ObjectiveQuestion(QuestionType questionType) {
-        super(questionType);
+    public ObjectiveQuestion(QuestionType type) {
+        super(type);
     }
 
     public static ObjectiveQuestion create(List<Attribute> attributes, List<Choice> choices) {
