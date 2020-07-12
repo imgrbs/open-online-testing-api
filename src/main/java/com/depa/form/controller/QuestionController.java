@@ -1,6 +1,7 @@
 package com.depa.form.controller;
 
 import com.depa.form.dto.QuestionDTO;
+import com.depa.form.dto.impl.QuestionDTOImpl;
 import com.depa.form.model.question.Question;
 import com.depa.form.service.QuestionService;
 import lombok.Setter;
@@ -27,7 +28,7 @@ public class QuestionController {
     }
 
     @PostMapping("/question")
-    public ResponseEntity<QuestionDTO> createQuestion(@RequestBody QuestionDTO request) {
+    public ResponseEntity<QuestionDTO> createQuestion(@RequestBody QuestionDTOImpl request) {
         QuestionDTO question = questionService.createQuestion(request);
         return new ResponseEntity<>(question, HttpStatus.CREATED);
     }
