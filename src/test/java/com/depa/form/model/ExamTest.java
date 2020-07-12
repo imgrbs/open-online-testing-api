@@ -2,42 +2,39 @@ package com.depa.form.model;
 
 import com.depa.form.dto.FieldDTO;
 import com.depa.form.dto.FormDTO;
-import com.depa.form.model.field.Field;
-import com.depa.form.model.field.FieldType;
-import com.depa.form.model.field.Input;
-import com.depa.form.model.form.Form;
+import com.depa.form.model.exam.Exam;
+import com.depa.form.model.question.QuestionType;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
 
 import java.util.ArrayList;
 import java.util.List;
 
-class FormTest {
+class ExamTest {
 
     @Test
     void testCreateForm() {
-        Form underTest = new Form();
+        Exam underTest = new Exam();
 
         Assert.assertThat(underTest.getName(), CoreMatchers.equalTo(null));
         Assert.assertThat(underTest.getDescription(), CoreMatchers.equalTo(null));
-        Assert.assertThat(underTest.getFields(), CoreMatchers.equalTo(null));
+        Assert.assertThat(underTest.getQuestions(), CoreMatchers.equalTo(null));
     }
 
     @Test
     public void testCreateFormWithFormDTO() {
         List<FieldDTO> fields = new ArrayList<>();
         FieldDTO input = new FieldDTO();
-        input.setFieldType(FieldType.INPUT);
+        input.setQuestionType(QuestionType.INPUT);
         fields.add(input);
         FormDTO formDTO = new FormDTO();
         formDTO.setFields(fields);
 
-        Form underTest = new Form(formDTO);
+        Exam underTest = new Exam(formDTO);
 
         Assert.assertThat(underTest.getName(), CoreMatchers.equalTo(null));
         Assert.assertThat(underTest.getDescription(), CoreMatchers.equalTo(null));
-        Assert.assertThat(underTest.getFields().size(), CoreMatchers.equalTo(1));
+        Assert.assertThat(underTest.getQuestions().size(), CoreMatchers.equalTo(1));
     }
 }

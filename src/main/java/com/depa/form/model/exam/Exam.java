@@ -1,7 +1,7 @@
-package com.depa.form.model.form;
+package com.depa.form.model.exam;
 
 import com.depa.form.dto.FormDTO;
-import com.depa.form.model.field.Field;
+import com.depa.form.model.question.Question;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,31 +18,31 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @RequiredArgsConstructor
 @Setter
 @Getter
-public class Form {
+public class Exam {
     @Id
     private ObjectId id;
     private String name;
     private String description;
     
-    private List<Field> fields;
+    private List<Question> questions;
 
-    public Form(FormDTO formDTO) {
+    public Exam(FormDTO formDTO) {
         this.name = formDTO.getName();
         this.description = formDTO.getDescription();
-        this.fields = new ArrayList<>();
+        this.questions = new ArrayList<>();
 
         if (formDTO.getFields() != null) {
             System.out.println("Field != null");
             formDTO.getFields().forEach(fieldDTO -> {
                 System.out.println(fieldDTO);
-                this.fields.add(fieldDTO.toField());
+                this.questions.add(fieldDTO.toField());
             });
         }
     }
     
     @Override
     public String toString() {
-        return "Form{" + "id=" + id + ", name=" + name + ", description=" + description + ", fields=" + fields + '}';
+        return "Form{" + "id=" + id + ", name=" + name + ", description=" + description + ", fields=" + questions + '}';
     }
 
 }
