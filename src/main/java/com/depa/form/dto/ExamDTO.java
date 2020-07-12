@@ -1,5 +1,6 @@
 package com.depa.form.dto;
 
+import com.depa.form.dto.impl.QuestionDTOImpl;
 import com.depa.form.model.exam.Exam;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,7 @@ public class ExamDTO {
 
         if (exam.getQuestions() != null) {
             exam.getQuestions().forEach(field -> {
-                this.fields.add(new QuestionDTO(field));
+                this.fields.add(new QuestionDTOImpl(field));
             });
         }
     }
