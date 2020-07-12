@@ -1,6 +1,7 @@
 package com.depa.form.model;
 
 import com.depa.form.dto.QuestionDTO;
+import com.depa.form.dto.impl.QuestionDTOImpl;
 import com.depa.form.dto.ExamDTO;
 import com.depa.form.model.exam.Exam;
 import com.depa.form.model.question.QuestionType;
@@ -14,7 +15,7 @@ import java.util.List;
 class ExamTest {
 
     @Test
-    void testCreateForm() {
+    void testCreateExam() {
         Exam underTest = new Exam();
 
         Assert.assertThat(underTest.getName(), CoreMatchers.equalTo(null));
@@ -23,13 +24,13 @@ class ExamTest {
     }
 
     @Test
-    public void testCreateFormWithFormDTO() {
-        List<QuestionDTO> fields = new ArrayList<>();
-        QuestionDTO input = new QuestionDTO();
-        input.setQuestionType(QuestionType.SUBJECTIVE);
-        fields.add(input);
+    public void testCreateExamWithExamDTO() {
+        List<QuestionDTO> questions = new ArrayList<>();
+        QuestionDTOImpl input = new QuestionDTOImpl();
+        input.setType(QuestionType.SUBJECTIVE);
+        questions.add(input);
         ExamDTO examDTO = new ExamDTO();
-        examDTO.setFields(fields);
+        examDTO.setFields(questions);
 
         Exam underTest = new Exam(examDTO);
 
