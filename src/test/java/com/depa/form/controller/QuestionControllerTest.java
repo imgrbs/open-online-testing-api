@@ -47,7 +47,7 @@ class QuestionControllerTest {
     @Test
     void testCreateQuestion() {
         Question question = SubjectiveQuestion.create("1 + 1 = ?", null);
-        QuestionDTO request = new QuestionDTOImpl(question);
+        QuestionDTOImpl request = new QuestionDTOImpl(question);
 
         expectedCreateQuestion(request);
 
