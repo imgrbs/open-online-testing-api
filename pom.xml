@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.depa</groupId>
-    <artifactId>form-management</artifactId>
+    <artifactId>testing-system</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>form-management</name>
+    <name>testing-system</name>
     <description>Form Management project powered by Spring Boot.</description>
 
     <properties>
