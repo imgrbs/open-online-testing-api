@@ -1,6 +1,9 @@
 package com.depa.form.service;
 
 import com.depa.form.dto.QuestionDTO;
+import com.depa.form.dto.impl.QuestionDTOImpl;
+import com.depa.form.model.question.Choice;
+import com.depa.form.model.question.ObjectiveQuestion;
 import com.depa.form.model.question.SubjectiveQuestion;
 import com.depa.form.repository.QuestionRepository;
 import com.depa.form.service.internal.QuestionServiceImpl;
@@ -30,18 +33,61 @@ class QuestionServiceTest {
     @Test
     public void testGetQuestions() {
         SubjectiveQuestion question = SubjectiveQuestion.create("1 + 1 = ?", null);
-        mockery.checking(new Expectations(){
-            {
-                oneOf(questionRepository).findAll();
-                will(returnValue(Arrays.asList(question)));
-            }
-        });
+        expectedFindAllQuestions(question);
 
         List<QuestionDTO> actualResult = underTest.getQuestions();
 
         Assert.assertThat(actualResult.size(), CoreMatchers.equalTo(1));
         Assert.assertThat(actualResult.get(0).getName(), CoreMatchers.equalTo(question.getName()));
         Assert.assertThat(actualResult.get(0).getAttributes(), CoreMatchers.equalTo(question.getAttributes()));
-        Assert.assertThat(actualResult.get(0).getQuestionType(), CoreMatchers.equalTo(question.getType()));
+        Assert.assertThat(actualResult.get(0).getType(), CoreMatchers.equalTo(question.getType()));
+    }
+
+    private void expectedFindAllQuestions(SubjectiveQuestion question) {
+        mockery.checking(new Expectations() {
+            {
+                oneOf(questionRepository).findAll();
+                will(returnValue(Arrays.asList(question)));
+            }
+        });
+    }
+
+    @Test
+    void testCreateQuestion() {
+        Choice choice1 = new Choice("2", true);
+        Choice choice2 = new Choice("3", false);
+        ObjectiveQuestion question = ObjectiveQuestion.create("1 + 1 = ?", Arrays.asList(choice1, choice2), null);
+        QuestionDTO mockQuestionDTO = createQuestionDTO(question);
+        expectedSaveQuestion(question);
+
+        QuestionDTO result = underTest.createQuestion(mockQuestionDTO);
+
+        Assert.assertThat(result.getName(), CoreMatchers.equalTo(question.getName()));
+        Assert.assertThat(result.getType(), CoreMatchers.equalTo(question.getType()));
+        Assert.assertThat(result.getChoices().size(), CoreMatchers.equalTo(2));
+        Assert.assertThat(result.getChoices().get(0), CoreMatchers.equalTo(choice1));
+        Assert.assertThat(result.getChoices().get(1), CoreMatchers.equalTo(choice2));
+        Assert.assertThat(result.getAttributes(), CoreMatchers.nullValue());
+    }
+
+    private void expectedSaveQuestion(ObjectiveQuestion question) {
+        mockery.checking(new Expectations() {
+            {
+                oneOf(questionRepository).save(question);
+                will(returnValue(question));
+            }
+        });
+    }
+
+    private QuestionDTO createQuestionDTO(ObjectiveQuestion question) {
+        QuestionDTO dto = mockery.mock(QuestionDTO.class);
+
+        mockery.checking(new Expectations() {
+            {
+                oneOf(dto).toQuestion();
+                will(returnValue(question));
+            }
+        });
+        return dto;
     }
 }
