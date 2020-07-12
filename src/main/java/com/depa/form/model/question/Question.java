@@ -14,9 +14,11 @@ import java.util.List;
 public abstract class Question {
     
     @Id
-    private long fieldId;
+    private long id;
+
+    private String name;
     
-    private QuestionType questionType;
+    private QuestionType type;
     
     private List<Attribute> attributes;
 
@@ -24,7 +26,6 @@ public abstract class Question {
     }
 
     public Question(QuestionType type) {
-        this.questionType = type;
+        this.type = type;
     }
-    
 }

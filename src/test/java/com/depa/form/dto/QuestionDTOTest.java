@@ -14,20 +14,20 @@ class QuestionDTOTest {
 
     @Test
     public void testCreateFieldDTO() {
-        FieldDTO fieldDTO = new FieldDTO();
+        QuestionDTO questionDTO = new QuestionDTO();
 
-        Assert.assertThat(fieldDTO.getQuestionType(), CoreMatchers.nullValue());
-        Assert.assertThat(fieldDTO.getAttributes(), CoreMatchers.nullValue());
-        Assert.assertThat(fieldDTO.getChoiceList(), CoreMatchers.nullValue());
+        Assert.assertThat(questionDTO.getQuestionType(), CoreMatchers.nullValue());
+        Assert.assertThat(questionDTO.getAttributes(), CoreMatchers.nullValue());
+        Assert.assertThat(questionDTO.getChoiceList(), CoreMatchers.nullValue());
     }
 
     @Test
     void testCreateFieldDTOWithField() {
         Question question = Checkbox.create(new ArrayList<>(), new ArrayList<>());
-        FieldDTO fieldDTO = new FieldDTO(question);
+        QuestionDTO questionDTO = new QuestionDTO(question);
 
-        Assert.assertThat(fieldDTO.getQuestionType(), CoreMatchers.equalTo(QuestionType.CHECKBOX));
-        Assert.assertThat(fieldDTO.getAttributes().size(), CoreMatchers.equalTo(0));
-        Assert.assertThat(fieldDTO.getChoiceList().size(), CoreMatchers.equalTo(0));
+        Assert.assertThat(questionDTO.getQuestionType(), CoreMatchers.equalTo(QuestionType.CHECKBOX));
+        Assert.assertThat(questionDTO.getAttributes().size(), CoreMatchers.equalTo(0));
+        Assert.assertThat(questionDTO.getChoiceList().size(), CoreMatchers.equalTo(0));
     }
 }

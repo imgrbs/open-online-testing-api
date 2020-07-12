@@ -10,16 +10,12 @@ import org.junit.jupiter.api.Test;
 
 class QuestionTest {
 
-    private Question underTest;
-
-    @BeforeEach
-    void setUp() {
-        underTest = Input.create(null);
-    }
-
     @Test
-    public void testField() {
-        Assert.assertThat(underTest.getQuestionType(), CoreMatchers.equalTo(QuestionType.INPUT));
-        Assert.assertThat(underTest.getAttributes(), CoreMatchers.equalTo(null));
+    public void testInputQuestion() {
+        Question underTest = Input.create("input question",null);
+
+        Assert.assertThat(underTest.getName(), CoreMatchers.equalTo("input question"));
+        Assert.assertThat(underTest.getType(), CoreMatchers.equalTo(QuestionType.INPUT));
+        Assert.assertThat(underTest.getAttributes(), CoreMatchers.nullValue());
     }
 }

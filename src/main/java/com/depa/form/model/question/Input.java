@@ -8,10 +8,11 @@ public class Input extends Question {
         super(type);
     }
 
-    public static Input create(List<Attribute> attributes) {
-        Input field = new Input(QuestionType.INPUT);
-        field.setAttributes(attributes);
-        return field;
+    public static Input create(String name, List<Attribute> attributes) {
+        Input question = new Input(QuestionType.INPUT);
+        question.setName(name);
+        question.setAttributes(attributes);
+        return question;
     }
 
 }
