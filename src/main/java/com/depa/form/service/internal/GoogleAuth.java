@@ -10,8 +10,9 @@ public class GoogleAuth extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
+                .csrf().disable()
                 .antMatcher("/**").authorizeRequests()
-                .antMatchers("/").permitAll()
+                .antMatchers("/","/index.html").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .oauth2Login();
