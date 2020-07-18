@@ -1,7 +1,6 @@
 package com.depa.exam.dto.impl;
 
 import com.depa.exam.dto.ExamDTO;
-import com.depa.exam.dto.QuestionDTO;
 import com.depa.exam.model.exam.Exam;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

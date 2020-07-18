@@ -1,6 +1,5 @@
 package com.depa.exam.model;
 
-import com.depa.exam.dto.QuestionDTO;
 import com.depa.exam.dto.impl.ExamDTOImpl;
 import com.depa.exam.dto.impl.QuestionDTOImpl;
 import com.depa.exam.dto.ExamDTO;

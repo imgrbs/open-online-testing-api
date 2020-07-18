@@ -1,10 +1,10 @@
 package com.depa.exam.service.internal;
 
 import com.depa.exam.dto.ExamDTO;
-import com.depa.exam.dto.impl.ExamDTOImpl;
-import com.depa.exam.model.exam.Exam;
 import com.depa.exam.repository.ExamRepository;
 import com.depa.exam.service.ExamService;
+import com.depa.exam.dto.impl.ExamDTOImpl;
+import com.depa.exam.model.exam.Exam;
 import lombok.Setter;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;

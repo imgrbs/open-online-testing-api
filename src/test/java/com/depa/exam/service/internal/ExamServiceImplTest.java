@@ -1,7 +1,6 @@
 package com.depa.exam.service.internal;
 
 import com.depa.exam.dto.ExamDTO;
-import com.depa.exam.dto.impl.ExamDTOImpl;
 import com.depa.exam.model.exam.Exam;
 import com.depa.exam.repository.ExamRepository;
 import org.bson.types.ObjectId;

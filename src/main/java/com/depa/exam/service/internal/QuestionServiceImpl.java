@@ -1,10 +1,10 @@
 package com.depa.exam.service.internal;
 
 import com.depa.exam.dto.QuestionDTO;
-import com.depa.exam.dto.impl.QuestionDTOImpl;
-import com.depa.exam.model.question.Question;
 import com.depa.exam.repository.QuestionRepository;
 import com.depa.exam.service.QuestionService;
+import com.depa.exam.dto.impl.QuestionDTOImpl;
+import com.depa.exam.model.question.Question;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
