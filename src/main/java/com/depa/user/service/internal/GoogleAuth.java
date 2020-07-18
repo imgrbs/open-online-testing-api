@@ -1,4 +1,4 @@
-package com.depa.form.service.internal;
+package com.depa.user.service.internal;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

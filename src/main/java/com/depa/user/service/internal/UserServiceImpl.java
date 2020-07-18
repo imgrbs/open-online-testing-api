@@ -1,7 +1,7 @@
-package com.depa.form.service.internal;
+package com.depa.user.service.internal;
 
-import com.depa.form.model.user.User;
-import com.depa.form.service.UserService;
+import com.depa.user.model.user.User;
+import com.depa.user.service.UserService;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.security.core.Authentication;

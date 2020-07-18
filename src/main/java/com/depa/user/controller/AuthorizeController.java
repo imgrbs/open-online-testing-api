@@ -1,6 +1,6 @@
-package com.depa.form.controller;
+package com.depa.user.controller;
 
-import com.depa.form.service.internal.UserServiceImpl;
+import com.depa.user.service.internal.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;

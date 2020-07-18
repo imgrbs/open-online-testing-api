@@ -1,4 +1,4 @@
-package com.depa.form.model.user;
+package com.depa.user.model.user;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.depa.form.service;
+package com.depa.user.service;
 
 public interface UserService {
     String getDisplayName();
