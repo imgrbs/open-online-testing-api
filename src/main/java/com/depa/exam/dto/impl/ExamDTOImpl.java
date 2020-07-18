@@ -6,6 +6,7 @@ import com.depa.exam.model.exam.Exam;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +15,13 @@ import java.util.List;
 @Getter
 @Setter
 public class ExamDTOImpl implements ExamDTO {
+    private ObjectId id;
     private String name;
     private String description;
     private List<QuestionDTOImpl> questions;
 
     public ExamDTOImpl(Exam exam) {
+        this.id = exam.getId();
         this.name = exam.getName();
         this.description = exam.getDescription();
         this.questions = new ArrayList<>();
