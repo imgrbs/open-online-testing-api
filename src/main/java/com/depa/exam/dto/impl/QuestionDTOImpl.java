@@ -1,6 +1,7 @@
 package com.depa.exam.dto.impl;
 
 import com.depa.category.dto.CategoryDTO;
+import com.depa.category.dto.impl.CategoryDTOImpl;
 import com.depa.category.model.Category;
 import com.depa.exam.dto.QuestionDTO;
 import com.depa.exam.model.question.*;
@@ -23,7 +24,7 @@ public class QuestionDTOImpl implements QuestionDTO {
     private QuestionType type;
     private List<Attribute> attributes;
     private List<Choice> choices;
-    private List<CategoryDTO> categories;
+    private List<CategoryDTOImpl> categories;
 
     public QuestionDTOImpl(Question question) {
         this.id = question.getId();

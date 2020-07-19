@@ -3,10 +3,13 @@ package com.depa.exam.controller;
 import com.depa.exam.dto.QuestionDTO;
 import com.depa.exam.dto.impl.QuestionDTOImpl;
 import com.depa.exam.service.QuestionService;
+import com.depa.observer.CustomSpringEvent;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,7 +17,9 @@ import java.util.List;
 @Setter
 @RestController
 @CrossOrigin(origins = "*")
+@Component
 public class QuestionController {
+
     @Autowired
     private QuestionService questionService;
 
@@ -27,7 +32,7 @@ public class QuestionController {
     @PostMapping("/question")
     public ResponseEntity<QuestionDTO> createQuestion(@RequestBody QuestionDTOImpl request) {
         QuestionDTO question = questionService.createQuestion(request);
-        // TODO: notify new categories insert
+
         return new ResponseEntity<>(question, HttpStatus.CREATED);
     }
 }

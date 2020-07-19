@@ -59,7 +59,7 @@ class QuestionServiceTest {
     void testCreateQuestion() {
         Choice choice1 = new Choice("2", true);
         Choice choice2 = new Choice("3", false);
-        CategoryDTO categoryDTO = createCategoryDTO();
+        CategoryDTOImpl categoryDTO = (CategoryDTOImpl) createCategoryDTO();
         ObjectiveQuestion question = ObjectiveQuestion.create("1 + 1 = ?", Arrays.asList(choice1, choice2), null, Arrays.asList(categoryDTO));
         QuestionDTO mockQuestionDTO = createQuestionDTO(question);
         expectedSaveQuestion(question);

@@ -1,6 +1,7 @@
 package com.depa.exam.model.question;
 
 import com.depa.category.dto.CategoryDTO;
+import com.depa.category.dto.impl.CategoryDTOImpl;
 import lombok.*;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -24,7 +25,7 @@ public abstract class Question {
     
     private List<Attribute> attributes;
 
-    private List<CategoryDTO> categories;
+    private List<CategoryDTOImpl> categories;
 
     public Question(QuestionType type) {
         this.type = type;
