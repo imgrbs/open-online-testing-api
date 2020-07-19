@@ -1,5 +1,7 @@
 package com.depa.exam.model.question;
 
+import com.depa.category.model.Category;
+
 import java.util.List;
 
 public class ObjectiveQuestion extends Question {
@@ -10,15 +12,16 @@ public class ObjectiveQuestion extends Question {
         super(type);
     }
 
-    public static ObjectiveQuestion create(List<Attribute> attributes, List<Choice> choices) {
+    private static ObjectiveQuestion create(List<Attribute> attributes, List<Choice> choices, List<Category> categories) {
         ObjectiveQuestion field = new ObjectiveQuestion(QuestionType.OBJECTIVE);
         field.setAttributes(attributes);
         field.setChoices(choices);
+        field.setCategories(categories);
         return field;
     }
 
-    public static ObjectiveQuestion create(String name, List<Choice> choices, List<Attribute> attributes) {
-        ObjectiveQuestion question = create(attributes, choices);
+    public static ObjectiveQuestion create(String name, List<Choice> choices, List<Attribute> attributes, List<Category> categories) {
+        ObjectiveQuestion question = create(attributes, choices, categories);
         question.setName(name);
         return question;
     }

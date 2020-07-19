@@ -1,6 +1,6 @@
 package com.depa.exam.model;
 
-import com.depa.exam.model.question.ObjectiveQuestion;
+import                                      com.depa.exam.model.question.ObjectiveQuestion;
 import com.depa.exam.model.question.Question;
 import com.depa.exam.model.question.QuestionType;
 import com.depa.exam.model.question.SubjectiveQuestion;
@@ -14,20 +14,22 @@ class QuestionTest {
 
     @Test
     public void testSubjectiveQuestion() {
-        Question underTest = SubjectiveQuestion.create("input question", null);
+        Question underTest = SubjectiveQuestion.create("input question", null, new ArrayList<>());
 
         Assert.assertThat(underTest.getName(), CoreMatchers.equalTo("input question"));
         Assert.assertThat(underTest.getType(), CoreMatchers.equalTo(QuestionType.SUBJECTIVE));
         Assert.assertThat(underTest.getAttributes(), CoreMatchers.nullValue());
+        Assert.assertThat(underTest.getCategories().size(), CoreMatchers.equalTo(0));
     }
 
     @Test
     public void testObjectiveQuestion() {
-        ObjectiveQuestion underTest = ObjectiveQuestion.create("input question", new ArrayList<>(), null);
+        ObjectiveQuestion underTest = ObjectiveQuestion.create("input question", new ArrayList<>(), null, new ArrayList<>());
 
         Assert.assertThat(underTest.getName(), CoreMatchers.equalTo("input question"));
         Assert.assertThat(underTest.getType(), CoreMatchers.equalTo(QuestionType.OBJECTIVE));
         Assert.assertThat(underTest.getChoices().size(), CoreMatchers.equalTo(0));
         Assert.assertThat(underTest.getAttributes(), CoreMatchers.nullValue());
+        Assert.assertThat(underTest.getCategories().size(), CoreMatchers.equalTo(0));
     }
 }
