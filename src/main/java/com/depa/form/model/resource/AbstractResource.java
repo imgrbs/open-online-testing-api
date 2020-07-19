@@ -14,19 +14,36 @@ import java.util.List;
  */
 public abstract class AbstractResource {
     
-    private List<ResoucePrivilege> resourcePrivilegeList;
+    private ResoucePrivilege otherPrivilege;
+    
+    private List<ResoucePrivilege> resourceGroupPrivilegeList;
     
     public List<ResoucePrivilege> getResourcePrivilegeList() {
-        return resourcePrivilegeList;
+        return resourceGroupPrivilegeList;
     }
 
     public void setResourcePrivilegeList(List<ResoucePrivilege> resourcePrivilegeList) {
-        this.resourcePrivilegeList = resourcePrivilegeList;
+        this.resourceGroupPrivilegeList = resourcePrivilegeList;
+    }
+
+    public ResoucePrivilege getOtherPrivilege() {
+        return otherPrivilege;
+    }
+
+    public void setOtherPrivilege(ResoucePrivilege otherPrivilege) {
+        this.otherPrivilege = otherPrivilege;
+    }
+
+    public List<ResoucePrivilege> getResourceGroupPrivilegeList() {
+        return resourceGroupPrivilegeList;
+    }
+
+    public void setResourceGroupPrivilegeList(List<ResoucePrivilege> resourceGroupPrivilegeList) {
+        this.resourceGroupPrivilegeList = resourceGroupPrivilegeList;
     }
 
     @Override
     public String toString() {
-        return "AbstractResource{" + "resourcePrivilegeList=" + resourcePrivilegeList + '}';
+        return "AbstractResource{" + "otherPrivilege=" + otherPrivilege + ", resourceGroupPrivilegeList=" + resourceGroupPrivilegeList + '}';
     }
-    
 }
