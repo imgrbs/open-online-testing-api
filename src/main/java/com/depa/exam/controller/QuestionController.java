@@ -21,6 +21,9 @@ import java.util.List;
 public class QuestionController {
 
     @Autowired
+    private ApplicationEventPublisher applicationEventPublisher;
+
+    @Autowired
     private QuestionService questionService;
 
     @GetMapping("/questions")
@@ -33,6 +36,7 @@ public class QuestionController {
     public ResponseEntity<QuestionDTO> createQuestion(@RequestBody QuestionDTOImpl request) {
         QuestionDTO question = questionService.createQuestion(request);
 
+        applicationEventPublisher.publishEvent(new CustomSpringEvent(question, "question_created"));
         return new ResponseEntity<>(question, HttpStatus.CREATED);
     }
 }
