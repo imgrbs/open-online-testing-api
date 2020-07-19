@@ -1,5 +1,7 @@
 package com.depa.testing.system.exam.dto.impl;
 
+import com.depa.testing.system.category.model.Category;
+import com.depa.testing.system.exam.dto.CategoryDTO;
 import com.depa.testing.system.exam.dto.QuestionDTO;
 import com.depa.testing.system.exam.model.question.*;
 import lombok.AllArgsConstructor;
@@ -21,12 +23,14 @@ public class QuestionDTOImpl implements QuestionDTO {
     private QuestionType type;
     private List<Attribute> attributes;
     private List<Choice> choices;
+    private List<Category> categories;
 
     public QuestionDTOImpl(Question question) {
         this.id = question.getId();
         this.name = question.getName();
         this.type = question.getType();
         this.attributes = question.getAttributes();
+        this.categories = question.getCategories();
 
         if (this.type.equals(QuestionType.OBJECTIVE)) {
             this.choices = ((ObjectiveQuestion) question).getChoices();
@@ -36,8 +40,8 @@ public class QuestionDTOImpl implements QuestionDTO {
     @Override
     public Question toQuestion() {
         if (type.equals(QuestionType.SUBJECTIVE)) {
-            return SubjectiveQuestion.create(name, attributes);
+            return SubjectiveQuestion.create(name, attributes, categories);
         }
-        return ObjectiveQuestion.create(name, choices, attributes);
+        return ObjectiveQuestion.create(name, choices, attributes, categories);
     }
 }

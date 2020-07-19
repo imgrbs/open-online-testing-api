@@ -1,5 +1,7 @@
 package com.depa.testing.system.exam.service.internal;
 
+import com.depa.testing.system.category.model.Category;
+import com.depa.testing.system.category.service.CategoryService;
 import com.depa.testing.system.exam.dto.QuestionDTO;
 import com.depa.testing.system.exam.dto.impl.QuestionDTOImpl;
 import com.depa.testing.system.exam.model.question.Question;
