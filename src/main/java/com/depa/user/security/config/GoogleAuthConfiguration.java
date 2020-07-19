@@ -12,6 +12,7 @@ public class GoogleAuthConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
+        // TODO: make this class only chain google auth.
         httpSecurity
                 .csrf().disable()
                 .antMatcher("/**").authorizeRequests()
