@@ -1,5 +1,6 @@
 package com.depa.exam.dto;
 
+import com.depa.category.dto.CategoryDTO;
 import com.depa.category.model.Category;
 import com.depa.exam.model.question.Attribute;
 import com.depa.exam.model.question.Choice;
@@ -20,7 +21,7 @@ public interface QuestionDTO {
 
     void setChoices(List<Choice> choices);
 
-    void setCategories(List<Category> categories);
+    void setCategories(List<CategoryDTO> categories);
 
     String getName();
 
@@ -30,6 +31,6 @@ public interface QuestionDTO {
 
     List<Choice> getChoices();
 
-    List<Category> getCategories();
+    List<CategoryDTO> getCategories();
 
 }

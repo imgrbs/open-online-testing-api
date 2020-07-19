@@ -1,5 +1,7 @@
 package com.depa.category.service.internal;
 
+import com.depa.category.dto.CategoryDTO;
+import com.depa.category.dto.impl.CategoryDTOImpl;
 import com.depa.category.model.Category;
 import com.depa.category.model.CategoryBuilder;
 import com.depa.category.repository.CategoryRepository;
@@ -21,17 +23,19 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryBuilder categoryBuilder = new Category.Builder();
 
     @Override
-    public Category createCategory(Category category) {
-        Optional<Category> categoryFromDB = categoryRepository.findByLabel(category.getLabel());
-        Category categoryForSave = category;
+    public CategoryDTO createCategory(CategoryDTO categoryDTO) {
+        Optional<Category> categoryFromDB = categoryRepository.findByLabel(categoryDTO.getLabel());
+        Category categoryForSave;
         if (categoryFromDB.isPresent()) {
-            categoryForSave = buildCategory(category, categoryFromDB);
+            categoryForSave = buildCategory(categoryDTO, categoryFromDB);
+        } else {
+            categoryForSave = categoryDTO.toCategory();
         }
         Category result = categoryRepository.save(categoryForSave);
-        return result;
+        return new CategoryDTOImpl(result);
     }
 
-    private Category buildCategory(Category category, Optional<Category> categoryFromDB) {
+    private Category buildCategory(CategoryDTO category, Optional<Category> categoryFromDB) {
         Category categoryForSave;
         categoryForSave = categoryBuilder
                 .id(categoryFromDB.get().getId())

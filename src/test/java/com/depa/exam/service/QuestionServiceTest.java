@@ -1,5 +1,7 @@
 package com.depa.exam.service;
 
+import com.depa.category.dto.CategoryDTO;
+import com.depa.category.dto.impl.CategoryDTOImpl;
 import com.depa.category.model.Category;
 import com.depa.exam.dto.QuestionDTO;
 import com.depa.exam.model.question.Choice;
@@ -57,8 +59,8 @@ class QuestionServiceTest {
     void testCreateQuestion() {
         Choice choice1 = new Choice("2", true);
         Choice choice2 = new Choice("3", false);
-        Category category = new Category("history", "#000000", "#ffffff");
-        ObjectiveQuestion question = ObjectiveQuestion.create("1 + 1 = ?", Arrays.asList(choice1, choice2), null, Arrays.asList(category));
+        CategoryDTO categoryDTO = createCategoryDTO();
+        ObjectiveQuestion question = ObjectiveQuestion.create("1 + 1 = ?", Arrays.asList(choice1, choice2), null, Arrays.asList(categoryDTO));
         QuestionDTO mockQuestionDTO = createQuestionDTO(question);
         expectedSaveQuestion(question);
 
@@ -71,7 +73,15 @@ class QuestionServiceTest {
         Assert.assertThat(result.getChoices().get(1), CoreMatchers.equalTo(choice2));
         Assert.assertThat(result.getAttributes(), CoreMatchers.nullValue());
         Assert.assertThat(result.getCategories().size(), CoreMatchers.equalTo(1));
-        Assert.assertThat(result.getCategories().get(0), CoreMatchers.equalTo(category));
+        Assert.assertThat(result.getCategories().get(0), CoreMatchers.equalTo(categoryDTO));
+    }
+
+    private CategoryDTO createCategoryDTO() {
+        CategoryDTO categoryDTO = new CategoryDTOImpl();
+        categoryDTO.setLabel("history");
+        categoryDTO.setBackgroundColor("#000000");
+        categoryDTO.setColor("#ffffff");
+        return categoryDTO;
     }
 
     private void expectedSaveQuestion(ObjectiveQuestion question) {

@@ -1,10 +1,9 @@
 package com.depa.exam.model.question;
 
-import com.depa.category.model.Category;
+import com.depa.category.dto.CategoryDTO;
 import lombok.*;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
@@ -25,7 +24,7 @@ public abstract class Question {
     
     private List<Attribute> attributes;
 
-    private List<Category> categories;
+    private List<CategoryDTO> categories;
 
     public Question(QuestionType type) {
         this.type = type;

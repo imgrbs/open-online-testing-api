@@ -1,7 +1,7 @@
 package com.depa.exam.controller;
 
-import com.depa.category.model.Category;
-import com.depa.category.service.CategoryService;
+import com.depa.category.dto.CategoryDTO;
+import com.depa.category.dto.impl.CategoryDTOImpl;
 import com.depa.exam.dto.QuestionDTO;
 import com.depa.exam.dto.impl.QuestionDTOImpl;
 import com.depa.exam.model.question.SubjectiveQuestion;
@@ -26,15 +26,12 @@ class QuestionControllerTest {
 
     private QuestionController underTest;
     private QuestionService mockQuestionService;
-    private CategoryService mockCategoryService;
 
     @BeforeEach
     void setUp() {
         underTest = new QuestionController();
         mockQuestionService = mockery.mock(QuestionService.class);
-        mockCategoryService = mockery.mock(CategoryService.class);
         underTest.setQuestionService(mockQuestionService);
-        underTest.setCategoryService(mockCategoryService);
     }
 
     @Test
@@ -52,11 +49,10 @@ class QuestionControllerTest {
 
     @Test
     void testCreateQuestion() {
-        Category category = new Category("history", "#000000", "#ffffff");
-        Question question = SubjectiveQuestion.create("1 + 1 = ?", null, Arrays.asList(category));
+        CategoryDTOImpl categoryDTO = createCategoryDTO();
+        Question question = SubjectiveQuestion.create("1 + 1 = ?", null, Arrays.asList(categoryDTO));
         QuestionDTOImpl request = new QuestionDTOImpl(question);
-
-        expectedCreateQuestion(request, category);
+        expectedCreateQuestion(request, categoryDTO);
 
         ResponseEntity<QuestionDTO> result = underTest.createQuestion(request);
 
@@ -64,14 +60,19 @@ class QuestionControllerTest {
         Assert.assertThat(result.getBody(), CoreMatchers.equalTo(request));
     }
 
-    private void expectedCreateQuestion(QuestionDTO request, Category category) {
+    private CategoryDTOImpl createCategoryDTO() {
+        CategoryDTOImpl categoryDTO = new CategoryDTOImpl();
+        categoryDTO.setLabel("history");
+        categoryDTO.setBackgroundColor("#000000");
+        categoryDTO.setColor("#ffffff");
+        return categoryDTO;
+    }
+
+    private void expectedCreateQuestion(QuestionDTO request, CategoryDTO categoryDTO) {
         mockery.checking(new Expectations() {
             {
                 oneOf(mockQuestionService).createQuestion(request);
                 will(returnValue(request));
-
-                oneOf(mockCategoryService).createCategory(request.getCategories().get(0));
-                will(returnValue(category));
             }
         });
     }
@@ -83,5 +84,10 @@ class QuestionControllerTest {
                 will(returnValue(Arrays.asList(expectedQuestionDTO)));
             }
         });
+    }
+
+    @Test
+    void testNotifyWhenCreateNewQuestion() {
+
     }
 }

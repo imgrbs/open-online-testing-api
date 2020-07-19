@@ -1,5 +1,7 @@
 package com.depa.category.service.internal;
 
+import com.depa.category.dto.CategoryDTO;
+import com.depa.category.dto.impl.CategoryDTOImpl;
 import com.depa.category.model.Category;
 import com.depa.category.model.CategoryBuilder;
 import com.depa.category.repository.CategoryRepository;
@@ -35,13 +37,28 @@ public class CategoryServiceImplTest {
     @Test
     public void testCreateCategory_whenDoesNotExists() {
         Category category = createCategory();
-        expectedSaveCategory_whenDoesNotExists(category);
+        CategoryDTO mockQuestionDTO = createCategoryDTO(category);
 
-        Category actual = underTest.createCategory(category);
+        CategoryDTO actual = underTest.createCategory(mockQuestionDTO);
 
         Assert.assertThat(actual.getLabel(), CoreMatchers.equalTo(category.getLabel()));
         Assert.assertThat(actual.getBackgroundColor(), CoreMatchers.equalTo(category.getBackgroundColor()));
         Assert.assertThat(actual.getBackgroundColor(), CoreMatchers.equalTo(category.getBackgroundColor()));
+    }
+
+    private CategoryDTO createCategoryDTO(Category category) {
+        CategoryDTO mockQuestionDTO = mockery.mock(CategoryDTO.class);
+        mockery.checking(new Expectations() {
+            {
+                oneOf(mockQuestionDTO).getLabel();
+                will(returnValue(category.getLabel()));
+
+                oneOf(mockQuestionDTO).toCategory();
+                will(returnValue(category));
+            }
+        });
+        expectedSaveCategory_whenDoesNotExists(category);
+        return mockQuestionDTO;
     }
 
     private void expectedSaveCategory_whenDoesNotExists(Category category) {
@@ -59,12 +76,13 @@ public class CategoryServiceImplTest {
     @Test
     public void testCreateCategory_whenExists_shouldUpdateCategory() {
         Category category = createCategory();
+        CategoryDTO categoryDTO = new CategoryDTOImpl(category);
         Category categoryFromDB = createCategoryFromDB(category);
         Category expectedCategory = createCategory();
         expectedCategory.setId(categoryFromDB.getId());
         expectedUpdateCategory_whenExists(categoryFromDB, expectedCategory);
 
-        Category actual = underTest.createCategory(category);
+        CategoryDTO actual = underTest.createCategory(categoryDTO);
 
         Assert.assertThat(actual.getId(), CoreMatchers.equalTo(expectedCategory.getId()));
         Assert.assertThat(actual.getLabel(), CoreMatchers.equalTo(expectedCategory.getLabel()));
@@ -108,7 +126,13 @@ public class CategoryServiceImplTest {
         });
     }
 
-
+    private CategoryDTO createCategoryDTO() {
+        CategoryDTO categoryDTO = new CategoryDTOImpl();
+        categoryDTO.setLabel("history");
+        categoryDTO.setBackgroundColor("#000000");
+        categoryDTO.setColor("#000000");
+        return categoryDTO;
+    }
 
     private Category createCategory() {
         Category category = new Category("history", "#000000", "#ffffff");

@@ -1,6 +1,6 @@
 package com.depa.exam.model.question;
 
-import com.depa.category.model.Category;
+import com.depa.category.dto.CategoryDTO;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ public class SubjectiveQuestion extends Question {
         super(type);
     }
 
-    public static SubjectiveQuestion create(String name, List<Attribute> attributes, List<Category> categories) {
+    public static SubjectiveQuestion create(String name, List<Attribute> attributes, List<CategoryDTO> categories) {
         SubjectiveQuestion question = new SubjectiveQuestion(QuestionType.SUBJECTIVE);
         question.setName(name);
         question.setAttributes(attributes);
