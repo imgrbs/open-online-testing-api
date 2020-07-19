@@ -5,11 +5,13 @@
  */
 package com.depa.form.model.resource;
 
+import com.depa.form.model.acl.ResoucePrivilege;
 import java.util.List;
 
 /**
  *
  * @author Test
+ * 
  */
 public class Exam extends AbstractResource{
     
@@ -46,6 +48,10 @@ public class Exam extends AbstractResource{
 
     public void setProblemList(List<Problem> problemList) {
         this.problemList = problemList;
+    }
+
+    public void addResourceGroup(ResoucePrivilege resoucePrivilege) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

@@ -15,6 +15,8 @@ public class ResoucePrivilege {
 
     private String resourceId;
     
+    private String resourceName;
+    
     private List<PermissionEnum> permissionList;
 
     public String getResourceId() {
