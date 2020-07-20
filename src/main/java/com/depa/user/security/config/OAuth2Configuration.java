@@ -28,15 +28,17 @@ public class OAuth2Configuration extends WebSecurityConfigurerAdapter {
                 .antMatchers(WHITELIST).permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .oauth2Login();
+                .oauth2Login(oauth -> {
+                    oauth.clientRegistrationRepository(this.clientRegistrationRepository());
+                });
     }
 
-    @Bean
     public ClientRegistrationRepository clientRegistrationRepository() {
         return new InMemoryClientRegistrationRepository(
                 this.depaClientRegistration(),
                 this.googleClientRegistration(),
-                this.facebookClientRegistration()
+                this.facebookClientRegistration(),
+                this.twitterClientRegistration()
         );
     }
 
@@ -89,6 +91,23 @@ public class OAuth2Configuration extends WebSecurityConfigurerAdapter {
                 .userNameAttributeName(IdTokenClaimNames.SUB)
                 .jwkSetUri("https://www.googleapis.com/oauth2/v3/certs")
                 .clientName("Facebook")
+                .build();
+    }
+
+    private ClientRegistration twitterClientRegistration() {
+        return ClientRegistration.withRegistrationId("twitter")
+                .clientId("google-client-id")
+                .clientSecret("google-client-secret")
+                .clientAuthenticationMethod(ClientAuthenticationMethod.BASIC)
+                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+                .redirectUriTemplate("{baseUrl}/login/oauth2/code/{registrationId}")
+                .scope("openid", "profile", "email", "address", "phone")
+                .authorizationUri("https://accounts.google.com/o/oauth2/v2/auth")
+                .tokenUri("https://www.googleapis.com/oauth2/v4/token")
+                .userInfoUri("https://www.googleapis.com/oauth2/v3/userinfo")
+                .userNameAttributeName(IdTokenClaimNames.SUB)
+                .jwkSetUri("https://www.googleapis.com/oauth2/v3/certs")
+                .clientName("Twitter")
                 .build();
     }
 }
