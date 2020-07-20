@@ -1,6 +1,6 @@
 package com.depa.user.service.internal;
 
-import com.depa.user.model.user.User;
+import com.depa.user.model.user.impl.UserImpl;
 import com.depa.user.service.UserService;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -29,11 +29,11 @@ public class UserServiceImpl implements UserService {
         return this.authAttributes.get("email");
     }
 
-    public User getUser(Authentication authentication){
+    public UserImpl getUser(Authentication authentication){
         mapAuthentication(authentication);
         String displayName = getDisplayName();
         String email = getEmail();
-        User user = new User(email,displayName);
+        UserImpl user = new UserImpl(email,displayName);
         return user;
     }
 

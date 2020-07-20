@@ -1,20 +1,8 @@
 package com.depa.user.model.user;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import org.springframework.data.mongodb.core.mapping.Document;
+public interface User {
 
-@Document("user")
-@RequiredArgsConstructor
-@Setter
-@Getter
-public class User {
-    private String email;
-    private String display;
+    String getEmail();
 
-    public User(String email, String display) {
-        this.email = email;
-        this.display = display;
-    }
+    String getDisplayName();
 }
