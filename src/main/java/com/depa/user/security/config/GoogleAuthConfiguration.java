@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 @Configuration
-@Order(Ordered.HIGHEST_PRECEDENCE)
+@Order(1)
 public class GoogleAuthConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
