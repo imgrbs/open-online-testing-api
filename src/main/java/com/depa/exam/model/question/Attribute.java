@@ -1,9 +1,8 @@
 package com.depa.exam.model.question;
 
 
-
 public class Attribute {
-    
+
     private String name;
     private String value;
 
@@ -27,5 +26,5 @@ public class Attribute {
     public String toString() {
         return "Attribute{" + "name=" + name + ", value=" + value + '}';
     }
-    
+
 }

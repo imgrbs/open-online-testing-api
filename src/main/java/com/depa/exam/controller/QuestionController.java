@@ -2,6 +2,7 @@ package com.depa.exam.controller;
 
 import com.depa.exam.dto.QuestionDTO;
 import com.depa.exam.dto.impl.QuestionDTOImpl;
+import com.depa.exam.service.CategoryService;
 import com.depa.exam.service.QuestionService;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,12 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "*")
 public class QuestionController {
+
     @Autowired
     private QuestionService questionService;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @GetMapping("/questions")
     public ResponseEntity<List<QuestionDTO>> getQuestions() {
@@ -27,6 +32,9 @@ public class QuestionController {
     @PostMapping("/question")
     public ResponseEntity<QuestionDTO> createQuestion(@RequestBody QuestionDTOImpl request) {
         QuestionDTO question = questionService.createQuestion(request);
+        question.getCategories().forEach(categoryDTO -> {
+            categoryService.createCategory(categoryDTO);
+        });
         return new ResponseEntity<>(question, HttpStatus.CREATED);
     }
 }
