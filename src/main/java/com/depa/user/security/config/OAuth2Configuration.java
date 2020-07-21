@@ -63,14 +63,13 @@ public class OAuth2Configuration extends WebSecurityConfigurerAdapter {
     }
 
     private ClientRegistration depaClientRegistration() {
-        // TODO: config to get generated token
-        // TODO: config to generate token
         return ClientRegistration.withRegistrationId("depa")
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .clientName("Depa")
                 .clientId("depa-client")
                 .authorizationUri(baseUrl + "/oauth2/auth")
-                .redirectUriTemplate(baseUrl + "/login/oauth2/code/depa")
+                .redirectUriTemplate("{baseUrl}/{action}/oauth2/code/{registrationId}")
+                .tokenUri("{baseUrl}/oauth2/token")
                 .tokenUri(baseUrl + "/oauth2/token")
                 .build();
     }
