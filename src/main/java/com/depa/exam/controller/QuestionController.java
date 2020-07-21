@@ -2,11 +2,10 @@ package com.depa.exam.controller;
 
 import com.depa.exam.dto.QuestionDTO;
 import com.depa.exam.dto.impl.QuestionDTOImpl;
+import com.depa.exam.service.CategoryService;
 import com.depa.exam.service.QuestionService;
-import com.depa.observer.CustomSpringEvent;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -21,10 +20,10 @@ import java.util.List;
 public class QuestionController {
 
     @Autowired
-    private ApplicationEventPublisher applicationEventPublisher;
+    private QuestionService questionService;
 
     @Autowired
-    private QuestionService questionService;
+    private CategoryService categoryService;
 
     @GetMapping("/questions")
     public ResponseEntity<List<QuestionDTO>> getQuestions() {
@@ -35,8 +34,9 @@ public class QuestionController {
     @PostMapping("/question")
     public ResponseEntity<QuestionDTO> createQuestion(@RequestBody QuestionDTOImpl request) {
         QuestionDTO question = questionService.createQuestion(request);
-
-        applicationEventPublisher.publishEvent(new CustomSpringEvent(question, "question_created"));
+        question.getCategories().forEach(categoryDTO -> {
+            categoryService.createCategory(categoryDTO);
+        });
         return new ResponseEntity<>(question, HttpStatus.CREATED);
     }
 }

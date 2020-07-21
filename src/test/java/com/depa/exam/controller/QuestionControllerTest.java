@@ -1,12 +1,13 @@
 package com.depa.exam.controller;
 
+import com.depa.exam.dto.CategoryDTO;
 import com.depa.exam.dto.impl.CategoryDTOImpl;
 import com.depa.exam.dto.QuestionDTO;
 import com.depa.exam.dto.impl.QuestionDTOImpl;
 import com.depa.exam.model.question.SubjectiveQuestion;
 import com.depa.exam.model.question.Question;
+import com.depa.exam.service.CategoryService;
 import com.depa.exam.service.QuestionService;
-import com.depa.observer.CustomSpringEvent;
 import org.hamcrest.CoreMatchers;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -27,16 +28,15 @@ class QuestionControllerTest {
 
     private QuestionController underTest;
     private QuestionService mockQuestionService;
-    private ApplicationEventPublisher mockEventPublisher;
+    private CategoryService mockCategoryService;
 
     @BeforeEach
     void setUp() {
         underTest = new QuestionController();
         mockQuestionService = mockery.mock(QuestionService.class);
         underTest.setQuestionService(mockQuestionService);
-        mockEventPublisher = mockery.mock(ApplicationEventPublisher.class);
-        underTest.setApplicationEventPublisher(mockEventPublisher);
-
+        mockCategoryService = mockery.mock(CategoryService.class);
+        underTest.setCategoryService(mockCategoryService);
     }
 
     @Test
@@ -57,10 +57,11 @@ class QuestionControllerTest {
         CategoryDTOImpl categoryDTO = createCategoryDTO();
         Question question = SubjectiveQuestion.create("1 + 1 = ?", null, Arrays.asList(categoryDTO));
         QuestionDTOImpl request = new QuestionDTOImpl(question);
-        expectedCreateQuestion(request);
+        expectedCreateQuestion(request, categoryDTO);
 
         ResponseEntity<QuestionDTO> result = underTest.createQuestion(request);
 
+        mockery.assertIsSatisfied();
         Assert.assertThat(result.getStatusCode(), CoreMatchers.equalTo(HttpStatus.CREATED));
         Assert.assertThat(result.getBody(), CoreMatchers.equalTo(request));
     }
@@ -73,13 +74,14 @@ class QuestionControllerTest {
         return categoryDTO;
     }
 
-    private void expectedCreateQuestion(QuestionDTO request) {
+    private void expectedCreateQuestion(QuestionDTO request, CategoryDTO categoryDTO) {
         mockery.checking(new Expectations() {
             {
                 oneOf(mockQuestionService).createQuestion(request);
                 will(returnValue(request));
 
-                oneOf(mockEventPublisher).publishEvent(with(any(CustomSpringEvent.class)));
+                oneOf(mockCategoryService).createCategory(categoryDTO);
+                will(returnValue(categoryDTO));
             }
         });
     }
