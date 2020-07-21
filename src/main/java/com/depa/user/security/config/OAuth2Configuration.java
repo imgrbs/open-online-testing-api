@@ -1,20 +1,41 @@
 package com.depa.user.security.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.oauth2.client.CommonOAuth2Provider;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
-import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
-import org.springframework.security.oauth2.core.oidc.IdTokenClaimNames;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
+
+import java.security.interfaces.RSAPublicKey;
 
 @Configuration
 public class OAuth2Configuration extends WebSecurityConfigurerAdapter {
 
+    @Value("${spring.security.oauth2.resourceserver.jwt.key-value}")
+    private RSAPublicKey key;
+
+    @Value("${baseUrl}")
+    private String baseUrl;
+
+    @Value("${google.client-id}")
+    private String googleClientId;
+    @Value("${google.client-secret}")
+    private String googleClientSecret;
+
+    @Value("${facebook.client-id}")
+    private String facebookClientId;
+    @Value("${facebook.client-secret}")
+    private String facebookClientSecret;
+
     private static final String[] WHITELIST = {
+            "/oauth2/**",
             "/exams/**",
             "/questions/**",
     };
@@ -22,6 +43,7 @@ public class OAuth2Configuration extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.httpBasic().disable();
+
         httpSecurity
                 .csrf().disable()
                 .authorizeRequests()
@@ -30,6 +52,8 @@ public class OAuth2Configuration extends WebSecurityConfigurerAdapter {
                 .and()
                 .oauth2Login(oauth -> {
                     oauth.clientRegistrationRepository(this.clientRegistrationRepository());
+                    oauth.defaultSuccessUrl("/oauth2/token");
+                    oauth.failureUrl("/oauth2/failed");
                 });
     }
 
@@ -37,77 +61,36 @@ public class OAuth2Configuration extends WebSecurityConfigurerAdapter {
         return new InMemoryClientRegistrationRepository(
                 this.depaClientRegistration(),
                 this.googleClientRegistration(),
-                this.facebookClientRegistration(),
-                this.twitterClientRegistration()
+                this.facebookClientRegistration()
         );
     }
 
     private ClientRegistration depaClientRegistration() {
+        // TODO: config to get generated token
+        // TODO: config to generate token
         return ClientRegistration.withRegistrationId("depa")
-                .clientId("google-client-id")
-                .clientSecret("google-client-secret")
-                .clientAuthenticationMethod(ClientAuthenticationMethod.POST)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-                .redirectUriTemplate("{baseUrl}/login/oauth2/code/{registrationId}")
-                .scope("openid", "profile", "email", "address", "phone")
-                .authorizationUri("https://accounts.google.com/o/oauth2/v2/auth")
-                .tokenUri("https://www.googleapis.com/oauth2/v4/token")
-                .userInfoUri("https://www.googleapis.com/oauth2/v3/userinfo")
-                .userNameAttributeName(IdTokenClaimNames.SUB)
-                .jwkSetUri("https://www.googleapis.com/oauth2/v3/certs")
                 .clientName("Depa")
+                .clientId("depa-client")
+                .authorizationUri(baseUrl + "/oauth2/auth")
+                .redirectUriTemplate(baseUrl + "/login/oauth2/code/depa")
+                .tokenUri(baseUrl + "/oauth2/token")
                 .build();
     }
 
     private ClientRegistration googleClientRegistration() {
-        return ClientRegistration.withRegistrationId("google")
-                .clientId("google-client-id")
-                .clientSecret("google-client-secret")
-                .clientAuthenticationMethod(ClientAuthenticationMethod.BASIC)
-                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-                .redirectUriTemplate("{baseUrl}/login/oauth2/code/{registrationId}")
-                .scope("openid", "profile", "email", "address", "phone")
-                .authorizationUri("https://accounts.google.com/o/oauth2/v2/auth")
-                .tokenUri("https://www.googleapis.com/oauth2/v4/token")
-                .userInfoUri("https://www.googleapis.com/oauth2/v3/userinfo")
-                .userNameAttributeName(IdTokenClaimNames.SUB)
-                .jwkSetUri("https://www.googleapis.com/oauth2/v3/certs")
-                .clientName("Google")
+        return CommonOAuth2Provider.GOOGLE
+                .getBuilder("google")
+                .clientId(googleClientId)
+                .clientSecret(googleClientSecret)
                 .build();
     }
-
 
     private ClientRegistration facebookClientRegistration() {
-        return ClientRegistration.withRegistrationId("facebook")
-                .clientId("google-client-id")
-                .clientSecret("google-client-secret")
-                .clientAuthenticationMethod(ClientAuthenticationMethod.BASIC)
-                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-                .redirectUriTemplate("{baseUrl}/login/oauth2/code/{registrationId}")
-                .scope("openid", "profile", "email", "address", "phone")
-                .authorizationUri("https://accounts.google.com/o/oauth2/v2/auth")
-                .tokenUri("https://www.googleapis.com/oauth2/v4/token")
-                .userInfoUri("https://www.googleapis.com/oauth2/v3/userinfo")
-                .userNameAttributeName(IdTokenClaimNames.SUB)
-                .jwkSetUri("https://www.googleapis.com/oauth2/v3/certs")
-                .clientName("Facebook")
-                .build();
-    }
-
-    private ClientRegistration twitterClientRegistration() {
-        return ClientRegistration.withRegistrationId("twitter")
-                .clientId("google-client-id")
-                .clientSecret("google-client-secret")
-                .clientAuthenticationMethod(ClientAuthenticationMethod.BASIC)
-                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-                .redirectUriTemplate("{baseUrl}/login/oauth2/code/{registrationId}")
-                .scope("openid", "profile", "email", "address", "phone")
-                .authorizationUri("https://accounts.google.com/o/oauth2/v2/auth")
-                .tokenUri("https://www.googleapis.com/oauth2/v4/token")
-                .userInfoUri("https://www.googleapis.com/oauth2/v3/userinfo")
-                .userNameAttributeName(IdTokenClaimNames.SUB)
-                .jwkSetUri("https://www.googleapis.com/oauth2/v3/certs")
-                .clientName("Twitter")
+        return CommonOAuth2Provider.FACEBOOK
+                .getBuilder("facebook")
+                .clientId(facebookClientId)
+                .clientSecret(facebookClientSecret)
                 .build();
     }
 }
