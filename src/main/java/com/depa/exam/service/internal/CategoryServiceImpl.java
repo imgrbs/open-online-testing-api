@@ -36,8 +36,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     private Category buildCategory(CategoryDTO category, Optional<Category> categoryFromDB) {
-        Category categoryForSave;
-        categoryForSave = categoryBuilder
+        Category categoryForSave = categoryBuilder
                 .id(categoryFromDB.get().getId())
                 .label(category.getLabel())
                 .backgroundColor(category.getBackgroundColor())
