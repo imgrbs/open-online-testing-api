@@ -12,24 +12,24 @@ public interface QuestionDTO {
 
     Question toQuestion();
 
-    void setName(String name);
-
-    void setType(QuestionType type);
-
-    void setAttributes(List<Attribute> attributes);
-
-    void setChoices(List<Choice> choices);
-
-    void setCategories(List<CategoryDTOImpl> categories);
-
     String getName();
+
+    void setName(String name);
 
     QuestionType getType();
 
+    void setType(QuestionType type);
+
     List<Attribute> getAttributes();
+
+    void setAttributes(List<Attribute> attributes);
 
     List<Choice> getChoices();
 
+    void setChoices(List<Choice> choices);
+
     List<CategoryDTOImpl> getCategories();
+
+    void setCategories(List<CategoryDTOImpl> categories);
 
 }

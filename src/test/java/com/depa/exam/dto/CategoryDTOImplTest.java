@@ -1,6 +1,5 @@
 package com.depa.exam.dto;
 
-import com.depa.exam.dto.CategoryDTO;
 import com.depa.exam.dto.impl.CategoryDTOImpl;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;

@@ -15,9 +15,9 @@ class ExamDTOTest {
     public void testCreateFormDTO() {
         ExamDTO underTest = new ExamDTOImpl();
 
-        Assert.assertThat(underTest.getName(),CoreMatchers.nullValue());
-        Assert.assertThat(underTest.getDescription(),CoreMatchers.nullValue());
-        Assert.assertThat(underTest.getQuestions(),CoreMatchers.nullValue());
+        Assert.assertThat(underTest.getName(), CoreMatchers.nullValue());
+        Assert.assertThat(underTest.getDescription(), CoreMatchers.nullValue());
+        Assert.assertThat(underTest.getQuestions(), CoreMatchers.nullValue());
     }
 
     @Test

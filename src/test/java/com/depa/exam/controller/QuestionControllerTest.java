@@ -1,11 +1,11 @@
 package com.depa.exam.controller;
 
 import com.depa.exam.dto.CategoryDTO;
-import com.depa.exam.dto.impl.CategoryDTOImpl;
 import com.depa.exam.dto.QuestionDTO;
+import com.depa.exam.dto.impl.CategoryDTOImpl;
 import com.depa.exam.dto.impl.QuestionDTOImpl;
-import com.depa.exam.model.question.SubjectiveQuestion;
 import com.depa.exam.model.question.Question;
+import com.depa.exam.model.question.SubjectiveQuestion;
 import com.depa.exam.service.CategoryService;
 import com.depa.exam.service.QuestionService;
 import org.hamcrest.CoreMatchers;
@@ -15,7 +15,6 @@ import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -24,7 +23,7 @@ import java.util.Arrays;
 import java.util.List;
 
 class QuestionControllerTest {
-    private Mockery mockery = new JUnit4Mockery();
+    private final Mockery mockery = new JUnit4Mockery();
 
     private QuestionController underTest;
     private QuestionService mockQuestionService;
@@ -87,7 +86,7 @@ class QuestionControllerTest {
     }
 
     private void expectedGetQuestions(QuestionDTO expectedQuestionDTO) {
-        mockery.checking(new Expectations(){
+        mockery.checking(new Expectations() {
             {
                 oneOf(mockQuestionService).getQuestions();
                 will(returnValue(Arrays.asList(expectedQuestionDTO)));

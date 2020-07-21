@@ -1,6 +1,6 @@
 package com.depa.exam.model;
 
-import                                      com.depa.exam.model.question.ObjectiveQuestion;
+import com.depa.exam.model.question.ObjectiveQuestion;
 import com.depa.exam.model.question.Question;
 import com.depa.exam.model.question.QuestionType;
 import com.depa.exam.model.question.SubjectiveQuestion;

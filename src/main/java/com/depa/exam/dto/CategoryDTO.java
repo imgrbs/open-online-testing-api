@@ -7,17 +7,17 @@ public interface CategoryDTO {
 
     ObjectId getId();
 
-    String getLabel();
-
-    String getBackgroundColor();
-
-    String getColor();
-
     void setId(ObjectId id);
+
+    String getLabel();
 
     void setLabel(String history);
 
+    String getBackgroundColor();
+
     void setBackgroundColor(String s);
+
+    String getColor();
 
     void setColor(String s);
 

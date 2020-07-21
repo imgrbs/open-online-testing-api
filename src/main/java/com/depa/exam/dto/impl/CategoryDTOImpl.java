@@ -28,10 +28,10 @@ public class CategoryDTOImpl implements CategoryDTO {
     public Category toCategory() {
         CategoryBuilder builder = new Category.Builder();
         return builder
-            .id(this.id)
-            .label(this.label)
-            .backgroundColor(this.backgroundColor)
-            .color(this.color)
-            .build();
+                .id(this.id)
+                .label(this.label)
+                .backgroundColor(this.backgroundColor)
+                .color(this.color)
+                .build();
     }
 }

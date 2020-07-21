@@ -1,8 +1,8 @@
 package com.depa.exam.model;
 
+import com.depa.exam.dto.ExamDTO;
 import com.depa.exam.dto.impl.ExamDTOImpl;
 import com.depa.exam.dto.impl.QuestionDTOImpl;
-import com.depa.exam.dto.ExamDTO;
 import com.depa.exam.model.exam.Exam;
 import com.depa.exam.model.question.QuestionType;
 import org.hamcrest.CoreMatchers;

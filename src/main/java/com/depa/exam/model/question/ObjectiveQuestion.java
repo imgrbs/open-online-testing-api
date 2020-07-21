@@ -34,5 +34,4 @@ public class ObjectiveQuestion extends Question {
         this.choices = choices;
     }
 
-    
 }

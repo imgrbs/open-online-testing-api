@@ -19,11 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 class ExamControllerTest {
-    private Mockery mockery = new JUnit4Mockery();
-
+    public static final String RAW_ID = "5f03163c00657756d47d0884";
+    private final Mockery mockery = new JUnit4Mockery();
     private ExamController underTest;
     private ExamService mockExamService;
-    public static final String RAW_ID = "5f03163c00657756d47d0884";
 
     @BeforeEach
     void setUp() {
