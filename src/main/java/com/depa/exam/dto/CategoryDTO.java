@@ -1,6 +1,6 @@
-package com.depa.category.dto;
+package com.depa.exam.dto;
 
-import com.depa.category.model.Category;
+import com.depa.exam.model.category.Category;
 import org.bson.types.ObjectId;
 
 public interface CategoryDTO {

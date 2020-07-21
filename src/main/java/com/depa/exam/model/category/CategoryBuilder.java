@@ -1,4 +1,4 @@
-package com.depa.category.model;
+package com.depa.exam.model.category;
 
 import org.bson.types.ObjectId;
 

@@ -1,8 +1,6 @@
 package com.depa.exam.controller;
 
-import com.depa.category.dto.CategoryDTO;
-import com.depa.category.dto.impl.CategoryDTOImpl;
-import com.depa.category.service.CategoryService;
+import com.depa.exam.dto.impl.CategoryDTOImpl;
 import com.depa.exam.dto.QuestionDTO;
 import com.depa.exam.dto.impl.QuestionDTOImpl;
 import com.depa.exam.model.question.SubjectiveQuestion;

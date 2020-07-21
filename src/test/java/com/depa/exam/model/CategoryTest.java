@@ -1,5 +1,6 @@
-package com.depa.category.model;
+package com.depa.exam.model;
 
+import com.depa.exam.model.category.Category;
 import org.bson.types.ObjectId;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;

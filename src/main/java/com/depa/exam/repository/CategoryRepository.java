@@ -1,6 +1,6 @@
-package com.depa.category.repository;
+package com.depa.exam.repository;
 
-import com.depa.category.model.Category;
+import com.depa.exam.model.category.Category;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 

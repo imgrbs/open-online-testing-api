@@ -1,11 +1,11 @@
-package com.depa.category.service.internal;
+package com.depa.exam.service.internal;
 
-import com.depa.category.dto.CategoryDTO;
-import com.depa.category.dto.impl.CategoryDTOImpl;
-import com.depa.category.model.Category;
-import com.depa.category.model.CategoryBuilder;
-import com.depa.category.repository.CategoryRepository;
-import com.depa.category.service.CategoryService;
+import com.depa.exam.dto.CategoryDTO;
+import com.depa.exam.dto.impl.CategoryDTOImpl;
+import com.depa.exam.model.category.Category;
+import com.depa.exam.model.category.CategoryBuilder;
+import com.depa.exam.repository.CategoryRepository;
+import com.depa.exam.service.CategoryService;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

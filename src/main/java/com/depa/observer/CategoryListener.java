@@ -1,6 +1,6 @@
 package com.depa.observer;
 
-import com.depa.category.service.CategoryService;
+import com.depa.exam.service.CategoryService;
 import com.depa.exam.dto.impl.QuestionDTOImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;

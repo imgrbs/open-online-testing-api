@@ -1,8 +1,8 @@
-package com.depa.category.dto.impl;
+package com.depa.exam.dto.impl;
 
-import com.depa.category.dto.CategoryDTO;
-import com.depa.category.model.Category;
-import com.depa.category.model.CategoryBuilder;
+import com.depa.exam.dto.CategoryDTO;
+import com.depa.exam.model.category.Category;
+import com.depa.exam.model.category.CategoryBuilder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

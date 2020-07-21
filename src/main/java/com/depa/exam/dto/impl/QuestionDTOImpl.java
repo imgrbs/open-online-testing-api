@@ -1,8 +1,5 @@
 package com.depa.exam.dto.impl;
 
-import com.depa.category.dto.CategoryDTO;
-import com.depa.category.dto.impl.CategoryDTOImpl;
-import com.depa.category.model.Category;
 import com.depa.exam.dto.QuestionDTO;
 import com.depa.exam.model.question.*;
 import lombok.AllArgsConstructor;

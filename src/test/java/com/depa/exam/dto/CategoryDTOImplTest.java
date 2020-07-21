@@ -1,6 +1,7 @@
-package com.depa.category.dto.impl;
+package com.depa.exam.dto;
 
-import com.depa.category.dto.CategoryDTO;
+import com.depa.exam.dto.CategoryDTO;
+import com.depa.exam.dto.impl.CategoryDTOImpl;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;

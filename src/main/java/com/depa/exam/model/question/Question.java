@@ -1,7 +1,6 @@
 package com.depa.exam.model.question;
 
-import com.depa.category.dto.CategoryDTO;
-import com.depa.category.dto.impl.CategoryDTOImpl;
+import com.depa.exam.dto.impl.CategoryDTOImpl;
 import lombok.*;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;

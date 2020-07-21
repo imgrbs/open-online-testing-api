@@ -1,9 +1,9 @@
-package com.depa.category.service;
+package com.depa.exam.service;
 
-import com.depa.category.dto.CategoryDTO;
-import com.depa.category.model.Category;
-import com.depa.category.model.CategoryBuilder;
-import com.depa.category.repository.CategoryRepository;
+import com.depa.exam.dto.CategoryDTO;
+import com.depa.exam.model.category.Category;
+import com.depa.exam.model.category.CategoryBuilder;
+import com.depa.exam.repository.CategoryRepository;
 
 import java.util.List;
 
