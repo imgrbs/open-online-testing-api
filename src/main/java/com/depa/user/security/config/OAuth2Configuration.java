@@ -18,9 +18,6 @@ import java.security.interfaces.RSAPublicKey;
 @Configuration
 public class OAuth2Configuration extends WebSecurityConfigurerAdapter {
 
-    @Value("${spring.security.oauth2.resourceserver.jwt.key-value}")
-    private RSAPublicKey key;
-
     @Value("${baseUrl}")
     private String baseUrl;
 
