@@ -15,5 +15,4 @@ class CategoryDTOImplTest {
         Assert.assertThat(categoryDTO.getColor(), CoreMatchers.nullValue());
     }
 
-
 }
