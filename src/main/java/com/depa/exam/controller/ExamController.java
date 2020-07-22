@@ -2,6 +2,7 @@ package com.depa.exam.controller;
 
 import com.depa.exam.dto.ExamDTO;
 import com.depa.exam.dto.impl.ExamDTOImpl;
+import com.depa.exam.service.CategoryService;
 import com.depa.exam.service.ExamService;
 import lombok.Setter;
 import org.bson.types.ObjectId;
@@ -20,9 +21,15 @@ public class ExamController {
     @Autowired
     private ExamService examService;
 
+    @Autowired
+    private CategoryService categoryService;
+
     @PostMapping("/exam")
     public ResponseEntity<ExamDTO> createExam(@RequestBody ExamDTOImpl exam) {
         ExamDTO response = examService.createExam(exam);
+        response.getCategories().forEach(categoryDTO -> {
+            categoryService.createCategory(categoryDTO);
+        });
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 

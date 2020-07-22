@@ -20,4 +20,8 @@ public interface ExamDTO {
     List<QuestionDTOImpl> getQuestions();
 
     void setQuestions(List<QuestionDTOImpl> questions);
+
+    List<CategoryDTO> getCategories();
+
+    void setCategories(List<CategoryDTO> categories);
 }

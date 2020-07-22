@@ -42,6 +42,7 @@ class ExamServiceImplTest {
         Assert.assertThat(actual.getName(), CoreMatchers.equalTo("Interview 2020"));
         Assert.assertThat(actual.getDescription(), CoreMatchers.equalTo("Interviewing new jobbers."));
         Assert.assertThat(actual.getQuestions().size(), CoreMatchers.equalTo(0));
+        Assert.assertThat(actual.getCategories().size(), CoreMatchers.equalTo(0));
     }
 
     private void expectedToExam(ExamDTO examDTO, Exam exam) {
@@ -82,6 +83,7 @@ class ExamServiceImplTest {
         Assert.assertThat(actualExam.getName(), CoreMatchers.equalTo(expectedExam.getName()));
         Assert.assertThat(actualExam.getDescription(), CoreMatchers.equalTo(expectedExam.getDescription()));
         Assert.assertThat(actualExam.getName(), CoreMatchers.equalTo(expectedExam.getName()));
+        Assert.assertThat(actualExam.getCategories().size(), CoreMatchers.equalTo(0));
     }
 
     private void expectedGetFormByUid(ObjectId id, Exam expectedExam) {
@@ -106,6 +108,7 @@ class ExamServiceImplTest {
         Assert.assertThat(actualExams.get(0).getName(), CoreMatchers.equalTo(exam.getName()));
         Assert.assertThat(actualExams.get(0).getDescription(), CoreMatchers.equalTo(exam.getDescription()));
         Assert.assertThat(actualExams.get(0).getQuestions().size(), CoreMatchers.equalTo(exam.getQuestions().size()));
+        Assert.assertThat(actualExams.get(0).getCategories().size(), CoreMatchers.equalTo(0));
     }
 
     private void expectFindAll(List<Exam> expectedExams) {
