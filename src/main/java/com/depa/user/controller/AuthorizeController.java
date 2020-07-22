@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.Map;
 
 @RestController
@@ -47,6 +48,11 @@ public class AuthorizeController {
             return loginFailed();
         }
         return new ResponseEntity<>(tokenService.getToken(), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/token")
+    public ResponseEntity principal(Principal principal) {
+        return new ResponseEntity<>(principal, HttpStatus.OK);
     }
 
     @GetMapping(value = "/failed")
