@@ -34,9 +34,9 @@ pipeline {
         }
 
         stage('Input Data For Production') {
-            when {
-                branch 'master'
-            }
+            // when {
+            //     branch 'master'
+            // }
 
             steps {
                 script {
