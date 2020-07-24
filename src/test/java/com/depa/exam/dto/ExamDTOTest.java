@@ -28,12 +28,13 @@ class ExamDTOTest {
         Assert.assertThat(underTest.getName(), CoreMatchers.nullValue());
         Assert.assertThat(underTest.getDescription(), CoreMatchers.nullValue());
         Assert.assertThat(underTest.getQuestions().size(), CoreMatchers.equalTo(0));
+        Assert.assertThat(underTest.getCategories().size(), CoreMatchers.equalTo(0));
     }
 
     @Test
     void testToExam() {
         ObjectId id = new ObjectId("5f03163c00657756d47d0884");
-        Exam exam = new Exam(id, "exam name", "exam description", new ArrayList<>());
+        Exam exam = new Exam(id, "exam name", "exam description", new ArrayList<>(), new ArrayList<>());
         ExamDTOImpl underTest = new ExamDTOImpl(exam);
 
         Exam actual = underTest.toExam();
