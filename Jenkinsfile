@@ -9,6 +9,8 @@ pipeline {
         AZ_AKZ_PASSWORD = credentials('AZ_AKZ_PASSWORD')
         AZ_AKZ_TENANT = credentials('AZ_AKZ_TENANT')
         MONGO_PASWORD = credentials('DEPA_MONGO_PASWORD')
+        FACEBOOK_ID = credentials('DEPA_FACEBOOK_ID')
+        FACEBOOK_SECRET = credentials('DEPA_FACEBOOK_SECRET')
         GOOGLE_ID = credentials('DEPA_GOOGLE_ID')
         GOOGLE_SECRET = credentials('DEPA_GOOGLE_SECRET')
         CONTAINER_IMAGE = 'dev/depa-backend'
@@ -163,6 +165,8 @@ pipeline {
                     sh "sed -i 's/ENV_BUILD_ID/${env.TAG_VERSION}/g' ${env.K8S_DEPLOY_YAML_PROFILE}"
                     // กำหนด Env Dependecy/ Infra/ DB
                     sh "sed -i 's/ENV_MONGO_PASSWORD/${MONGO_PASWORD}/g' ${env.K8S_DEPLOY_YAML_PROFILE}"
+                    sh "sed -i 's/ENV_FACEBOOK_ID/${GOOGLE_ID}/g' ${env.K8S_DEPLOY_YAML_PROFILE}"
+                    sh "sed -i 's/ENV_FACEBOOK_SECRET/${GOOGLE_SECRET}/g' ${env.K8S_DEPLOY_YAML_PROFILE}"
                     sh "sed -i 's/ENV_GOOGLE_ID/${GOOGLE_ID}/g' ${env.K8S_DEPLOY_YAML_PROFILE}"
                     sh "sed -i 's/ENV_GOOGLE_SECRET/${GOOGLE_SECRET}/g' ${env.K8S_DEPLOY_YAML_PROFILE}"
                     // สั่ง apply resource ไปยัง K8S
