@@ -33,3 +33,5 @@ build/
 
 ### VS Code ###
 .vscode/
+local-storage.json
+k8s-ingress.yaml
