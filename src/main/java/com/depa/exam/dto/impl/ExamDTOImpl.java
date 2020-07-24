@@ -19,7 +19,7 @@ public class ExamDTOImpl implements ExamDTO {
     private String name;
     private String description;
     private List<QuestionDTOImpl> questions;
-    private List<CategoryDTO> categories;
+    private List<CategoryDTOImpl> categories;
 
     public ExamDTOImpl(Exam exam) {
         this.id = exam.getId();

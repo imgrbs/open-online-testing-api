@@ -30,7 +30,7 @@ class ExamTest {
     @Test
     public void testCreateExamWithExamDTO() {
         List<QuestionDTOImpl> questions = createQuestions();
-        List<CategoryDTO> categories = Arrays.asList(new CategoryDTOImpl());
+        List<CategoryDTOImpl> categories = Arrays.asList(new CategoryDTOImpl());
 
         ExamDTO examDTO = new ExamDTOImpl();
         examDTO.setQuestions(questions);

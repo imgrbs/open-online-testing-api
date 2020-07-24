@@ -40,7 +40,7 @@ class ExamControllerTest {
 
     @Test
     void testCreateExam() {
-        CategoryDTO categoryDTO = createCategoryDTO();
+        CategoryDTOImpl categoryDTO = createCategoryDTO();
         Exam exam = createExam(Arrays.asList(categoryDTO));
         ExamDTOImpl examDTO = createExamDTO(exam);
         expectCreateExam(examDTO, categoryDTO);
@@ -59,8 +59,8 @@ class ExamControllerTest {
         Assert.assertThat(actualExam.getCategories().get(0), CoreMatchers.equalTo(categoryDTO));
     }
 
-    private CategoryDTO createCategoryDTO() {
-        CategoryDTO categoryDTO = new CategoryDTOImpl();
+    private CategoryDTOImpl createCategoryDTO() {
+        CategoryDTOImpl categoryDTO = new CategoryDTOImpl();
         categoryDTO.setId(new ObjectId());
         categoryDTO.setLabel("history");
         categoryDTO.setBackgroundColor("#000000");
@@ -68,7 +68,7 @@ class ExamControllerTest {
         return categoryDTO;
     }
 
-    private Exam createExam(List<CategoryDTO> categories) {
+    private Exam createExam(List<CategoryDTOImpl> categories) {
         return new Exam(new ObjectId(RAW_ID), "Exam Set 1", "Set A", new ArrayList<>(), categories);
     }
 
