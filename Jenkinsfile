@@ -40,6 +40,7 @@ pipeline {
             //     branch 'master'
             // }
 
+
             steps {
                 script {
                     def git_tags = sh(script: 'git tag | sort -r', returnStdout: true)
@@ -132,9 +133,11 @@ pipeline {
                     sh "pwd"
                     def COMMIT_MESSAGE = sh(script: 'git log -1 --pretty=%B', returnStdout: true).trim()
                     // replace อักขระพิเศษออกไปป้องกัน sed มีปัญหา
+
                     env.COMMIT_MESSAGE = COMMIT_MESSAGE.replaceAll("(\')|(\")|(/)|(\\\\)|(\\()|(\\))", "")
                     env.BUILD_BRANCH = env.BUILD_BRANCH.replaceAll("(\')|(\")|(/)|(\\\\)|(\\()|(\\))", "\\\\/")
                     sh "echo ${env.COMMIT_MESSAGE}"
+                  
                     sh "echo ============ AKS Credential ==============="
                     sh "az login --service-principal -u ${AZ_AKZ_USER} -p ${AZ_AKZ_PASSWORD} -t ${AZ_AKZ_TENANT}"
                     // ติดตั้ง AKS CLI บน Azure CLI Container เพื่อให้ใช้คำสั่ง K8S ได้
@@ -169,6 +172,7 @@ pipeline {
                     sh "sed -i 's/ENV_FACEBOOK_SECRET/${GOOGLE_SECRET}/g' ${env.K8S_DEPLOY_YAML_PROFILE}"
                     sh "sed -i 's/ENV_GOOGLE_ID/${GOOGLE_ID}/g' ${env.K8S_DEPLOY_YAML_PROFILE}"
                     sh "sed -i 's/ENV_GOOGLE_SECRET/${GOOGLE_SECRET}/g' ${env.K8S_DEPLOY_YAML_PROFILE}"
+
                     // สั่ง apply resource ไปยัง K8S
                     sh "echo =========================================="
                     sh "echo ============ Deploy to Kubernetes to ${env.SERVER_ENVIRONMENT} API ============="
