@@ -1,21 +1,18 @@
 apiVersion: v1
 kind: Service
 metadata:
-  # annotations:
-  #   service.beta.kubernetes.io/azure-load-balancer-resource-group: "Elasticsearch-Stack"
-  #   service.beta.kubernetes.io/azure-dns-label-name: api
-  name: spring-random-pod-service
+  name: depa-backend-service
   labels:
-    app: spring-random-pod
+    app: depa-backend
     version: dev
 spec:
-  # loadBalancerIP: 20.44.211.173
   type: ClusterIP
   selector:
-    app: spring-random-pod
+    app: depa-backend
     version: dev
   ports:
-  - protocol: TCP
+  - name: https
+    protocol: TCP
     port: 80
     targetPort: 8080
 

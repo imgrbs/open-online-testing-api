@@ -1,29 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: spring-random-pod-deployment
+  name: depa-backend-deployment
   annotations:
     kubernetes.io/change-cause: "ENV_CHANGE_CAUSE_MESSAGE"
   labels:
-    app: spring-random-pod
+    app: depa-backend
     version: dev
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: spring-random-pod
+      app: depa-backend
       version: dev
   template:
     metadata:
       labels:
-        app: spring-random-pod
+        app: depa-backend
         version: dev
     spec:
       imagePullSecrets:
        - name: ntt-azure-registry
       containers:
-      - name: spring-random-pod
-        image: AZ_CONTAINER_REGISTRY_URL/dev/spring-random-pod:IMAGE_BUILD_ID
+      - name: depa-backend
+        image: AZ_CONTAINER_REGISTRY_URL/dev/depa-backend:IMAGE_BUILD_ID
         readinessProbe:
           tcpSocket:
             port: 8080
@@ -35,6 +35,16 @@ spec:
           value: "ENV_GIT_BRANCH"
         - name: VERSION
           value: "ENV_BUILD_ID"
+        - name: MONGO_PASSWORD
+          value: "ENV_MONGO_PASSWORD"
+        - name: FACEBOOK_ID
+          value: "ENV_FACEBOOK_ID"
+        - name: FACEBOOK_SECRET
+          value: "ENV_FACEBOOK_SECRET"
+        - name: GOOGLE_ID
+          value: "ENV_GOOGLE_ID"
+        - name: GOOGLE_SECRET
+          value: "ENV_GOOGLE_SECRET"
         resources:
           limits:
             memory: "256Mi"
