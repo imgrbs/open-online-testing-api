@@ -80,18 +80,18 @@ pipeline {
         }
 
         stage('Build Docker') {
-            when {
-                anyOf {
-                    branch 'master'
-                    branch 'dev'
-                }
-            }
+            // when {
+            //     anyOf {
+            //         branch 'master'
+            //         branch 'dev'
+            //     }
+            // }
 
             steps {
                 script {
                     sh 'echo ============= Build Docker Image and Push ==================='
                     unstash 'java-artifact'
-                    def FULL_CONTAINER_IMAGE_PATH = "${AZ_CONTAINER_REGISTRY_URL}/${CONTAINER_IMAGE}:${env.BUILD_BRANCH}${env.TAG_VERSION}"
+                    def FULL_CONTAINER_IMAGE_PATH = "${AZ_CONTAINER_REGISTRY_URL}/${CONTAINER_IMAGE}:${env.TAG_VERSION}"
                     env.FULL_CONTAINER_IMAGE_PATH = FULL_CONTAINER_IMAGE_PATH.replaceAll('/', "\\\\/")
                     docker.withRegistry("https://${AZ_CONTAINER_REGISTRY_URL}", '77ae6c02-d40b-4bae-82bf-ade4eeff03e3') {
                         def newApp = docker.build "${env.FULL_CONTAINER_IMAGE_PATH}"
