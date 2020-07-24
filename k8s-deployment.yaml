@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: depa-backend-deployment
+  annotations:
+    kubernetes.io/change-cause: "ENV_CHANGE_CAUSE_MESSAGE"
+  labels:
+    app: depa-backend
+    version: dev
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: depa-backend
+      version: dev
+  template:
+    metadata:
+      labels:
+        app: depa-backend
+        version: dev
+    spec:
+      imagePullSecrets:
+       - name: ntt-azure-registry
+      containers:
+      - name: depa-backend
+        image: AZ_CONTAINER_REGISTRY_URL/dev/depa-backend:IMAGE_BUILD_ID
+        readinessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 5
+        env:
+        - name: SERVER_ENVIRONMENT
+          value: "ENV_SERVER_ENVIRONMENT"
+        - name: BRANCH
+          value: "ENV_GIT_BRANCH"
+        - name: VERSION
+          value: "ENV_BUILD_ID"
+        - name: MONGO_PASSWORD
+          value: "ENV_MONGO_PASSWORD"
+        - name: GOOGLE_ID
+          value: "ENV_GOOGLE_ID"
+        - name: GOOGLE_SECRET
+          value: "ENV_GOOGLE_SECRET"
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+        ports:
+          - containerPort: 8080

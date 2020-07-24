@@ -102,7 +102,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <systemPropertyVariables>
-                        <mongo_password>mock</mongo_password>
+                        <MONGO_PASSWORD>mock</MONGO_PASSWORD>
                         <FACEBOOK_SECRET>mock</FACEBOOK_SECRET>
                         <FACEBOOK_ID>mock</FACEBOOK_ID>
                         <GOOGLE_ID>mock</GOOGLE_ID>
