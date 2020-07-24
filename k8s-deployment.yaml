@@ -37,6 +37,10 @@ spec:
           value: "ENV_BUILD_ID"
         - name: MONGO_PASSWORD
           value: "ENV_MONGO_PASSWORD"
+        - name: FACEBOOK_ID
+          value: "ENV_FACEBOOK_ID"
+        - name: FACEBOOK_SECRET
+          value: "ENV_FACEBOOK_SECRET"
         - name: GOOGLE_ID
           value: "ENV_GOOGLE_ID"
         - name: GOOGLE_SECRET
