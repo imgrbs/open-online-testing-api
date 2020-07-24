@@ -8,6 +8,9 @@ pipeline {
         AZ_AKZ_USER = credentials('AZ_AKZ_USER')
         AZ_AKZ_PASSWORD = credentials('AZ_AKZ_PASSWORD')
         AZ_AKZ_TENANT = credentials('AZ_AKZ_TENANT')
+        MONGO_PASWORD = credentials('DEPA_MONGO_PASWORD')
+        GOOGLE_ID = credentials('DEPA_GOOGLE_ID')
+        GOOGLE_SECRET = credentials('DEPA_GOOGLE_SECRET')
         CONTAINER_IMAGE = 'dev/depa-backend'
         AZ_AKS_NAME = "kube-devops"
         AZ_AKS_RESOUCE_GROUP = "Elasticsearch-Stack"
@@ -157,6 +160,10 @@ pipeline {
                     sh "sed -i 's/ENV_SERVER_ENVIRONMENT/${env.SERVER_ENVIRONMENT}/g' ${env.K8S_DEPLOY_YAML_PROFILE}"
                     sh "sed -i 's/ENV_GIT_BRANCH/${GIT_BRANCH}/g' ${env.K8S_DEPLOY_YAML_PROFILE}"
                     sh "sed -i 's/ENV_BUILD_ID/${env.TAG_VERSION}/g' ${env.K8S_DEPLOY_YAML_PROFILE}"
+                    // กำหนด Env Dependecy/ Infra/ DB
+                    sh "sed -i 's/ENV_MONGO_PASSWORD/${MONGO_PASWORD}/g' ${env.K8S_DEPLOY_YAML_PROFILE}"
+                    sh "sed -i 's/ENV_GOOGLE_ID/${GOOGLE_ID}/g' ${env.K8S_DEPLOY_YAML_PROFILE}"
+                    sh "sed -i 's/ENV_GOOGLE_SECRET/${GOOGLE_SECRET}/g' ${env.K8S_DEPLOY_YAML_PROFILE}"
                     // สั่ง apply resource ไปยัง K8S
                     sh "echo =========================================="
                     sh "echo ============ Deploy to Kubernetes to ${env.SERVER_ENVIRONMENT} API ============="
