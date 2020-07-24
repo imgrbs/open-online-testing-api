@@ -131,6 +131,7 @@ pipeline {
                     def COMMIT_MESSAGE = sh(script: 'git log -1 --pretty=%B', returnStdout: true).trim()
                     // replace อักขระพิเศษออกไปป้องกัน sed มีปัญหา
                     env.COMMIT_MESSAGE = COMMIT_MESSAGE.replaceAll("(\')|(\")|(/)|(\\\\)|(\\()|(\\))", '')
+                    env.BUILD_BRANCH = env.BUILD_BRANCH.replaceAll("(\')|(\")|(/)|(\\\\)|(\\()|(\\))", '\/')
                     sh "echo ${env.COMMIT_MESSAGE}"
                     sh "echo ============ AKS Credential ==============="
                     sh "az login --service-principal -u ${AZ_AKZ_USER} -p ${AZ_AKZ_PASSWORD} -t ${AZ_AKZ_TENANT}"
