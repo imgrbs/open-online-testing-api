@@ -159,7 +159,7 @@ pipeline {
                     sh "sed -i 's/ENV_CHANGE_CAUSE_MESSAGE/[IMAGE] ${env.FULL_CONTAINER_IMAGE_PATH} - ${env.COMMIT_MESSAGE}/g' ${env.K8S_DEPLOY_YAML_PROFILE}"
                      // กำหนด env ของ pod ให้ทุกตัวนำด้วย ENV_
                     sh "sed -i 's/ENV_SERVER_ENVIRONMENT/${env.SERVER_ENVIRONMENT}/g' ${env.K8S_DEPLOY_YAML_PROFILE}"
-                    sh "sed -i 's/ENV_GIT_BRANCH/${GIT_BRANCH}/g' ${env.K8S_DEPLOY_YAML_PROFILE}"
+                    sh "sed -i 's/ENV_GIT_BRANCH/${env.BUILD_BRANCH}/g' ${env.K8S_DEPLOY_YAML_PROFILE}"
                     sh "sed -i 's/ENV_BUILD_ID/${env.TAG_VERSION}/g' ${env.K8S_DEPLOY_YAML_PROFILE}"
                     // กำหนด Env Dependecy/ Infra/ DB
                     sh "sed -i 's/ENV_MONGO_PASSWORD/${MONGO_PASWORD}/g' ${env.K8S_DEPLOY_YAML_PROFILE}"
