@@ -2,6 +2,7 @@ package com.depa.exam.model.exam;
 
 import com.depa.exam.dto.CategoryDTO;
 import com.depa.exam.dto.ExamDTO;
+import com.depa.exam.dto.impl.CategoryDTOImpl;
 import com.depa.exam.model.question.Question;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,7 +29,7 @@ public class Exam {
 
     private List<Question> questions;
 
-    private List<CategoryDTO> categories = new ArrayList<>();
+    private List<CategoryDTOImpl> categories = new ArrayList<>();
 
     public Exam(ExamDTO examDTO) {
         this.name = examDTO.getName();

@@ -1,5 +1,6 @@
 package com.depa.exam.dto;
 
+import com.depa.exam.dto.impl.CategoryDTOImpl;
 import com.depa.exam.dto.impl.QuestionDTOImpl;
 import com.depa.exam.model.exam.Exam;
 
@@ -21,7 +22,7 @@ public interface ExamDTO {
 
     void setQuestions(List<QuestionDTOImpl> questions);
 
-    List<CategoryDTO> getCategories();
+    List<CategoryDTOImpl> getCategories();
 
-    void setCategories(List<CategoryDTO> categories);
+    void setCategories(List<CategoryDTOImpl> categories);
 }
