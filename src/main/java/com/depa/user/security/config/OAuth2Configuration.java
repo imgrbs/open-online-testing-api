@@ -53,8 +53,8 @@ public class OAuth2Configuration extends WebSecurityConfigurerAdapter {
     public ClientRegistrationRepository clientRegistrationRepository() {
         return new InMemoryClientRegistrationRepository(
                 this.depaClientRegistration(),
-                this.googleClientRegistration(),
-                this.facebookClientRegistration()
+                this.googleClientRegistration()
+                // this.facebookClientRegistration()
         );
     }
 
