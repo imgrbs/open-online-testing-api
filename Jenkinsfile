@@ -147,7 +147,7 @@ pipeline {
                     // จะ Hold การ Auto Deploy เมื่อการบิ้วแล้วส่งไปยังเครื่องนั้นตรงกับชื่อเคร่องที่ Hold ไว้ (เพราะสำคัญห้าม Auto Deploy)
                     if ("${env.SERVER_ENVIRONMENT}" == "${PRODUCTION_SERVER}"){
                         // จะถามยืนยันก่อน Deploy ถ้าเป็น master build 
-                         timeout(time: 2, unit: 'HOURS') {
+                         timeout(time: 1, unit: 'HOURS') {
                             input message: 'Approve Deploy to Production?', ok: 'Yes'
                         }
                         env.K8S_DEPLOY_YAML_PROFILE = "k8s-deployment-production.yaml"
