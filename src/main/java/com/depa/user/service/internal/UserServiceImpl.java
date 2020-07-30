@@ -15,7 +15,7 @@ public class UserServiceImpl implements UserService {
     private final RestTemplate restTemplate;
     private Map<String, String> authAttributes;
 
-    public UserServiceImpl(RestTemplateBuilder restTemplateBuilder){
+    public UserServiceImpl(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplate = restTemplateBuilder.build();
     }
 
@@ -29,15 +29,15 @@ public class UserServiceImpl implements UserService {
         return this.authAttributes.get("email");
     }
 
-    public UserImpl getUser(Authentication authentication){
+    public UserImpl getUser(Authentication authentication) {
         mapAuthentication(authentication);
         String displayName = getDisplayName();
         String email = getEmail();
-        UserImpl user = new UserImpl(email,displayName);
+        UserImpl user = new UserImpl(1L, email, displayName);
         return user;
     }
 
-    private void mapAuthentication(Authentication authentication){
+    private void mapAuthentication(Authentication authentication) {
         Object[] objects = authentication.getAuthorities().toArray();
         ObjectMapper oMapper = new ObjectMapper();
         Map<String, Object> mapped = oMapper.convertValue(objects[0], Map.class);

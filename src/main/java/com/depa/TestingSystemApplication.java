@@ -1,12 +1,11 @@
 package com.depa;
 
+import com.depa.user.security.config.AppProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
-//@EnableResourceServer
-//@EnableAuthorizationServer
+@EnableConfigurationProperties(AppProperties.class)
 @SpringBootApplication
 public class TestingSystemApplication {
 

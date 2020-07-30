@@ -1,9 +1,5 @@
 package com.depa.user.controller;
 
-import com.depa.user.dto.OAuthParams;
-import com.depa.user.dto.TokenDTO;
-import com.depa.user.dto.impl.UserDTOImpl;
-import com.depa.user.security.service.TokenService;
 import com.depa.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,8 +20,6 @@ public class AuthorizeController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private TokenService tokenService;
 
     @GetMapping(value = "/user")
     public Object user(Authentication authentication) {
@@ -33,13 +27,8 @@ public class AuthorizeController {
     }
 
     @GetMapping(value = "/auth")
-    public ModelAndView auth(@RequestParam Map<String, String> params, HttpServletRequest request) {
-        OAuthParams authParams = new OAuthParams(params);
-        UserDTOImpl user = new UserDTOImpl("depa", "secret");
-        TokenDTO token = tokenService.createToken(user);
-        request.setAttribute("access_token", token.getAccessToken());
-        request.setAttribute("refresh_token", token.getRefreshToken());
-        return new ModelAndView(authParams.getRedirectUri());
+    public Object auth(@RequestParam Map<String, String> params, HttpServletRequest request) {
+        return new Object();
     }
 
     @GetMapping(value = "/token")
@@ -47,7 +36,7 @@ public class AuthorizeController {
         if (!authentication.isAuthenticated()) {
             return loginFailed();
         }
-        return new ResponseEntity<>(tokenService.getToken(), HttpStatus.OK);
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
     @PostMapping(value = "/token")

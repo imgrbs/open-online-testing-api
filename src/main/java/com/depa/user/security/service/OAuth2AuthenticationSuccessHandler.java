@@ -1,5 +1,9 @@
 package com.depa.user.security.service;
+import com.depa.user.security.config.AppProperties;
+import com.depa.user.security.exception.BadRequestException;
 import com.depa.user.security.repository.HttpCookieOAuth2AuthorizationRequestRepository;
+import com.depa.user.service.TokenProvider;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -16,6 +20,7 @@ import java.util.Optional;
 @Component
 public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
+    private static final String REDIRECT_URI_PARAM_COOKIE_NAME = "http://localhost:8000";
     private TokenProvider tokenProvider;
 
     private AppProperties appProperties;
@@ -44,6 +49,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         getRedirectStrategy().sendRedirect(request, response, targetUrl);
     }
 
+    @SneakyThrows
     protected String determineTargetUrl(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         Optional<String> redirectUri = CookieUtils.getCookie(request, REDIRECT_URI_PARAM_COOKIE_NAME)
                 .map(Cookie::getValue);
