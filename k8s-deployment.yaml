@@ -24,6 +24,7 @@ spec:
       containers:
       - name: depa-backend
         image: AZ_CONTAINER_REGISTRY_URL/dev/depa-backend:IMAGE_BUILD_ID
+        imagePullPolicy: Always
         readinessProbe:
           tcpSocket:
             port: 8080
