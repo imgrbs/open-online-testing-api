@@ -161,7 +161,7 @@ pipeline {
                     // กำหนด change cause ของ rollout history
                     sh "sed -i 's/ENV_CHANGE_CAUSE_MESSAGE/[IMAGE] ${env.FULL_CONTAINER_IMAGE_PATH} - ${env.COMMIT_MESSAGE}/g' ${env.K8S_DEPLOY_YAML_PROFILE}"
                     // กำหนด Labels Tag ของ App
-                    sh "sed -i 's/LABEL_VERSION/${env.LABEL_VERSION}}/g' ${env.K8S_DEPLOY_YAML_PROFILE}"
+                    sh "sed -i 's/LABEL_VERSION/${env.LABEL_VERSION}/g' ${env.K8S_DEPLOY_YAML_PROFILE}"
                      // กำหนด env ของ pod ให้ทุกตัวนำด้วย ENV_
                     sh "sed -i 's/ENV_SERVER_ENVIRONMENT/${env.SERVER_ENVIRONMENT}/g' ${env.K8S_DEPLOY_YAML_PROFILE}"
                     sh "sed -i 's/ENV_GIT_BRANCH/${env.BUILD_BRANCH}/g' ${env.K8S_DEPLOY_YAML_PROFILE}"
