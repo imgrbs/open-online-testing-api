@@ -4,12 +4,12 @@ metadata:
   name: depa-backend-service
   labels:
     app: depa-backend
-    version: dev
+    # version: dev
 spec:
   type: ClusterIP
   selector:
     app: depa-backend
-    version: dev
+    # version: dev
   ports:
   - name: http
     protocol: TCP
