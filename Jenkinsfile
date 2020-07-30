@@ -48,16 +48,14 @@ pipeline {
                         parameters : [
                             choice(name: 'TAG_VERSION', choices: "${git_tags}", description: 'เลือก Tags ที่ต้องการ'),
                             text(name: 'BUILD_ID', defaultValue:"${BUILD_ID}"),
-                            choice(name: 'SERVER_ENVIRONMENT', choices: getServerEnvironmentList(), description: 'เลือก Server Enviroment'),
-                            booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Toggle this value'),
-                            password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Enter a password')
+                            text(name: 'APP_LABEL',defaultValue: getServerEnvironmentList()[0], description: 'Label ของ Application ที่ใช้กับ Kubernetes(เพื่อทำ traffic selector)'),
+                            choice(name: 'SERVER_ENVIRONMENT', choices: getServerEnvironmentList(), description: 'เลือก Server Enviroment')
                         ]
                     env.BUILD_ID = input_params.BUILD_ID
                     env.BUILD_BRANCH = ''
                     env.SERVER_ENVIRONMENT = input_params.SERVER_ENVIRONMENT
                     env.TAG_VERSION = input_params.TAG_VERSION
-                    env.TOGGLE = input_params.TOGGLE
-                    env.PASSWORD = input_params.PASSWORD
+                    env.APP_LABEL = input_params.APP_LABEL
                 }
             }
         }
@@ -162,6 +160,8 @@ pipeline {
                     sh "sed -i 's/IMAGE_BUILD_ID/${env.TAG_VERSION}/g' ${env.K8S_DEPLOY_YAML_PROFILE}"
                     // กำหนด change cause ของ rollout history
                     sh "sed -i 's/ENV_CHANGE_CAUSE_MESSAGE/[IMAGE] ${env.FULL_CONTAINER_IMAGE_PATH} - ${env.COMMIT_MESSAGE}/g' ${env.K8S_DEPLOY_YAML_PROFILE}"
+                    // กำหนด Labels Tag ของ App
+                    sh "sed -i 's/LABEL_VERSION/${env.LABEL_VERSION}}/g' ${env.K8S_DEPLOY_YAML_PROFILE}"
                      // กำหนด env ของ pod ให้ทุกตัวนำด้วย ENV_
                     sh "sed -i 's/ENV_SERVER_ENVIRONMENT/${env.SERVER_ENVIRONMENT}/g' ${env.K8S_DEPLOY_YAML_PROFILE}"
                     sh "sed -i 's/ENV_GIT_BRANCH/${env.BUILD_BRANCH}/g' ${env.K8S_DEPLOY_YAML_PROFILE}"

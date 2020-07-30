@@ -6,18 +6,18 @@ metadata:
     kubernetes.io/change-cause: "ENV_CHANGE_CAUSE_MESSAGE"
   labels:
     app: depa-backend
-    version: dev
+    version: LABEL_VERSION
 spec:
   replicas: 3
   selector:
     matchLabels:
       app: depa-backend
-      version: dev
+      version: LABEL_VERSION
   template:
     metadata:
       labels:
         app: depa-backend
-        version: dev
+        version: LABEL_VERSION
     spec:
       imagePullSecrets:
        - name: ntt-azure-registry

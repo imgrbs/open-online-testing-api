@@ -35,7 +35,8 @@ public class ExamController {
     @GetMapping("/exams")
     public ResponseEntity<List<ExamDTO>> getExams() {
         List<ExamDTO> exams = examService.getExams();
-        return new ResponseEntity<>(exams, HttpStatus.NOT_FOUND);
+        // return new ResponseEntity<>(exams, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }
