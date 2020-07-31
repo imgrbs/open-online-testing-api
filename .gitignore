@@ -4,7 +4,7 @@ target/
 !**/src/main/**
 !**/src/test/**
 nbactions*.xml
-ืิ
+k8s-deployment-test.yaml
 
 ### STS ###
 .apt_generated
