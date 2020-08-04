@@ -36,7 +36,7 @@ public class ExamController {
     public ResponseEntity<List<ExamDTO>> getExams() {
         List<ExamDTO> exams = examService.getExams();
         // return new ResponseEntity<>(exams, HttpStatus.OK);
-        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(HttpStatus.GATEWAY_TIMEOUT);
     }
 
 }
