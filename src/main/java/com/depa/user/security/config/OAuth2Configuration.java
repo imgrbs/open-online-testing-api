@@ -56,6 +56,7 @@ public class OAuth2Configuration extends WebSecurityConfigurerAdapter {
     @Value("${facebook.client-secret}")
     private String facebookClientSecret;
 
+
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
 
@@ -67,6 +68,11 @@ public class OAuth2Configuration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
+
+    @Bean
+    public TokenAuthenticationFilter tokenAuthenticationFilter() {
+        return new TokenAuthenticationFilter();
+    }
 
     @Bean
     public HttpCookieOAuth2AuthorizationRequestRepository cookieAuthorizationRequestRepository() {
@@ -92,8 +98,8 @@ public class OAuth2Configuration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
+    protected void configure(HttpSecurity http) throws Exception {
+        http
                 .cors()
                 .and()
                 .sessionManagement()
@@ -106,9 +112,19 @@ public class OAuth2Configuration extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .disable()
                 .exceptionHandling()
+                .authenticationEntryPoint(new RestAuthenticationEntryPoint())
                 .and()
                 .authorizeRequests()
-                .antMatchers(WHITELIST)
+                .antMatchers("/",
+                        "/error",
+                        "/favicon.ico",
+                        "/**/*.png",
+                        "/**/*.gif",
+                        "/**/*.svg",
+                        "/**/*.jpg",
+                        "/**/*.html",
+                        "/**/*.css",
+                        "/**/*.js")
                 .permitAll()
                 .antMatchers("/auth/**", "/oauth2/**")
                 .permitAll()
@@ -126,40 +142,33 @@ public class OAuth2Configuration extends WebSecurityConfigurerAdapter {
                 .userInfoEndpoint()
                 .userService(customOAuth2UserService)
                 .and()
-                .successHandler(oAuth2AuthenticationSuccessHandler);
+                .successHandler(oAuth2AuthenticationSuccessHandler)
+                .clientRegistrationRepository(clientRegistrationRepository());
 
         // Add our custom Token based authentication filter
-        httpSecurity.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-
-
+        http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
-
-    @Bean
-    public TokenAuthenticationFilter tokenAuthenticationFilter() {
-        return new TokenAuthenticationFilter();
+    public ClientRegistrationRepository clientRegistrationRepository() {
+        return new InMemoryClientRegistrationRepository(
+                this.googleClientRegistration(),
+                this.facebookClientRegistration()
+        );
     }
 
-//    public ClientRegistrationRepository clientRegistrationRepository() {
-//        return new InMemoryClientRegistrationRepository(
-//                this.googleClientRegistration(),
-//                this.facebookClientRegistration()
-//        );
-//    }
-//
-//    private ClientRegistration googleClientRegistration() {
-//        return CommonOAuth2Provider.GOOGLE
-//                .getBuilder("google")
-//                .clientId(googleClientId)
-//                .clientSecret(googleClientSecret)
-//                .build();
-//    }
-//
-//    private ClientRegistration facebookClientRegistration() {
-//        return CommonOAuth2Provider.FACEBOOK
-//                .getBuilder("facebook")
-//                .clientId(facebookClientId)
-//                .clientSecret(facebookClientSecret)
-//                .build();
-//    }
+    private ClientRegistration googleClientRegistration() {
+        return CommonOAuth2Provider.GOOGLE
+                .getBuilder("google")
+                .clientId(googleClientId)
+                .clientSecret(googleClientSecret)
+                .build();
+    }
+
+    private ClientRegistration facebookClientRegistration() {
+        return CommonOAuth2Provider.FACEBOOK
+                .getBuilder("facebook")
+                .clientId(facebookClientId)
+                .clientSecret(facebookClientSecret)
+                .build();
+    }
 }

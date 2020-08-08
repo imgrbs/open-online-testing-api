@@ -1,6 +1,7 @@
 package com.depa.user.model.user;
 
 import com.depa.user.security.config.AuthProvider;
+import org.bson.types.ObjectId;
 
 public interface User {
 
@@ -8,9 +9,13 @@ public interface User {
 
     String getDisplayName();
 
-    Long getId();
+    String getAuthProvider();
+
+    ObjectId getId();
 
     String getPassword();
+
+    void setPassword(String password);
 
     String getProvider();
 

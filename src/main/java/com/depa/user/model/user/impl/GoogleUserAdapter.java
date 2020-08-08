@@ -2,6 +2,7 @@ package com.depa.user.model.user.impl;
 
 import com.depa.user.model.user.User;
 import com.depa.user.security.config.AuthProvider;
+import org.bson.types.ObjectId;
 
 public class GoogleUserAdapter implements User {
     @Override
@@ -15,13 +16,23 @@ public class GoogleUserAdapter implements User {
     }
 
     @Override
-    public Long getId() {
+    public String getAuthProvider() {
+        return null;
+    }
+
+    @Override
+    public ObjectId getId() {
         return null;
     }
 
     @Override
     public String getPassword() {
         return null;
+    }
+
+    @Override
+    public void setPassword(String password) {
+
     }
 
     @Override
