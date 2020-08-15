@@ -2,7 +2,9 @@ package com.depa.user.service;
 
 import com.depa.user.dto.UserPrincipal;
 import com.depa.user.security.config.AppProperties;
+import com.depa.user.security.exception.BadRequestException;
 import io.jsonwebtoken.*;
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
@@ -35,13 +37,15 @@ public class TokenProvider {
                 .compact();
     }
 
-    public Long getUserIdFromToken(String token) {
+    public ObjectId getUserIdFromToken(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(appProperties.getAuth().getTokenSecret())
                 .parseClaimsJws(token)
                 .getBody();
-
-        return Long.parseLong(claims.getSubject());
+        if (ObjectId.isValid(claims.getSubject())) {
+            return new ObjectId(claims.getSubject());
+        }
+        throw new BadRequestException("Bad subject");
     }
 
     public boolean validateToken(String authToken) {
