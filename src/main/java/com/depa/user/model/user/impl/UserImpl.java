@@ -2,6 +2,7 @@ package com.depa.user.model.user.impl;
 
 import com.depa.user.model.user.User;
 import com.depa.user.security.config.AuthProvider;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -17,6 +18,7 @@ public class UserImpl implements User {
     private ObjectId id;
     private String name;
     private String email;
+    @JsonIgnore
     private String password;
     private String imageUrl;
     private String displayName;
