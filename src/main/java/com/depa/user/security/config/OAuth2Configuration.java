@@ -23,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
+import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
@@ -132,6 +133,7 @@ public class OAuth2Configuration extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 .and()
                 .oauth2Login()
+                .clientRegistrationRepository(clientRegistrationRepository())
                 .authorizationEndpoint()
                 .baseUri("/oauth2/authorize")
                 .authorizationRequestRepository(cookieAuthorizationRequestRepository())
@@ -142,8 +144,7 @@ public class OAuth2Configuration extends WebSecurityConfigurerAdapter {
                 .userInfoEndpoint()
                 .userService(customOAuth2UserService)
                 .and()
-                .successHandler(oAuth2AuthenticationSuccessHandler)
-                .clientRegistrationRepository(clientRegistrationRepository());
+                .successHandler(oAuth2AuthenticationSuccessHandler);
 
         // Add our custom Token based authentication filter
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
@@ -161,6 +162,7 @@ public class OAuth2Configuration extends WebSecurityConfigurerAdapter {
                 .getBuilder("google")
                 .clientId(googleClientId)
                 .clientSecret(googleClientSecret)
+                .redirectUriTemplate("{baseUrl}/oauth2/callback/{registrationId}")
                 .build();
     }
 
@@ -169,6 +171,7 @@ public class OAuth2Configuration extends WebSecurityConfigurerAdapter {
                 .getBuilder("facebook")
                 .clientId(facebookClientId)
                 .clientSecret(facebookClientSecret)
+                .redirectUriTemplate("{baseUrl}/oauth2/callback/{registrationId}")
                 .build();
     }
 }
