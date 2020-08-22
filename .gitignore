@@ -4,6 +4,7 @@ target/
 !**/src/main/**
 !**/src/test/**
 nbactions*.xml
+ืิnb*.xml
 ืิ
 
 ### STS ###
