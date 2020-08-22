@@ -9,6 +9,7 @@ import lombok.Setter;
 import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @NoArgsConstructor
@@ -20,6 +21,8 @@ public class ExamDTOImpl implements ExamDTO {
     private String description;
     private List<QuestionDTOImpl> questions;
     private List<CategoryDTOImpl> categories;
+    private Date startAt;
+    private Date endAt;
 
     public ExamDTOImpl(Exam exam) {
         this.id = exam.getId();

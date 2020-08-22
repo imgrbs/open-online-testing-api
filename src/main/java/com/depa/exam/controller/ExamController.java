@@ -2,6 +2,7 @@ package com.depa.exam.controller;
 
 import com.depa.exam.dto.ExamDTO;
 import com.depa.exam.dto.impl.ExamDTOImpl;
+import com.depa.exam.dto.impl.ExamExcludeQuestionDTOImpl;
 import com.depa.exam.service.CategoryService;
 import com.depa.exam.service.ExamService;
 import com.depa.exam.service.internal.ExamServiceImpl;
@@ -17,6 +18,9 @@ import java.util.List;
 @Setter
 @RestController
 @CrossOrigin(origins = "*")
+/**
+ * /v2 is method that extend by son for safety migration
+ */
 public class ExamController {
 
     @Autowired
@@ -41,10 +45,22 @@ public class ExamController {
     }
 
     @GetMapping("/exams")
-    public ResponseEntity<List<ExamDTO>> getExams() {
+    public ResponseEntity<List> getExams() {
         List<ExamDTO> exams = examService.getExams();
         return new ResponseEntity<>(exams, HttpStatus.OK);
     }
+    
+//    @GetMapping("/v2/exams")
+//    public ResponseEntity<List> getExamsImpl() {
+//        List<ExamDTO> exams = examService.getExamsImpl();
+//        return new ResponseEntity<>(exams, HttpStatus.OK);
+//    }
+    
+//    @GetMapping("/exam/{uid}")
+//    public ResponseEntity<ExamDTO> getExamByObjectIdImpl(@PathVariable ObjectId uid) {
+//        ExamDTO exam = examService.getExamById(uid);
+//        return new ResponseEntity<>(exam, HttpStatus.OK);
+//    }
     
 
 }
