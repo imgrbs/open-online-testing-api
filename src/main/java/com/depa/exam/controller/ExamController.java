@@ -4,6 +4,7 @@ import com.depa.exam.dto.ExamDTO;
 import com.depa.exam.dto.impl.ExamDTOImpl;
 import com.depa.exam.service.CategoryService;
 import com.depa.exam.service.ExamService;
+import com.depa.exam.service.internal.ExamServiceImpl;
 import lombok.Setter;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +45,6 @@ public class ExamController {
         List<ExamDTO> exams = examService.getExams();
         return new ResponseEntity<>(exams, HttpStatus.OK);
     }
+    
 
 }

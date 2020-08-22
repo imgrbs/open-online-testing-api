@@ -11,7 +11,7 @@
     <groupId>com.depa</groupId>
     <artifactId>testing-system</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>testing-system</name>
+    <name>testing-system-tae</name>
     <description>Form Management project powered by Spring Boot.</description>
 
     <properties>
@@ -66,6 +66,15 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <systemPropertyVariables>
+                        <MONGO_PASSWORD>mock</MONGO_PASSWORD>
+                        <FACEBOOK_SECRET>mock</FACEBOOK_SECRET>
+                        <FACEBOOK_ID>mock</FACEBOOK_ID>
+                        <GOOGLE_ID>mock</GOOGLE_ID>
+                        <GOOGLE_SECRET>mock</GOOGLE_SECRET>
+                    </systemPropertyVariables>
+                </configuration>
             </plugin>
         </plugins>
     </build>
