@@ -53,4 +53,9 @@ public class ExamServiceImpl implements ExamService {
     public ExamDTO toExamExcludeQuestionDTOImpl(Exam exam) {
         return new ExamExcludeQuestionDTOImpl(exam);
     }
+
+    @Override
+    public ExamDTO loadAllQuestionOfExam(ObjectId id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

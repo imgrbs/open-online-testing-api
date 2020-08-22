@@ -15,9 +15,11 @@ public interface ExamService {
 
     List<ExamDTO> getExams();
     
-//    List<ExamDTO> getExamsImpl();
+    ExamDTO loadAllQuestionOfExam(ObjectId id);
 
     ExamDTO getExamById(ObjectId id);
 
     ExamDTO toExamDTO(Exam exam);
+    
+    
 }

@@ -43,6 +43,12 @@ public class ExamController {
         ExamDTO exam = examService.getExamById(uid);
         return new ResponseEntity<>(exam, HttpStatus.OK);
     }
+    
+    @GetMapping("/exam/{uid}/questions")
+    public ResponseEntity<ExamDTO> getAllQuestionOfExam(@PathVariable ObjectId uid) {
+        ExamDTO exam = examService.loadAllQuestionOfExam(uid);
+        return new ResponseEntity<>(exam, HttpStatus.OK);
+    }
 
     @GetMapping("/exams")
     public ResponseEntity<List> getExams() {

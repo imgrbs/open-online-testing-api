@@ -25,6 +25,11 @@ public class ExamServiceReadctImpl extends ExamServiceImpl{
     
     @Autowired
     private ExamRepository examRepository;
+    
+    @Override
+    public ExamDTO loadAllQuestionOfExam(ObjectId id) {
+        return super.getExamById(id);
+    }
 
     @Override
     public List<ExamDTO> getExams() {
