@@ -1,6 +1,8 @@
 package com.depa.exam.service.internal;
 
+import com.depa.exam.dto.ExamAnswerDTO;
 import com.depa.exam.dto.ExamDTO;
+import com.depa.exam.dto.impl.ExamAnswerDTOImpl;
 import com.depa.exam.dto.impl.ExamDTOImpl;
 import com.depa.exam.dto.impl.ExamExcludeQuestionDTOImpl;
 import com.depa.exam.model.exam.Exam;
@@ -58,4 +60,11 @@ public class ExamServiceImpl implements ExamService {
     public ExamDTO loadAllQuestionOfExam(ObjectId id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void submitExamAllAnswer(ObjectId examId, List<ExamAnswerDTOImpl> examAnswer) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
 }

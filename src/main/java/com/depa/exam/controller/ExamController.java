@@ -1,6 +1,8 @@
 package com.depa.exam.controller;
 
+import com.depa.exam.dto.ExamAnswerDTO;
 import com.depa.exam.dto.ExamDTO;
+import com.depa.exam.dto.impl.ExamAnswerDTOImpl;
 import com.depa.exam.dto.impl.ExamDTOImpl;
 import com.depa.exam.dto.impl.ExamExcludeQuestionDTOImpl;
 import com.depa.exam.service.CategoryService;
@@ -48,7 +50,6 @@ public class ExamController {
     @GetMapping("/exam/{uid}/questions")
     public ResponseEntity<ExamDTO> getAllQuestionOfExam(@PathVariable ObjectId uid) {
         ExamDTO exam = examService.loadAllQuestionOfExam(uid);
-        Collections.shuffle(exam.getQuestions());
         return new ResponseEntity<>(exam, HttpStatus.OK);
     }
 
@@ -56,6 +57,14 @@ public class ExamController {
     public ResponseEntity<List> getExams() {
         List<ExamDTO> exams = examService.getExams();
         return new ResponseEntity<>(exams, HttpStatus.OK);
+    }
+    
+    @PostMapping("/exam/{examId}/answer/submit")
+    public ResponseEntity<ExamDTO> submitExamAllAnswer(@PathVariable String examId,@RequestBody List<ExamAnswerDTOImpl> examAnswerList) {
+        examService.submitExamAllAnswer(new ObjectId(examId),examAnswerList);
+        System.out.println("=========");
+        System.out.println(examAnswerList);
+        return new ResponseEntity<>(null, HttpStatus.CREATED);
     }
     
 //    @GetMapping("/v2/exams")
