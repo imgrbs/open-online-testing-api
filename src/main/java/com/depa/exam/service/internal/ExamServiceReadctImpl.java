@@ -11,6 +11,7 @@ import com.depa.exam.dto.impl.ExamExcludeQuestionDTOImpl;
 import com.depa.exam.model.exam.Exam;
 import com.depa.exam.repository.ExamRepository;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +22,16 @@ import org.springframework.stereotype.Service;
  * @author Test
  */
 @Service
-public class ExamServiceReadctImpl extends ExamServiceImpl{
-    
+public class ExamServiceReadctImpl extends ExamServiceImpl {
+
     @Autowired
     private ExamRepository examRepository;
-    
+
     @Override
     public ExamDTO loadAllQuestionOfExam(ObjectId id) {
-        return super.getExamById(id);
+        ExamDTO examWithQuestion = super.getExamById(id);
+        Collections.shuffle(examWithQuestion.getQuestions());
+        return examWithQuestion;
     }
 
     @Override
@@ -38,14 +41,14 @@ public class ExamServiceReadctImpl extends ExamServiceImpl{
         queryExams.forEach(exam -> exams.add(toExamExcludeQuestionDTOImpl(exam)));
         return exams;
     }
-    
+
     @Override
     public ExamDTO getExamById(ObjectId id) {
         return toExamExcludeQuestionDTOImpl(examRepository.findById(id).get());
     }
-    
+
     public ExamDTO toExamExcludeQuestionDTOImpl(Exam exam) {
         return new ExamExcludeQuestionDTOImpl(exam);
     }
-    
+
 }

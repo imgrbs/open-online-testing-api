@@ -6,6 +6,7 @@ import com.depa.exam.dto.impl.ExamExcludeQuestionDTOImpl;
 import com.depa.exam.service.CategoryService;
 import com.depa.exam.service.ExamService;
 import com.depa.exam.service.internal.ExamServiceImpl;
+import java.util.Collections;
 import lombok.Setter;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,7 @@ public class ExamController {
     @GetMapping("/exam/{uid}/questions")
     public ResponseEntity<ExamDTO> getAllQuestionOfExam(@PathVariable ObjectId uid) {
         ExamDTO exam = examService.loadAllQuestionOfExam(uid);
+        Collections.shuffle(exam.getQuestions());
         return new ResponseEntity<>(exam, HttpStatus.OK);
     }
 
