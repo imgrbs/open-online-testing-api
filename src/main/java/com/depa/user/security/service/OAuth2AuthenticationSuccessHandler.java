@@ -1,29 +1,39 @@
 package com.depa.user.security.service;
-import com.depa.user.security.config.AppProperties;
-import com.depa.user.security.exception.BadRequestException;
-import com.depa.user.security.repository.HttpCookieOAuth2AuthorizationRequestRepository;
-import com.depa.user.service.TokenProvider;
-import lombok.SneakyThrows;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
-import org.springframework.stereotype.Component;
-import org.springframework.web.util.UriComponentsBuilder;
-import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.net.URI;
 import java.util.Optional;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.stereotype.Component;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import com.depa.user.repository.UserRepository;
+import com.depa.user.security.config.AppProperties;
+import com.depa.user.security.exception.BadRequestException;
+import com.depa.user.security.repository.HttpCookieOAuth2AuthorizationRequestRepository;
+import com.depa.user.service.TokenProvider;
+
+import lombok.SneakyThrows;
+
 @Component
 public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
-    private static final String REDIRECT_URI_PARAM_COOKIE_NAME = "http://localhost:8000";
+    private static final String REDIRECT_URI_PARAM_COOKIE_NAME = "redirect_uri";
     private TokenProvider tokenProvider;
 
     private AppProperties appProperties;
+
+    private CustomUserDetailsService userDetailsService;
+    private UserRepository userRepository;
 
     private HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
 
@@ -65,6 +75,11 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         return UriComponentsBuilder.fromUriString(targetUrl)
                 .queryParam("token", token)
                 .build().toUriString();
+    }
+
+    private boolean isOAuth2Provider(Authentication authentication) {
+        OAuth2AuthenticationToken authenticationToken = (OAuth2AuthenticationToken) authentication;
+        return !authenticationToken.getAuthorizedClientRegistrationId().equals("local");
     }
 
     protected void clearAuthenticationAttributes(HttpServletRequest request, HttpServletResponse response) {

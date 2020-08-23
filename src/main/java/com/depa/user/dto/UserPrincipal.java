@@ -1,24 +1,24 @@
 package com.depa.user.dto;
 
 
-import com.depa.user.model.user.User;
-import com.depa.user.model.user.impl.UserImpl;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Map;
+
 import org.bson.types.ObjectId;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import com.depa.user.model.user.User;
+import com.depa.user.model.user.impl.UserImpl;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -65,6 +65,10 @@ public class UserPrincipal implements OAuth2User, UserDetails {
         if (principal instanceof DefaultOidcUser) {
             DefaultOidcUser user = (DefaultOidcUser) principal;
             return create(UserImpl.create(user.getEmail()), user.getAuthorities());
+        }
+        if (principal instanceof User) {
+            User user = (User) principal;
+            return create(user, Collections.emptyList());
         }
         return (UserPrincipal) principal;
     }

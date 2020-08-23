@@ -1,7 +1,8 @@
 package com.depa.user.model.user;
 
-import com.depa.user.security.config.AuthProvider;
 import org.bson.types.ObjectId;
+
+import com.depa.user.security.config.AuthProvider;
 
 public interface User {
 

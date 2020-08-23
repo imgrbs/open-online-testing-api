@@ -1,23 +1,26 @@
 package com.depa.user.model.user.impl;
 
-import com.depa.user.model.user.User;
-import com.depa.user.security.config.AuthProvider;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
+import java.nio.file.attribute.UserPrincipal;
+
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 
-import java.util.Collection;
+import com.depa.user.model.user.User;
+import com.depa.user.security.config.AuthProvider;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Document("users")
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Setter
 @Getter
-public class UserImpl implements User {
+public class UserImpl implements User, UserPrincipal {
     @Id
     private ObjectId id;
     private String name;
