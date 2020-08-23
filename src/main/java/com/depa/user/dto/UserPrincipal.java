@@ -2,12 +2,17 @@ package com.depa.user.dto;
 
 
 import com.depa.user.model.user.User;
+import com.depa.user.model.user.impl.UserImpl;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.bson.types.ObjectId;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.oidc.OidcIdToken;
+import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.Collection;
@@ -17,6 +22,8 @@ import java.util.Map;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserPrincipal implements OAuth2User, UserDetails {
     private ObjectId id;
     private String username;
@@ -25,29 +32,41 @@ public class UserPrincipal implements OAuth2User, UserDetails {
     private Collection<? extends GrantedAuthority> authorities;
     private Map<String, Object> attributes;
 
-    public UserPrincipal(ObjectId id, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+    private UserPrincipal(ObjectId id, String email, String password) {
         this.id = id;
         this.email = email;
         this.password = password;
-        this.authorities = authorities;
     }
 
-    public static UserPrincipal create(User user) {
-        List<GrantedAuthority> authorities = Collections.
-                singletonList(new SimpleGrantedAuthority("ROLE_USER"));
 
-        return new UserPrincipal(
+    private static UserPrincipal create(User user, Collection<? extends GrantedAuthority> authorities) {
+        UserPrincipal userPrincipal = new UserPrincipal(
                 user.getId(),
                 user.getEmail(),
-                user.getPassword(),
-                authorities
+                user.getPassword()
         );
+
+        if (authorities.isEmpty()) {
+            authorities = Collections.
+                    singletonList(new SimpleGrantedAuthority("ROLE_USER"));
+        }
+        userPrincipal.setAuthorities(authorities);
+
+        return userPrincipal;
     }
 
     public static UserPrincipal create(User user, Map<String, Object> attributes) {
         UserPrincipal userPrincipal = UserPrincipal.create(user);
         userPrincipal.setAttributes(attributes);
         return userPrincipal;
+    }
+
+    public static UserPrincipal create(Object principal) {
+        if (principal instanceof DefaultOidcUser) {
+            DefaultOidcUser user = (DefaultOidcUser) principal;
+            return create(UserImpl.create(user.getEmail()), user.getAuthorities());
+        }
+        return (UserPrincipal) principal;
     }
 
     @Override
