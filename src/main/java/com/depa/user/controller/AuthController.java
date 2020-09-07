@@ -1,15 +1,9 @@
 package com.depa.user.controller;
 
-import com.depa.user.dto.ApiResponse;
-import com.depa.user.dto.AuthResponse;
-import com.depa.user.dto.LoginRequest;
-import com.depa.user.dto.SignUpRequest;
-import com.depa.user.model.user.User;
-import com.depa.user.model.user.impl.UserImpl;
-import com.depa.user.repository.UserRepository;
-import com.depa.user.security.config.AuthProvider;
-import com.depa.user.security.exception.BadRequestException;
-import com.depa.user.service.TokenProvider;
+import java.net.URI;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,8 +17,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.validation.Valid;
-import java.net.URI;
+import com.depa.user.dto.ApiResponse;
+import com.depa.user.dto.AuthResponse;
+import com.depa.user.dto.LoginRequest;
+import com.depa.user.dto.SignUpRequest;
+import com.depa.user.dto.UserPrincipal;
+import com.depa.user.model.user.User;
+import com.depa.user.model.user.impl.UserImpl;
+import com.depa.user.repository.UserRepository;
+import com.depa.user.security.config.AuthProvider;
+import com.depa.user.security.exception.BadRequestException;
+import com.depa.user.service.TokenProvider;
 
 @RestController
 @RequestMapping("/auth")
@@ -54,7 +57,8 @@ public class AuthController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String token = tokenProvider.createToken(authentication);
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+        String token = tokenProvider.createToken(userPrincipal.getId().toString());
         return ResponseEntity.ok(new AuthResponse(token));
     }
 

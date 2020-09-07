@@ -1,16 +1,21 @@
 package com.depa.user.service;
 
-import com.depa.user.dto.UserPrincipal;
-import com.depa.user.security.config.AppProperties;
-import com.depa.user.security.exception.BadRequestException;
-import io.jsonwebtoken.*;
+import java.util.Date;
+
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import com.depa.user.security.config.AppProperties;
+import com.depa.user.security.exception.BadRequestException;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.UnsupportedJwtException;
 
 @Service
 public class TokenProvider {
@@ -23,14 +28,12 @@ public class TokenProvider {
         this.appProperties = appProperties;
     }
 
-    public String createToken(Authentication authentication) {
-        UserPrincipal userPrincipal = UserPrincipal.create(authentication.getPrincipal());
-
+    public String createToken(String userId) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + appProperties.getAuth().getTokenExpirationMsec());
 
         return Jwts.builder()
-                .setSubject(userPrincipal.getId().toString())
+                .setSubject(userId)
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
                 .signWith(SignatureAlgorithm.HS512, appProperties.getAuth().getTokenSecret())
