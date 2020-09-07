@@ -39,7 +39,8 @@ public class UserPrincipal implements OAuth2User, UserDetails {
     }
 
 
-    private static UserPrincipal create(User user, Collection<? extends GrantedAuthority> authorities) {
+    private static UserPrincipal create(User user, Collection<? extends GrantedAuthority> authorities,
+            Map<String, Object> attributes) {
         UserPrincipal userPrincipal = new UserPrincipal(
                 user.getId(),
                 user.getEmail(),
@@ -51,6 +52,8 @@ public class UserPrincipal implements OAuth2User, UserDetails {
                     singletonList(new SimpleGrantedAuthority("ROLE_USER"));
         }
         userPrincipal.setAuthorities(authorities);
+
+        userPrincipal.setAttributes(attributes);
 
         return userPrincipal;
     }
@@ -64,11 +67,11 @@ public class UserPrincipal implements OAuth2User, UserDetails {
     public static UserPrincipal create(Object principal) {
         if (principal instanceof DefaultOidcUser) {
             DefaultOidcUser user = (DefaultOidcUser) principal;
-            return create(UserImpl.create(user.getEmail()), user.getAuthorities());
+            return create(UserImpl.create(user.getEmail()), user.getAuthorities(), user.getAttributes());
         }
         if (principal instanceof User) {
             User user = (User) principal;
-            return create(user, Collections.emptyList());
+            return create(user, Collections.emptyList(), Collections.emptyMap());
         }
         return (UserPrincipal) principal;
     }

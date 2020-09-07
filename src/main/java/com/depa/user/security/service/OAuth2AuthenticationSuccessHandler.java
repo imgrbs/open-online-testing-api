@@ -85,7 +85,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 			if (userDetails == null) {
 				User user = UserImpl.create(userPrincipal.getEmail());
 				user.setProvider(getAuthProvider((OAuth2AuthenticationToken) authentication));
-				user.setName(userPrincipal.getName());
+				user.setName(userPrincipal.getAttribute("name"));
 				userRepository.save(user);
 				String token = tokenProvider.createToken(user.getId().toString());
 				return UriComponentsBuilder.fromUriString(targetUrl).queryParam("token", token).build().toUriString();
