@@ -1,133 +1,75 @@
-# Depa Form Project API
-- description
+# depa testing API
 
-# System Requirements
+depa testing api คือซอฟต์แวร์ที่ให้บริการ [API](https://en.wikipedia.org/wiki/API) เพื่อใช้ในการสอบประเภทต่าง ๆ
+
+มีซอร์สโค้ด UI ให้พร้อมนำไปใช้งานที่ [depa testing frontend](https://github.com/bazsup/depa-testing-frontend)
+
+## การนำไปใช้งาน
+
+- เบื้องต้นรองรับการสร้างคำถามประเภทปรนัย (ข้อช้อยส์) และอัตนัย (ข้อเขียน)
+- รองรับการสร้างข้อสอบโดยเป็นการดึงกลุ่มของคำถามที่ถูกสร้าง
+- รองรับการเข้าสู่ระบบ 3 วิธี
+  - username password
+  - google login
+  - facebook login
+
+สามารถดู URL และ method ที่ให้บริการได้ที่ [GitHub Wiki](https://github.com/imgrbs/depa-testing-api/wiki)
+
+## ความต้องการของระบบ
+
 - java 11
 - maven
-- intellij (recommended) *or netbean*
+- Code Editor: intellij (recommended) _or netbean_
 - docker
 
-# Database Installation (MongoDB)
-```
-docker run --name depa-mongodb -dit -p 27017:27017 mongo:4.0-xenial
-```
+## LICENSE
 
-# Database Installation (MYSQL)
-```
-docker run --name=depa-mariadb -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=depa-form -p 3306:3306 -d mariadb:10.2
+โปรเจกต์ชิ้นนี้อยู่ภายสัญญาอนุญาติซอฟต์แวร์เสรี [MIT license](/LICENSE)
 
-docker run --name depa-phpmyadmin -d --link depa-mariadb:db -p 8080:80 phpmyadmin/phpmyadmin
-```
+## Contributors
 
-# Environment Variables
-```
-DB_HOST=localhost:3306;
-DB_DATABASE=depa-form;
-DB_USERNAME=root;
-DB_PASSWORD=root;
-```
-```
-POST: localhost:8080/exam
-{
-    "id": {
-        "timestamp": 1600604621,
-        "counter": 6544741,
-        "time": 1600604621000,
-        "date": "2020-09-20T12:23:41.000+0000",
-        "timeSecond": 1600604621,
-        "machineIdentifier": 8667758,
-        "processIdentifier": 25204
-    },
-    "name": "ชุดที่ 4 [Auto Generate Exam Type & Question Type]",
-    "description": "ทดสอบข้อสอบที่ไม่มี ExamType จะต้อง Genrate Type เป็น Traditional อัตโนมัติ และถ้า QuestionType ไม่มีก็จะให้เป้น OBJECTIVE สำหรับตรวจแบบ Static อัตโนมัติ",
-    "questions": [
-        {
-            "id": null,
-            "name": "3 If you want to avoid COVID-19, what place that you must not go?",
-            "type": "OBJECTIVE",
-            "attributes": null,
-            "choices": [
-                {
-                    "label": "Berlin",
-                    "isCorrectAnswer": false
-                },
-                {
-                    "label": "Leipzig",
-                    "isCorrectAnswer": false
-                },
-                {
-                    "label": "Munich",
-                    "isCorrectAnswer": true
-                },
-                {
-                    "label": "Zurich",
-                    "isCorrectAnswer": false
-                }
-            ],
-            "categories": [
-                {
-                    "id": null,
-                    "label": "computer",
-                    "backgroundColor": "#2d2a4a",
-                    "color": "#ffffff"
-                },
-                {
-                    "id": null,
-                    "label": "history",
-                    "backgroundColor": "#000000",
-                    "color": "#aaa"
-                }
-            ]
-        },
-        {
-            "id": null,
-            "name": "2 x 2 = ?",
-            "type": "OBJECTIVE",
-            "attributes": null,
-            "choices": [
-                {
-                    "label": "4",
-                    "isCorrectAnswer": true
-                },
-                {
-                    "label": "5",
-                    "isCorrectAnswer": false
-                },
-                {
-                    "label": "6",
-                    "isCorrectAnswer": false
-                },
-                {
-                    "label": "7",
-                    "isCorrectAnswer": false
-                }
-            ],
-            "categories": [
-                {
-                    "id": null,
-                    "label": "Mathematic",
-                    "backgroundColor": "#0d6efd",
-                    "color": "#ffffff"
-                },
-                {
-                    "id": null,
-                    "label": "Pre-Calculus",
-                    "backgroundColor": "#fd7e14",
-                    "color": "#ffffff"
-                }
-            ]
-        }
-    ],
-    "categories": [
-        {
-            "id": null,
-            "label": "ไม่รู้",
-            "backgroundColor": "#6f42c1",
-            "color": "#ffffff"
-        }
-    ],
-    "startAt": null,
-    "endAt": null,
-    "type": "TRADITIONAL"
-}
-```
+ขอบคุณบุคคลเหล่านี้ ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/imgrbs">
+        <img src="https://avatars2.githubusercontent.com/u/11602960?u=e08ffeedc189ba4efc87af5452ccc2ca839f0cee&v=4" width="100px;" alt="" /><br />
+        <b>ImagineRabbits</b><br />
+        <a href="https://github.com/imgrbs/depa-testing-api/commits?author=imgrbs" title="Code">💻</a>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/bazsup">
+        <img src="https://avatars2.githubusercontent.com/u/22396258?u=6e1fb78f3196e20d093c98d205debb10ef5e5d4e&v=4" width="100px;" alt="" /><br />
+        <b>Supawit</b><br />
+        <a href="https://github.com/imgrbs/depa-testing-api/commits?author=bazsup" title="Code">💻</a>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/wdrdres3qew5ts21">
+        <img src="https://avatars2.githubusercontent.com/u/25000903?u=622a8832381cbddd89795db393a9e8d5b1e347df&v=4" width="100px;" alt="" /><br />
+        <b>Naomi Lin</b><br />
+        <a href="https://github.com/imgrbs/depa-testing-api/commits?author=wdrdres3qew5ts21" title="Code">💻</a>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/bigzaja4">
+        <img src="https://avatars2.githubusercontent.com/u/24911638?u=3e3e61a6335f335ae16187dff3b4348f660f4ab7&v=4" width="100px;" alt="" /><br />
+        <b>Biggie</b><br />
+        <a href="https://github.com/imgrbs/depa-testing-api/commits?author=bigzaja4" title="Code">💻</a>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/mixkungz">
+        <img src="https://avatars2.githubusercontent.com/u/20185035?u=99b107326654533f94afc5d4524cd4ff31722f2b&v=4" width="100px;" alt="" /><br />
+        <b>
+Phachara Kamthong</b><br />
+        <a href="https://github.com/imgrbs/depa-testing-api/commits?author=mixkungz" title="Code">💻</a>
+      </a>
+    </td>
+  </tr>
+</table>
