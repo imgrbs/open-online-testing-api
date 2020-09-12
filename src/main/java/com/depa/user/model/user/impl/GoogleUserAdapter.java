@@ -41,6 +41,11 @@ public class GoogleUserAdapter implements User {
     }
 
     @Override
+    public String getUsername() {
+        return null;
+    }
+
+    @Override
     public void setProvider(AuthProvider provider) {
 
     }
@@ -52,6 +57,11 @@ public class GoogleUserAdapter implements User {
 
     @Override
     public void setName(String name) {
+
+    }
+
+    @Override
+    public void setUsername(String username) {
 
     }
 

@@ -20,11 +20,15 @@ public interface User {
 
     String getProvider();
 
+    String getUsername();
+
     void setProvider(AuthProvider provider);
 
     void setProviderId(String providerId);
 
     void setName(String name);
+
+    void setUsername(String username);
 
     void setEmail(String email);
 

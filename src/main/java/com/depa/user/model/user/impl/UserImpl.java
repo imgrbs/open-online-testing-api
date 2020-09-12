@@ -24,6 +24,7 @@ public class UserImpl implements User, UserPrincipal {
     @Id
     private ObjectId id;
     private String name;
+    private String username;
     private String email;
     @JsonIgnore
     private String password;
