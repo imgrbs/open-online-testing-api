@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.depa.form.model.acl;
+package com.depa.exam.service;
 
 /**
  *
  * @author Test
  */
-public abstract class Claim {
+public interface ExamStrategy {
     
     
 }

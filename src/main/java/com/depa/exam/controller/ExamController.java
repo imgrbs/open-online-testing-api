@@ -42,14 +42,16 @@ public class ExamController {
     }
 
     @GetMapping("/exam/{uid}")
-    public ResponseEntity<ExamDTO> getExamByObjectId(@PathVariable ObjectId uid) {
+    public ResponseEntity<ExamDTO> getExamTopicByObjectId(@PathVariable ObjectId uid) {
         ExamDTO exam = examService.getExamById(uid);
         return new ResponseEntity<>(exam, HttpStatus.OK);
     }
-    
+
     @GetMapping("/exam/{uid}/questions")
-    public ResponseEntity<ExamDTO> getAllQuestionOfExam(@PathVariable ObjectId uid) {
-        ExamDTO exam = examService.loadAllQuestionOfExam(uid);
+    public ResponseEntity<ExamDTO> getExamDetailById(
+            @PathVariable ObjectId uid,
+            @RequestParam(required = false, defaultValue = "TRADITIONAL") String examinationType) {
+        ExamDTO exam = examService.generateExamination(uid);
         return new ResponseEntity<>(exam, HttpStatus.OK);
     }
 
@@ -58,26 +60,23 @@ public class ExamController {
         List<ExamDTO> exams = examService.getExams();
         return new ResponseEntity<>(exams, HttpStatus.OK);
     }
-    
+
     @PostMapping("/exam/{examId}/answer/submit")
-    public ResponseEntity<ExamDTO> submitExamAllAnswer(@PathVariable String examId,@RequestBody List<ExamAnswerDTOImpl> examAnswerList) {
-        examService.submitExamAllAnswer(new ObjectId(examId),examAnswerList);
+    public ResponseEntity<ExamDTO> submitExamAllAnswer(@PathVariable String examId, @RequestBody List<ExamAnswerDTOImpl> examAnswerList) {
+        examService.submitExamAllAnswer(new ObjectId(examId), examAnswerList);
         System.out.println("=========");
         System.out.println(examAnswerList);
         return new ResponseEntity<>(null, HttpStatus.CREATED);
     }
-    
+
 //    @GetMapping("/v2/exams")
 //    public ResponseEntity<List> getExamsImpl() {
 //        List<ExamDTO> exams = examService.getExamsImpl();
 //        return new ResponseEntity<>(exams, HttpStatus.OK);
 //    }
-    
 //    @GetMapping("/exam/{uid}")
 //    public ResponseEntity<ExamDTO> getExamByObjectIdImpl(@PathVariable ObjectId uid) {
 //        ExamDTO exam = examService.getExamById(uid);
 //        return new ResponseEntity<>(exam, HttpStatus.OK);
 //    }
-    
-
 }

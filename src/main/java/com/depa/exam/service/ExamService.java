@@ -17,7 +17,7 @@ public interface ExamService {
 
     List<ExamDTO> getExams();
     
-    ExamDTO loadAllQuestionOfExam(ObjectId id);
+    ExamDTO generateExamination(ObjectId id);
 
     ExamDTO getExamById(ObjectId id);
 

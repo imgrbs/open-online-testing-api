@@ -11,6 +11,7 @@ import com.depa.exam.dto.impl.ExamAnswerDTOImpl;
 import com.depa.exam.dto.impl.ExamDTOImpl;
 import com.depa.exam.dto.impl.ExamExcludeQuestionDTOImpl;
 import com.depa.exam.model.exam.Exam;
+import com.depa.exam.model.question.Question;
 import com.depa.exam.repository.ExamRepository;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,13 +25,13 @@ import org.springframework.stereotype.Service;
  * @author Test
  */
 @Service
-public class ExamServiceReadctImpl extends ExamServiceImpl {
+public class TraditionalTesting extends ExamServiceImpl {
 
     @Autowired
     private ExamRepository examRepository;
 
     @Override
-    public ExamDTO loadAllQuestionOfExam(ObjectId id) {
+    public ExamDTO generateExamination(ObjectId id) {
         ExamDTO examWithQuestion = super.getExamById(id);
         Collections.shuffle(examWithQuestion.getQuestions());
         return examWithQuestion;
@@ -61,8 +62,9 @@ public class ExamServiceReadctImpl extends ExamServiceImpl {
         System.out.println("submit override !!!");
         Exam examInDatabase = examRepository.findById(examId).get();
         if(examInDatabase !=null){
-            
+            List<Question> questions = examInDatabase.getQuestions();
         }
+        
     }
 
 }
