@@ -48,9 +48,7 @@ public class ExamController {
     }
 
     @GetMapping("/exam/{uid}/questions")
-    public ResponseEntity<ExamDTO> getExamDetailById(
-            @PathVariable ObjectId uid,
-            @RequestParam(required = false, defaultValue = "TRADITIONAL") String examinationType) {
+    public ResponseEntity<ExamDTO> getExamDetailById(@PathVariable ObjectId uid) {
         ExamDTO exam = examService.generateExamination(uid);
         return new ResponseEntity<>(exam, HttpStatus.OK);
     }

@@ -12,13 +12,13 @@ package com.depa.exam.service.internal;
 
 public class ExaminationContext {
     
-    private ExaminationContext examinationContext;
+    private ExaminationStrategy examinationContext;
 
-    public ExaminationContext getExaminationContext() {
+    public ExaminationStrategy getExaminationContext() {
         return examinationContext;
     }
 
-    public void setExaminationContext(ExaminationContext examinationContext) {
+    public void setExaminationContext(ExaminationStrategy examinationContext) {
         this.examinationContext = examinationContext;
     }
     

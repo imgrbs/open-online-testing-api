@@ -21,11 +21,14 @@ import java.util.List;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 @Setter
-//@Service
-public abstract class ExamServiceImpl implements ExamService, ExamStrategy {
+@Service
+public class ExamServiceImpl implements ExamService {
 
     @Autowired
     private ExamRepository examRepository;
+    
+    @Autowired
+    private ExaminationContext examinationContext;
 
     @Override
     public ExamDTO createExam(ExamDTO examDTO) {
@@ -53,6 +56,17 @@ public abstract class ExamServiceImpl implements ExamService, ExamStrategy {
 
     public ExamDTO toExamExcludeQuestionDTOImpl(Exam exam) {
         return new ExamExcludeQuestionDTOImpl(exam);
+    }
+
+    @Override
+    public ExamDTO generateExamination(ObjectId id) {
+        examinationContext.setExaminationContext(new TraditionalTesting());
+        return null;
+    }
+
+    @Override
+    public void submitExamAllAnswer(ObjectId examId, List<ExamAnswerDTOImpl> examAnswer) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

@@ -13,6 +13,7 @@ import com.depa.exam.dto.impl.ExamExcludeQuestionDTOImpl;
 import com.depa.exam.model.exam.Exam;
 import com.depa.exam.model.question.Question;
 import com.depa.exam.repository.ExamRepository;
+import com.depa.exam.service.ExamStrategy;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -24,8 +25,8 @@ import org.springframework.stereotype.Service;
  *
  * @author Test
  */
-@Service
-public class TraditionalTesting extends ExamServiceImpl {
+
+public class TraditionalTesting extends ExamServiceImpl  implements ExamStrategy {
 
     @Autowired
     private ExamRepository examRepository;
@@ -64,7 +65,6 @@ public class TraditionalTesting extends ExamServiceImpl {
         if(examInDatabase !=null){
             List<Question> questions = examInDatabase.getQuestions();
         }
-        
     }
 
 }
