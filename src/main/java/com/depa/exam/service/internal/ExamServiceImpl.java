@@ -25,9 +25,15 @@ public class ExamServiceImpl implements ExamService {
 
     @Autowired
     private ExamRepository examRepository;
-    
+
     @Autowired
     private ExaminationContext examinationContext;
+
+    @Autowired
+    private TraditionalTesting traditionalTesting;
+
+    @Autowired
+    private AdaptiveTesting adaptiveTesting;
 
     @Override
     public ExamDTO createExam(ExamDTO examDTO) {
@@ -59,8 +65,12 @@ public class ExamServiceImpl implements ExamService {
 
     @Override
     public ExamDTO generateExamination(ObjectId examId) {
-        ExaminationStrategy context = (ExaminationStrategy) new TraditionalTesting();
-        examinationContext.setExaminationContext(context);
+//        ExaminationStrategy context = (ExaminationStrategy) new TraditionalTesting();
+        if (true) {
+            examinationContext.setExaminationContext(traditionalTesting);
+        }else{
+            examinationContext.setExaminationContext(adaptiveTesting);
+        }
         examinationContext.generateExaminationByExamId(examId);
         return null;
     }

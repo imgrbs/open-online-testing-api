@@ -16,6 +16,7 @@ import com.depa.exam.repository.ExamRepository;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,22 +25,24 @@ import org.springframework.stereotype.Service;
  *
  * @author Test
  */
-
+@Service
 public class TraditionalTesting  implements ExaminationStrategy {
 
     @Autowired
     private ExamRepository examRepository;
-    
-    public ExamDTO toExamDTO(Exam exam) {
-        return new ExamDTOImpl(exam);
-    }
 
     @Override
     public ExamDTO generateExamination(ObjectId id) {
         System.out.println("=== Traditional Generated ===");
         ExamDTO examWithQuestion = getExamById(id);
-        Collections.shuffle(examWithQuestion.getQuestions());
-        return examWithQuestion;
+//        Collections.shuffle(examWithQuestion.getQuestions());
+//        return examWithQuestion;
+        return null;
+    }
+    
+        
+    public ExamDTO toExamDTO(Exam exam) {
+        return new ExamDTOImpl(exam);
     }
 
     public List<ExamDTO> getExams() {
@@ -50,6 +53,11 @@ public class TraditionalTesting  implements ExaminationStrategy {
     }
 
     public ExamDTO getExamById(ObjectId id) {
+        System.out.println("!! Repository is null");
+        System.out.println(examRepository);
+        Optional<Exam> get = examRepository.findById(id);
+        System.out.println("fuck");
+        System.out.println(get);
         return toExamExcludeQuestionDTOImpl(examRepository.findById(id).get());
     }
 
