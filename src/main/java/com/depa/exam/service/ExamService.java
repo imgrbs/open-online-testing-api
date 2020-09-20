@@ -25,7 +25,7 @@ public interface ExamService {
 
     public void submitExamAllAnswer(ObjectId examId,List<ExamAnswerDTOImpl> examAnswer);
 
-    public ExamDTO getExamTopicByExamId(ObjectId uid);
+    public ExamExcludeQuestionDTOImpl getExamTopicByExamId(ObjectId uid);
     
     
 }
