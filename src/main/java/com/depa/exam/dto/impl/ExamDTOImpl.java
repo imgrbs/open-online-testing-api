@@ -23,6 +23,7 @@ public class ExamDTOImpl implements ExamDTO {
     private List<CategoryDTOImpl> categories;
     private Date startAt;
     private Date endAt;
+    private String examType;
 
     public ExamDTOImpl(Exam exam) {
         this.id = exam.getId();
@@ -30,6 +31,7 @@ public class ExamDTOImpl implements ExamDTO {
         this.description = exam.getDescription();
         this.questions = new ArrayList<>();
         this.categories = exam.getCategories();
+        this.examType = exam.getExamType();
 
         if (exam.getQuestions() != null) {
             exam.getQuestions().forEach(field -> {
@@ -42,4 +44,5 @@ public class ExamDTOImpl implements ExamDTO {
     public Exam toExam() {
         return new Exam(this);
     }
+
 }

@@ -30,8 +30,8 @@ public class Exam {
     private Date startAt;
     private Date endAt;
     private List<Question> questions;
-
     private List<CategoryDTOImpl> categories = new ArrayList<>();
+    private String examType="traditional";
 
     public Exam(ExamDTO examDTO) {
         this.name = examDTO.getName();

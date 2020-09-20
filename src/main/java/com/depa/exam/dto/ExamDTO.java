@@ -25,4 +25,7 @@ public interface ExamDTO {
     List<CategoryDTOImpl> getCategories();
 
     void setCategories(List<CategoryDTOImpl> categories);
+    
+    String getExamType();
+    
 }

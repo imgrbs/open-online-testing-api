@@ -30,6 +30,7 @@ public class ExamExcludeQuestionDTOImpl implements ExamDTO{
     private List<CategoryDTOImpl> categories;
     private Date startAt;
     private Date endAt;
+    private String examType;
 
     public ExamExcludeQuestionDTOImpl(Exam exam) {
         this.id = exam.getId();
@@ -44,5 +45,6 @@ public class ExamExcludeQuestionDTOImpl implements ExamDTO{
     public Exam toExam() {
         return new Exam(this);
     }
+
     
 }

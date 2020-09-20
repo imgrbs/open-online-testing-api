@@ -51,6 +51,7 @@ public class ExamServiceImpl implements ExamService {
 
     @Override
     public ExamDTO getExamById(ObjectId id) {
+        System.out.println(" Get Exam by ID : "+id);
         return toExamDTO(examRepository.findById(id).get());
     }
 
@@ -65,8 +66,9 @@ public class ExamServiceImpl implements ExamService {
 
     @Override
     public ExamDTO generateExamination(ObjectId examId) {
-//        ExaminationStrategy context = (ExaminationStrategy) new TraditionalTesting();
-        if (true) {
+        System.out.println(examId);
+        ExamDTO examFromDatabaase = this.getExamById(examId);
+        if (examFromDatabaase.getExamType().equals("traditional")) {
             examinationContext.setExaminationContext(traditionalTesting);
         }else{
             examinationContext.setExaminationContext(adaptiveTesting);

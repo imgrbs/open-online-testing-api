@@ -56,7 +56,6 @@ public class TraditionalTesting  implements ExaminationStrategy {
         System.out.println("!! Repository is null");
         System.out.println(examRepository);
         Optional<Exam> get = examRepository.findById(id);
-        System.out.println("fuck");
         System.out.println(get);
         return toExamExcludeQuestionDTOImpl(examRepository.findById(id).get());
     }
