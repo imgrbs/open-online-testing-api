@@ -26,19 +26,22 @@ import org.springframework.stereotype.Service;
  * @author Test
  */
 
-public class TraditionalTesting extends ExamServiceImpl  implements ExamStrategy {
+public class TraditionalTesting  implements ExamStrategy {
 
     @Autowired
     private ExamRepository examRepository;
+    
+    public ExamDTO toExamDTO(Exam exam) {
+        return new ExamDTOImpl(exam);
+    }
 
-    @Override
     public ExamDTO generateExamination(ObjectId id) {
-        ExamDTO examWithQuestion = super.getExamById(id);
+        System.out.println("=== Traditional Generated ===");
+        ExamDTO examWithQuestion = getExamById(id);
         Collections.shuffle(examWithQuestion.getQuestions());
         return examWithQuestion;
     }
 
-    @Override
     public List<ExamDTO> getExams() {
         List<Exam> queryExams = this.examRepository.findAll();
         ArrayList<ExamDTO> exams = new ArrayList<>();
@@ -46,7 +49,6 @@ public class TraditionalTesting extends ExamServiceImpl  implements ExamStrategy
         return exams;
     }
 
-    @Override
     public ExamDTO getExamById(ObjectId id) {
         return toExamExcludeQuestionDTOImpl(examRepository.findById(id).get());
     }
@@ -55,7 +57,6 @@ public class TraditionalTesting extends ExamServiceImpl  implements ExamStrategy
         return new ExamExcludeQuestionDTOImpl(exam);
     }
 
-    @Override
     public void submitExamAllAnswer(ObjectId examId, List<ExamAnswerDTOImpl> examAnswer) {
         System.out.println(examId);
         System.out.println("=============");

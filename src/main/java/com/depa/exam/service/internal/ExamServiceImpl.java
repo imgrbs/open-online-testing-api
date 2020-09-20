@@ -59,8 +59,10 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
-    public ExamDTO generateExamination(ObjectId id) {
-        examinationContext.setExaminationContext(new TraditionalTesting());
+    public ExamDTO generateExamination(ObjectId examId) {
+        ExaminationStrategy context = (ExaminationStrategy) new TraditionalTesting();
+        examinationContext.setExaminationContext(context);
+        examinationContext.generateExaminationByExamId(examId);
         return null;
     }
 

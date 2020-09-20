@@ -5,6 +5,8 @@
  */
 package com.depa.exam.service.internal;
 
+import org.bson.types.ObjectId;
+
 /**
  *
  * @author Test
@@ -20,6 +22,10 @@ public class ExaminationContext {
 
     public void setExaminationContext(ExaminationStrategy examinationContext) {
         this.examinationContext = examinationContext;
+    }
+
+    void generateExaminationByExamId(ObjectId examId) {
+        this.examinationContext.generateExamination(examId);
     }
     
 }
