@@ -27,6 +27,7 @@ DB_USERNAME=root;
 DB_PASSWORD=root;
 ```
 ```
+POST: localhost:8080/exam
 {
     "id": {
         "timestamp": 1600604621,
