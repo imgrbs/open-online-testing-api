@@ -73,8 +73,9 @@ public class ExamServiceImpl implements ExamService {
         }else{
             examinationContext.setExaminationContext(adaptiveTesting);
         }
-        examinationContext.generateExamination(examFromDatabase);
-        return null;
+        ExamDTO generatedExamination = examinationContext.generateExamination(examFromDatabase);
+        System.out.println(examFromDatabase);
+        return examFromDatabase;
     }
 
     @Override
