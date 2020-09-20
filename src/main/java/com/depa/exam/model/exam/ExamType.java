@@ -5,6 +5,9 @@
  */
 package com.depa.exam.model.exam;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
 /**
  *
  * @author Test

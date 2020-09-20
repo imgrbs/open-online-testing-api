@@ -1,6 +1,5 @@
 package com.depa.exam.model.exam;
 
-import com.depa.exam.dto.CategoryDTO;
 import com.depa.exam.dto.ExamDTO;
 import com.depa.exam.dto.impl.CategoryDTOImpl;
 import com.depa.exam.model.question.Question;
@@ -31,13 +30,13 @@ public class Exam {
     private Date endAt;
     private List<Question> questions;
     private List<CategoryDTOImpl> categories = new ArrayList<>();
-    private ExamType examType = ExamType.TRADITIONAL;
+    private ExamType type;
 
     public Exam(ExamDTO examDTO) {
         this.name = examDTO.getName();
         this.description = examDTO.getDescription();
         this.questions = new ArrayList<>();
-
+//        this.examType = ExamType.TRADITIONAL;
         if (examDTO.getQuestions() != null) {
             examDTO.getQuestions().forEach(fieldDTO -> {
                 this.questions.add(fieldDTO.toQuestion());

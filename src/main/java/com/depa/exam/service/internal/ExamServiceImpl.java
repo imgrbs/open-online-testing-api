@@ -70,7 +70,7 @@ public class ExamServiceImpl implements ExamService {
     public ExamDTO generateExamination(ObjectId examId) {
         System.out.println(examId);
         ExamDTO examFromDatabase = this.getExamById(examId);
-        if (examFromDatabase.getExamType().equals(ExamType.TRADITIONAL)) {
+        if (examFromDatabase.getType().equals(ExamType.TRADITIONAL)) {
             examinationContext.setExaminationContext(traditionalTesting);
         }else{
             examinationContext.setExaminationContext(adaptiveTesting);

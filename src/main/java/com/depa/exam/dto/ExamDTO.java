@@ -27,6 +27,8 @@ public interface ExamDTO {
 
     void setCategories(List<CategoryDTOImpl> categories);
     
-    ExamType getExamType();
+    ExamType getType();
+    
+    void setType(ExamType examType);
     
 }
