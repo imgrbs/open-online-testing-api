@@ -49,7 +49,11 @@ public class Exam {
         }
     }
 
-    public Exam(ObjectId id, String exam_name, String exam_description, ArrayList<Object> arrayList, ArrayList<Object> arrayList0) {
+//    public Exam(ObjectId id, String exam_name, String exam_description, ArrayList<Object> arrayList, ArrayList<Object> arrayList0) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
+
+    public Exam(ObjectId objectId, String exam_Set_1, String set_A, ArrayList<Object> arrayList, List<CategoryDTOImpl> categories) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

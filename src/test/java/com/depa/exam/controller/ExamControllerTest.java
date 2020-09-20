@@ -131,7 +131,7 @@ class ExamControllerTest {
         expectedGetExamById(expectedExam.getId(), expectedExamDTO);
         expectedToExamDTO(expectedExam, expectedExamDTO);
 
-        ResponseEntity<ExamDTO> actual = underTest.getExamByObjectId(expectedExam.getId());
+        ResponseEntity<ExamDTO> actual = underTest.getExamDetailById(expectedExam.getId());
 
         ExamDTO actualExam = actual.getBody();
 
