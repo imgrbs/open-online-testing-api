@@ -19,10 +19,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.depa.user.dto.UserPrincipal;
 import com.depa.user.model.user.User;
-import com.depa.user.model.user.impl.UserImpl;
+import com.depa.user.model.user.UserFactory;
 import com.depa.user.repository.UserRepository;
 import com.depa.user.security.config.AppProperties;
-import com.depa.user.security.config.AuthProvider;
 import com.depa.user.security.exception.BadRequestException;
 import com.depa.user.security.repository.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.depa.user.service.TokenProvider;
@@ -69,7 +68,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
 	@SneakyThrows
 	protected String determineTargetUrl(HttpServletRequest request, HttpServletResponse response,
-            Authentication authentication) {
+			Authentication authentication) {
 		Optional<String> redirectUri = CookieUtils.getCookie(request, REDIRECT_URI_PARAM_COOKIE_NAME).map(Cookie::getValue);
 
 		if (redirectUri.isPresent() && !isAuthorizedRedirectUri(redirectUri.get())) {
@@ -83,9 +82,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 			UserPrincipal userPrincipal = UserPrincipal.create(authentication.getPrincipal());
 			UserDetails userDetails = userDetailsService.loadUserByUsername(userPrincipal.getEmail());
 			if (userDetails == null) {
-				User user = UserImpl.create(userPrincipal.getEmail());
-				user.setProvider(getAuthProvider((OAuth2AuthenticationToken) authentication));
-				user.setName(userPrincipal.getAttribute("name"));
+				User user = UserFactory.create(userPrincipal, getRegistrationId(authentication));
 				userRepository.save(user);
 				String token = tokenProvider.createToken(user.getId().toString());
 				return UriComponentsBuilder.fromUriString(targetUrl).queryParam("token", token).build().toUriString();
@@ -98,18 +95,8 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 		return "#";
 	}
 
-	private AuthProvider getAuthProvider(OAuth2AuthenticationToken authentication) {
-		String registrationId = authentication.getAuthorizedClientRegistrationId();
-		switch (registrationId) {
-            case "google":
-                return AuthProvider.google;
-            case "facebook":
-                return AuthProvider.facebook;
-            case "github":
-                return AuthProvider.github;
-            default:
-                return AuthProvider.local;
-		}
+	private String getRegistrationId(Authentication authentication) {
+		return ((OAuth2AuthenticationToken) authentication).getAuthorizedClientRegistrationId();
 	}
 
 	private boolean isOAuth2Provider(Authentication authentication) {

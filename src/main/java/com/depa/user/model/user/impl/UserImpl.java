@@ -21,32 +21,36 @@ import lombok.Setter;
 @Setter
 @Getter
 public class UserImpl implements User, UserPrincipal {
-    @Id
-    private ObjectId id;
-    private String name;
-    private String username;
-    private String email;
-    @JsonIgnore
-    private String password;
-    private String imageUrl;
-    private String displayName;
-    private AuthProvider provider;
-    private String providerId;
+	@Id
+	private ObjectId id;
+	private String name;
+	private String username;
+	private String email;
+	@JsonIgnore
+	private String password;
+	private String imageUrl;
+	private String displayName;
+	private AuthProvider provider;
+	private String providerId;
 
-    private UserImpl(String email) {
-        this.id = new ObjectId();
-        this.email = email;
-    }
+	private UserImpl(String email) {
+		this.id = new ObjectId();
+		this.email = email;
+	}
 
-    public String getAuthProvider() {
-        return provider.toString();
-    }
+	public static UserImpl create(String email) {
+		UserImpl user = new UserImpl(email);
+		user.setProvider(AuthProvider.local);
+		return user;
+	}
 
-    public String getProvider() {
-        return provider.toString();
-    }
+	public String getAuthProvider() {
+		return provider.toString();
+	}
 
-    public static UserImpl create(String email) {
-        return new UserImpl(email);
-    };
+	public String getProvider() {
+		return provider.toString();
+	}
+
+	;
 }
