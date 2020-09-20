@@ -8,6 +8,7 @@ import com.depa.exam.repository.CategoryRepository;
 import java.util.List;
 
 public interface CategoryService {
+    
     void setCategoryRepository(CategoryRepository mockCategoryRepository);
 
     CategoryDTO createCategory(CategoryDTO categoryDTO);

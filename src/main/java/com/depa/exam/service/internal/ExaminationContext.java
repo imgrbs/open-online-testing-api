@@ -6,12 +6,13 @@
 package com.depa.exam.service.internal;
 
 import org.bson.types.ObjectId;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Test
  */
-
+@Service
 public class ExaminationContext {
     
     private ExaminationStrategy examinationContext;

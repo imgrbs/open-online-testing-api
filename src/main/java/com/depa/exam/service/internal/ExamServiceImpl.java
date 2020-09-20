@@ -8,7 +8,6 @@ import com.depa.exam.dto.impl.ExamExcludeQuestionDTOImpl;
 import com.depa.exam.model.exam.Exam;
 import com.depa.exam.repository.ExamRepository;
 import com.depa.exam.service.ExamService;
-import com.depa.exam.service.ExamStrategy;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Projections;
 import lombok.Setter;

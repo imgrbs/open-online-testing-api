@@ -13,7 +13,6 @@ import com.depa.exam.dto.impl.ExamExcludeQuestionDTOImpl;
 import com.depa.exam.model.exam.Exam;
 import com.depa.exam.model.question.Question;
 import com.depa.exam.repository.ExamRepository;
-import com.depa.exam.service.ExamStrategy;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -26,7 +25,7 @@ import org.springframework.stereotype.Service;
  * @author Test
  */
 
-public class TraditionalTesting  implements ExamStrategy {
+public class TraditionalTesting  implements ExaminationStrategy {
 
     @Autowired
     private ExamRepository examRepository;
@@ -35,6 +34,7 @@ public class TraditionalTesting  implements ExamStrategy {
         return new ExamDTOImpl(exam);
     }
 
+    @Override
     public ExamDTO generateExamination(ObjectId id) {
         System.out.println("=== Traditional Generated ===");
         ExamDTO examWithQuestion = getExamById(id);
