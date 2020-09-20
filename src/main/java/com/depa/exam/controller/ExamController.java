@@ -35,12 +35,14 @@ public class ExamController {
     @PostMapping("/exam")
     public ResponseEntity<ExamDTO> createExam(@RequestBody ExamDTOImpl exam) {
         System.out.println("== Contraoller Create Exam=");
-//        exam.getQuestions().forEach(categoryDTO -> {
-//            System.out.println(categoryDTO.getCategories());
-//            // categoryService.createCategory(categoryDTO);
-//        });
-//        ExamDTO createdExam = examService.createExam(exam);
-        return new ResponseEntity<>(null, HttpStatus.CREATED);
+        exam.getQuestions().forEach(categoryDTO -> {
+            System.out.println(categoryDTO.getCategories());
+            categoryDTO.getCategories().forEach((category) -> {
+                categoryService.createCategory(category);
+            });
+        });
+        ExamDTO createdExam = examService.createExam(exam);
+        return new ResponseEntity<>(createdExam, HttpStatus.CREATED);
     }
 
     @GetMapping("/exam/{uid}")
