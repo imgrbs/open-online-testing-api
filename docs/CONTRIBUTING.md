@@ -33,7 +33,9 @@ docker-compose -f docker-compose.dev.yml build
 docker-compose -f docker-compose.dev.yml up
 ```
 
-คำสั่งด้านบนจะสร้าง 2 services นั่นคือ mongo database บน localhost:27017 และ backend service หรือ depa-testing-api บน localhost:8080
+คำสั่งด้านบนจะสร้าง 2 services นั่นคือ 
+* mongo database บน localhost:27017 
+* backend service หรือ depa-testing-api บน localhost:8080
 
 ### โครงสร้างของโปรเจกต์
 
