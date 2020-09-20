@@ -16,13 +16,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
 @Document("exams")
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Setter
 @Getter
 public class Exam {
+
     @Id
     private ObjectId id;
     private String name;
@@ -31,7 +31,7 @@ public class Exam {
     private Date endAt;
     private List<Question> questions;
     private List<CategoryDTOImpl> categories = new ArrayList<>();
-    private String examType="traditional";
+    private ExamType examType = ExamType.TRADITIONAL;
 
     public Exam(ExamDTO examDTO) {
         this.name = examDTO.getName();
@@ -52,11 +52,8 @@ public class Exam {
 //    public Exam(ObjectId id, String exam_name, String exam_description, ArrayList<Object> arrayList, ArrayList<Object> arrayList0) {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //    }
-
     public Exam(ObjectId objectId, String exam_Set_1, String set_A, ArrayList<Object> arrayList, List<CategoryDTOImpl> categories) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-  
 
 }

@@ -6,6 +6,7 @@ import com.depa.exam.dto.impl.ExamAnswerDTOImpl;
 import com.depa.exam.dto.impl.ExamDTOImpl;
 import com.depa.exam.dto.impl.ExamExcludeQuestionDTOImpl;
 import com.depa.exam.model.exam.Exam;
+import com.depa.exam.model.exam.ExamType;
 import com.depa.exam.repository.ExamRepository;
 import com.depa.exam.service.ExamService;
 import com.mongodb.client.MongoCollection;
@@ -69,7 +70,7 @@ public class ExamServiceImpl implements ExamService {
     public ExamDTO generateExamination(ObjectId examId) {
         System.out.println(examId);
         ExamDTO examFromDatabase = this.getExamById(examId);
-        if (examFromDatabase.getExamType().equals("traditional")) {
+        if (examFromDatabase.getExamType().equals(ExamType.TRADITIONAL)) {
             examinationContext.setExaminationContext(traditionalTesting);
         }else{
             examinationContext.setExaminationContext(adaptiveTesting);

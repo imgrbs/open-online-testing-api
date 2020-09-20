@@ -3,6 +3,7 @@ package com.depa.exam.dto;
 import com.depa.exam.dto.impl.CategoryDTOImpl;
 import com.depa.exam.dto.impl.QuestionDTOImpl;
 import com.depa.exam.model.exam.Exam;
+import com.depa.exam.model.exam.ExamType;
 
 import java.util.List;
 
@@ -26,6 +27,6 @@ public interface ExamDTO {
 
     void setCategories(List<CategoryDTOImpl> categories);
     
-    String getExamType();
+    ExamType getExamType();
     
 }

@@ -7,6 +7,7 @@ package com.depa.exam.dto.impl;
 
 import com.depa.exam.dto.ExamDTO;
 import com.depa.exam.model.exam.Exam;
+import com.depa.exam.model.exam.ExamType;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,7 +31,7 @@ public class ExamExcludeQuestionDTOImpl implements ExamDTO{
     private List<CategoryDTOImpl> categories;
     private Date startAt;
     private Date endAt;
-    private String examType;
+    private ExamType examType;
 
     public ExamExcludeQuestionDTOImpl(Exam exam) {
         this.id = exam.getId();
