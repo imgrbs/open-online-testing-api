@@ -24,6 +24,8 @@ public interface ExamService {
     ExamDTO toExamDTO(Exam exam);
 
     public void submitExamAllAnswer(ObjectId examId,List<ExamAnswerDTOImpl> examAnswer);
+
+    public ExamDTO getExamTopicByExamId(ObjectId uid);
     
     
 }

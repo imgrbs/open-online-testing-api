@@ -54,6 +54,11 @@ public class ExamServiceImpl implements ExamService {
         System.out.println(" Get Exam by ID : "+id);
         return toExamDTO(examRepository.findById(id).get());
     }
+    
+    public ExamDTO getExamTopicByExamId(ObjectId id) {
+        System.out.println(" Get Exam by ID : "+id);
+        return toExamDTO(examRepository.findById(id).get());
+    }
 
     @Override
     public ExamDTO toExamDTO(Exam exam) {
