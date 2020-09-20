@@ -26,21 +26,17 @@ import org.springframework.stereotype.Service;
  * @author Test
  */
 @Service
-public class TraditionalTesting  implements ExaminationStrategy {
+public class TraditionalTesting implements ExaminationStrategy {
 
     @Autowired
     private ExamRepository examRepository;
 
-    @Override
-    public ExamDTO generateExamination(ObjectId id) {
+    public ExamDTO generateExamination(ExamDTO examWithQuestion) {
         System.out.println("=== Traditional Generated ===");
-        ExamDTO examWithQuestion = getExamById(id);
-//        Collections.shuffle(examWithQuestion.getQuestions());
-//        return examWithQuestion;
-        return null;
+        Collections.shuffle(examWithQuestion.getQuestions());
+        return examWithQuestion;
     }
-    
-        
+
     public ExamDTO toExamDTO(Exam exam) {
         return new ExamDTOImpl(exam);
     }
@@ -70,7 +66,7 @@ public class TraditionalTesting  implements ExaminationStrategy {
         System.out.println(examAnswer);
         System.out.println("submit override !!!");
         Exam examInDatabase = examRepository.findById(examId).get();
-        if(examInDatabase !=null){
+        if (examInDatabase != null) {
             List<Question> questions = examInDatabase.getQuestions();
         }
     }

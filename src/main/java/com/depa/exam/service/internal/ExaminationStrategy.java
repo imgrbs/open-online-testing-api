@@ -15,6 +15,6 @@ import org.bson.types.ObjectId;
  */
 public interface ExaminationStrategy {
     
-    public ExamDTO generateExamination(ObjectId id);
+    public ExamDTO generateExamination(ExamDTO exam);
     
 }

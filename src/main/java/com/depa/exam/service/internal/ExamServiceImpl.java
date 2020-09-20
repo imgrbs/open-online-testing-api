@@ -67,13 +67,13 @@ public class ExamServiceImpl implements ExamService {
     @Override
     public ExamDTO generateExamination(ObjectId examId) {
         System.out.println(examId);
-        ExamDTO examFromDatabaase = this.getExamById(examId);
-        if (examFromDatabaase.getExamType().equals("traditional")) {
+        ExamDTO examFromDatabase = this.getExamById(examId);
+        if (examFromDatabase.getExamType().equals("traditional")) {
             examinationContext.setExaminationContext(traditionalTesting);
         }else{
             examinationContext.setExaminationContext(adaptiveTesting);
         }
-        examinationContext.generateExaminationByExamId(examId);
+        examinationContext.generateExamination(examFromDatabase);
         return null;
     }
 

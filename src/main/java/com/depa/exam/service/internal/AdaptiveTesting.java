@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 public class AdaptiveTesting implements ExaminationStrategy {
 
     @Override
-    public ExamDTO generateExamination(ObjectId id) {
+    public ExamDTO generateExamination(ExamDTO exam) {
         System.out.println("==== Adaptive Testing ====");
         return null;
     }

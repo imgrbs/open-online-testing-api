@@ -5,6 +5,7 @@
  */
 package com.depa.exam.service.internal;
 
+import com.depa.exam.dto.ExamDTO;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ExaminationContext {
-    
+
     private ExaminationStrategy examinationContext;
 
     public ExaminationStrategy getExaminationContext() {
@@ -25,8 +26,8 @@ public class ExaminationContext {
         this.examinationContext = examinationContext;
     }
 
-    void generateExaminationByExamId(ObjectId examId) {
-        this.examinationContext.generateExamination(examId);
+    public ExamDTO generateExamination(ExamDTO exam) {
+        return this.examinationContext.generateExamination(exam);
     }
-    
+
 }
