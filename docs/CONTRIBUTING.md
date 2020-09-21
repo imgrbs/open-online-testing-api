@@ -9,6 +9,7 @@
 * [ขั้นตอนการพัฒนา](#ขั้นตอนการพัฒนา)
   * [Subsystems ของระบบ](#subsystems-ของระบบ)
   * [โครงสร้างของโปรเจกต์](#โครงสร้างของโปรเจกต์)
+* [การออกแบบเชิงสถาปัตยกรรมระบบ](#การออกแบบเชิงสถาปัตยกรรมระบบ)
 * [การส่ง Pull Request](#การส่ง-pull-request)
 * [Become a maintainer](become-a-maintainer)
 
@@ -81,6 +82,24 @@ depa-testing-api
 * `src/main/resources/application.properties` เก็บการตั้งค่าที่เกี่ยวข้องกับแอปพลิเคชันนั้น ๆ
 
 * `src/test/.../exam/` เก็บไฟล์ test ลักษณะการเขียนจะเป็น parallel กับ main package
+
+## การออกแบบเชิงสถาปัตยกรรมระบบ
+
+### ภาพแสดงโครงสร้างเชิงสถาปัตยกรรมโดยรวมของระบบ
+
+![Overview Testing System  - Step 1 Overview Components](https://user-images.githubusercontent.com/22396258/93784071-b870ab00-fc56-11ea-8979-0a6b463ee7bb.png)
+
+### ภาพแสดงโครงสร้างเชิงสถาปัตยกรรมของระบบย่อย User Management
+
+![Overview Testing System  - UserManagement](https://user-images.githubusercontent.com/22396258/93784074-ba3a6e80-fc56-11ea-93cd-e0ad98cfad6b.png)
+
+### ภาพแสดงโครงสร้างเชิงสถาปัตยกรรมของระบบย่อย Testpool Management
+
+![Overview Testing System  - TestPool](https://user-images.githubusercontent.com/22396258/93784072-b9a1d800-fc56-11ea-9aa3-82d8ae05583d.png)
+
+### ภาพแสดงโครงสร้างเชิงสถาปัตยกรรมของระบบย่อย Examination Management
+
+![Overview Testing System  - Examination](https://user-images.githubusercontent.com/22396258/93784061-b60e5100-fc56-11ea-9297-83e461ee27fa.png)
 
 
 ## การส่ง Pull Request
