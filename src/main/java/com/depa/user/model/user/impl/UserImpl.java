@@ -22,7 +22,7 @@ import lombok.Setter;
 @Getter
 public class UserImpl implements User, UserPrincipal {
     @Id
-    private ObjectId id;
+    private String id;
     private String name;
     private String username;
     private String email;
@@ -34,7 +34,7 @@ public class UserImpl implements User, UserPrincipal {
     private String providerId;
 
     private UserImpl(String email) {
-        this.id = new ObjectId();
+        this.id = new ObjectId().toHexString();
         this.email = email;
     }
 

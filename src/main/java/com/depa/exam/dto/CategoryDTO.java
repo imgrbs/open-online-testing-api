@@ -5,9 +5,9 @@ import org.bson.types.ObjectId;
 
 public interface CategoryDTO {
 
-    ObjectId getId();
+    String getId();
 
-    void setId(ObjectId id);
+    void setId(String id);
 
     String getLabel();
 

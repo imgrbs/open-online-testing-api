@@ -14,7 +14,7 @@ public interface ExamService {
 
     List<ExamDTO> getExams();
 
-    ExamDTO getExamById(ObjectId id);
+    ExamDTO getExamById(String id);
 
     ExamDTO toExamDTO(Exam exam);
 }

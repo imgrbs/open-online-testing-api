@@ -19,7 +19,7 @@ import java.util.List;
 public abstract class Question {
 
     @Id
-    private ObjectId id;
+    private String id;
 
     private String name;
 

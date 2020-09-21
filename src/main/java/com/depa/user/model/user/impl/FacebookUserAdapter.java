@@ -21,7 +21,7 @@ public class FacebookUserAdapter implements User {
     }
 
     @Override
-    public ObjectId getId() {
+    public String getId() {
         return null;
     }
 

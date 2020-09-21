@@ -36,7 +36,7 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
-    public ExamDTO getExamById(ObjectId id) {
+    public ExamDTO getExamById(String id) {
         return toExamDTO(examRepository.findById(id).get());
     }
 

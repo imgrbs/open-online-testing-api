@@ -34,7 +34,7 @@ public class ExamController {
     }
 
     @GetMapping("/exam/{uid}")
-    public ResponseEntity<ExamDTO> getExamByObjectId(@PathVariable ObjectId uid) {
+    public ResponseEntity<ExamDTO> getExamByObjectId(@PathVariable String uid) {
         ExamDTO exam = examService.getExamById(uid);
         return new ResponseEntity<>(exam, HttpStatus.OK);
     }

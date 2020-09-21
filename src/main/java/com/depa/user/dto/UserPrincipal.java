@@ -25,14 +25,14 @@ import lombok.Setter;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class UserPrincipal implements OAuth2User, UserDetails {
-    private ObjectId id;
+    private String id;
     private String username;
     private String email;
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
     private Map<String, Object> attributes;
 
-    private UserPrincipal(ObjectId id, String email, String password) {
+    private UserPrincipal(String id, String email, String password) {
         this.id = id;
         this.email = email;
         this.username = email;
