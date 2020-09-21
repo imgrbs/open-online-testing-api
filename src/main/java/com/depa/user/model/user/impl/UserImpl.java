@@ -10,14 +10,10 @@ import com.depa.user.model.user.User;
 import com.depa.user.security.config.AuthProvider;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Document("users")
-@AllArgsConstructor
-@RequiredArgsConstructor
 @Setter
 @Getter
 public class UserImpl implements User, UserPrincipal {
@@ -38,7 +34,7 @@ public class UserImpl implements User, UserPrincipal {
 		this.email = email;
 	}
 
-	public static UserImpl create(String email) {
+	protected static UserImpl create(String email) {
 		UserImpl user = new UserImpl(email);
 		user.setProvider(AuthProvider.local);
 		return user;
@@ -52,5 +48,4 @@ public class UserImpl implements User, UserPrincipal {
 		return provider.toString();
 	}
 
-	;
 }

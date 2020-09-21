@@ -1,21 +1,26 @@
 package com.depa.user.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Getter
 @Setter
-public class SignUpRequest {
-    @NotBlank
-    private String name;
+public class SignUpRequest extends UserPrincipal {
+	@NotBlank
+	private String name;
 
-    @NotBlank
-    @Email
-    private String email;
+	@NotBlank
+	@Email
+	private String email;
 
-    @NotBlank
-    private String password;
+	@NotBlank
+	private String password;
+
+	@Override
+	public <A> A getAttribute(String name) {
+		return null;
+	}
 }

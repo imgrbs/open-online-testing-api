@@ -2,8 +2,6 @@ package com.depa.user.model.user;
 
 import org.bson.types.ObjectId;
 
-import com.depa.user.security.config.AuthProvider;
-
 public interface User {
 
     String getEmail();
@@ -21,8 +19,6 @@ public interface User {
     String getProvider();
 
     String getUsername();
-
-    void setProvider(AuthProvider provider);
 
     void setProviderId(String providerId);
 

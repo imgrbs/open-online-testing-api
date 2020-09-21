@@ -1,4 +1,4 @@
-package com.depa.user.model.user;
+package com.depa.user.model.user.impl;
 
 import org.bson.types.ObjectId;
 import org.hamcrest.CoreMatchers;
@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.depa.user.dto.UserPrincipal;
+import com.depa.user.model.user.User;
 
 class UserFactoryTest {
 	private Mockery mockery;

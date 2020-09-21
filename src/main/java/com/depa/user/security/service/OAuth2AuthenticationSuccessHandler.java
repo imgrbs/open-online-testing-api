@@ -19,7 +19,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.depa.user.dto.UserPrincipal;
 import com.depa.user.model.user.User;
-import com.depa.user.model.user.UserFactory;
+import com.depa.user.model.user.impl.UserFactory;
 import com.depa.user.repository.UserRepository;
 import com.depa.user.security.config.AppProperties;
 import com.depa.user.security.exception.BadRequestException;
