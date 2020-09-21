@@ -10,12 +10,12 @@
 
 ### สารบัญ
 
-* [ลักษณะการใช้งานระบบ](#ลักษณะการใช้งานระบบ)
-* [การนำไปใช้งาน](#การนำไปใช้งาน)
-* [ความต้องการของระบบ](#ความต้องการของระบบ)
-* [Contribution](#Contribution)
-* [LICENSE](#LICENSE)
-* [Contributors](#Contributors)
+- [ลักษณะการใช้งานระบบ](#ลักษณะการใช้งานระบบ)
+- [การนำไปใช้งาน](#การนำไปใช้งาน)
+- [ความต้องการของระบบ](#ความต้องการของระบบ)
+- [Contribution](#Contribution)
+- [LICENSE](#LICENSE)
+- [Contributors](#Contributors)
 
 ## ลักษณะการใช้งานระบบ
 
@@ -27,12 +27,12 @@
 
 ## การนำไปใช้งาน
 
-- เบื้องต้นรองรับการสร้างคำถามประเภทปรนัย (ข้อช้อยส์) และอัตนัย (ข้อเขียน)
+- เบื้องต้นรองรับการสร้างคำถามประเภทปรนัย (แบบตัวเลือก) และอัตนัย (แบบบรรยาย)
 - รองรับการสร้างข้อสอบโดยเป็นการดึงกลุ่มของคำถามที่ถูกสร้าง
 - รองรับการเข้าสู่ระบบ 3 วิธี
-  - username password
-  - google login
-  - facebook login
+  - Username & Password
+  - Google Authentication
+  - Facebook Authentication
 
 สามารถดู URL และ method ที่ให้บริการได้ที่ [GitHub Wiki](https://github.com/imgrbs/depa-testing-api/wiki)
 
@@ -40,7 +40,6 @@
 
 - java 11
 - maven
-- Code Editor: intellij (recommended) _or netbean_
 - docker
 
 ## Contribution
