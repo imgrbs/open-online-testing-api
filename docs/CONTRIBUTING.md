@@ -7,6 +7,8 @@
 * [Code of Conduct](#code-of-conduct)
 * [มาลองสร้าง Pull Request แรกกัน](#มาลองสร้าง-pull-request-แรกกัน)
 * [ขั้นตอนการพัฒนา](#ขั้นตอนการพัฒนา)
+  * [ข้อตกลงในการโค้ดโปรเจกต์นี้](#ข้อตกลงในการโค้ดโปรเจกต์นี้)
+  * [รูปแบบ Commit Message](#รูปแบบ-commit-message)
   * [Subsystems ของระบบ](#subsystems-ของระบบ)
   * [โครงสร้างของโปรเจกต์](#โครงสร้างของโปรเจกต์)
 * [การออกแบบเชิงสถาปัตยกรรมระบบ](#การออกแบบเชิงสถาปัตยกรรมระบบ)
@@ -38,6 +40,73 @@ docker-compose -f docker-compose.dev.yml up
 คำสั่งด้านบนจะสร้าง 2 services นั่นคือ 
 * mongo database บน localhost:27017 
 * backend service หรือ depa-testing-api บน localhost:8080
+
+### ข้อตกลงในการโค้ดโปรเจกต์นี้
+
+เพื่อให้ผู้ใช้มั่นใจได้ว่าซอร์สโค้ด มีความสอดคล้องกันตลอด จึงมีข้อตกลงในการทำงานร่วมกันคือ
+
+* ทุก ๆ  ฟีเจอร์หรือบั๊ก **จะต้องมีเทส** อย่างน้อย 1 test case หรือมากกว่า (unit-tests)
+* ทุก ๆ public API methods **จะต้องมี document**
+
+### รูปแบบ Commit Message
+
+การที่มีการจัดการ commit message ให้เหมือนกันทั้งหมดเพื่อให้ **ง่ายต่อการอ่านประวัติ commit**
+โดยในแต่ละ commit message อาจแบ่งออกเป็น 3 ส่วน ได้แก่ header body และ footer
+
+```
+<header>
+<BLANK LINE>
+<body>
+<BLANK LINE>
+<footer>
+```
+
+`header` เป็นส่วนที่จำเป็นต้องมี
+`body` มีหรือไม่มีก็ได้ 
+`footer` มีหรือไม่มีก็ได้ 
+
+#### Commit Message Header
+
+```
+[type] <short summary>
+ │       │
+ │       │
+ │       └─⫸ อธิบายให้อยู่ในรูปแบบ present tense ไม่ต้องมี capitalzed (ไม่ต้องมีตัวพิมพ์ใหญ่) ไม่ต้องมีจุดปิดท้าย (.)
+ │
+ └─⫸ ประเภทของ commit: [ADD]|[UPDATE][REMOVE]
+```
+
+**Type**
+จะต้องอยู่ในรายการด้านล่าง ตัวใดตัวหนึ่ง
+* [ADD] การเพิ่มไฟล์ หรือฟีเจอร์ใหม่
+* [UPDATE] การแก้ไขไฟล์ แก้บั๊ก
+* [REMOVE] การลบไฟล์ หรือลบโค้ดส่วนใดส่วนนึงออก
+
+**Summary**
+
+อธิบายการเปลี่ยนแปลงที่เกิดขึ้นใน commit นั้น ๆ อย่างรวบรัด ให้ได้ใจความว่าทำอะไร ทำไปทำไม
+
+* ให้ใช้ประโยคอยู่ในรูปแบบของ present tense เช่น "change" ไม่ใช่ "changed" หรือ "changes"
+* ต้องไม่เป็นตัวพิมพ์ใหญ่ขึ้นต้น (do not capitalized)
+* ไม่ต้องมีจุดปิดท้าย (.)
+
+#### Commit Message Body
+
+เป็นส่วนอธิบายรายละเอียดเพิ่มเติม ที่อาจเขียนจาก header ไม่หมด
+ส่วนของรูปแบบประโยคให้เป็นในลักษณะเดียวกันกับ summary คือให้ใช้เป็น present tense: "fix" ไม่ใช่ "fixed" หรือ "fixes"
+
+#### Commit Message Footer
+
+แปะ reference ของ GitHub issues, Jira ticket, หรือจากระบบอื่น ที่ commit นั้นเกี่ยวข้อง
+
+```
+[type]: <change summary>
+<BLANK LINE>
+<change description>
+<BLANK LINE>
+<BLANK LINE>
+Fixes #<issue number>
+```
 
 ### Subsystems ของระบบ
 
