@@ -1,5 +1,7 @@
 package com.depa.user.model.user;
 
+import java.util.Map;
+
 import org.bson.types.ObjectId;
 
 public interface User {
@@ -29,4 +31,8 @@ public interface User {
     void setEmail(String email);
 
     void setImageUrl(String imageUrl);
+
+    Map<String, Object> getAttributes();
+
+    void setAttributes(Map<String, Object> attributes);
 }

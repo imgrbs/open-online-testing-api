@@ -1,5 +1,7 @@
 package com.depa.user.model.user.impl;
 
+import java.util.Map;
+
 import com.depa.user.dto.UserPrincipal;
 import com.depa.user.model.user.User;
 
@@ -24,7 +26,15 @@ public class UserFactory {
 		setName(userPrincipal, user);
 		setEmail(userPrincipal, user);
 		setPassword(userPrincipal, user);
+		setAttributes(userPrincipal, user);
 		return user;
+	}
+
+	private static void setAttributes(UserPrincipal userPrincipal, User user) {
+		Map<String, Object> attributes = userPrincipal.getAttributes();
+		if (attributes != null && !attributes.isEmpty()) {
+			user.setAttributes(attributes);
+		}
 	}
 
 	private static void setProviderId(UserPrincipal userPrincipal, User user) {

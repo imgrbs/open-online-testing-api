@@ -1,6 +1,7 @@
 package com.depa.user.model.user.impl;
 
 import java.nio.file.attribute.UserPrincipal;
+import java.util.Map;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -28,6 +29,7 @@ public class UserImpl implements User, UserPrincipal {
 	private String displayName;
 	private AuthProvider provider;
 	private String providerId;
+	private Map<String, Object> attributes;
 
 	private UserImpl(String email) {
 		this.id = new ObjectId();

@@ -1,5 +1,7 @@
 package com.depa.user.model.user.impl;
 
+import java.util.Map;
+
 import org.bson.types.ObjectId;
 
 import com.depa.user.model.user.User;
@@ -77,5 +79,15 @@ public class FacebookUserAdapter implements User {
 	@Override
 	public void setImageUrl(String imageUrl) {
         user.setImageUrl(imageUrl);
+	}
+
+	@Override
+	public Map<String, Object> getAttributes() {
+		return user.getAttributes();
+	}
+
+	@Override
+	public void setAttributes(Map<String, Object> attributes) {
+		user.setAttributes(attributes);
 	}
 }

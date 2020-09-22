@@ -73,7 +73,7 @@ public class UserPrincipal implements OAuth2User, UserDetails {
 		}
 		if (principal instanceof User) {
 			User user = (User) principal;
-			return create(user, Collections.emptyList(), Collections.emptyMap());
+			return create(user, Collections.emptyList(), user.getAttributes());
 		}
 		return (UserPrincipal) principal;
 	}
