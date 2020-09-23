@@ -22,7 +22,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 	@Transactional
 	public UserDetails loadUserByUsername(String email) {
 	    try {
-
             User user = userRepository.findByEmail(email).get();
 		    return UserPrincipal.create(user);
         } catch (NoSuchElementException e) {
