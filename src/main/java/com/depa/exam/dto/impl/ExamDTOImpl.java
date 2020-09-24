@@ -42,6 +42,8 @@ public class ExamDTOImpl implements ExamDTO {
 
     @Override
     public Exam toExam() {
+        System.out.println("toExam()");
+        System.out.println(this.getQuestions().get(0).getId());
         return new Exam(this);
     }
     

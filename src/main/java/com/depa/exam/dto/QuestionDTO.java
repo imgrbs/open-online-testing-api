@@ -33,4 +33,8 @@ public interface QuestionDTO {
 
     void setCategories(List<CategoryDTOImpl> categories);
     
+    public String getId();
+    
+    public void setId(String id);
+    
 }

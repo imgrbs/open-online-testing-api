@@ -38,6 +38,8 @@ public class ExamServiceImpl implements ExamService {
 
     @Override
     public ExamDTO createExam(ExamDTO examDTO) {
+        System.out.println("!!! Create Exam DTO !!!");
+        System.out.println(examDTO.toExam().getQuestions().get(0).getId());
         Exam exam = examRepository.save(examDTO.toExam());
         return toExamDTO(exam);
     }
@@ -80,8 +82,8 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
-    public void submitExamAllAnswer(ObjectId examId, List<ExamAnswerDTOImpl> examAnswer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void submitExamAllAnswer(String examId, List<ExamAnswerDTOImpl> examAnswer) {
+        System.out.println(examAnswer);
     }
 
 }

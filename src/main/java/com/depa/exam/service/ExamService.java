@@ -23,7 +23,7 @@ public interface ExamService {
 
     ExamDTO toExamDTO(Exam exam);
 
-    public void submitExamAllAnswer(ObjectId examId,List<ExamAnswerDTOImpl> examAnswer);
+    public void submitExamAllAnswer(String examId,List<ExamAnswerDTOImpl> examAnswer);
 
     public ExamExcludeQuestionDTOImpl getExamTopicByExamId(String uid);
     

@@ -41,6 +41,8 @@ public class ExamController {
                 categoryService.createCategory(category);
             });
         });
+        System.out.println("!!!!! Get Question ID !!!!");
+        System.out.println(exam.getQuestions().get(0).getId());
         ExamDTO createdExam = examService.createExam(exam);
         return new ResponseEntity<>(createdExam, HttpStatus.CREATED);
     }
@@ -65,7 +67,7 @@ public class ExamController {
 
     @PostMapping("/exam/{examId}/answer/submit")
     public ResponseEntity<ExamDTO> submitExamAllAnswer(@PathVariable String examId, @RequestBody List<ExamAnswerDTOImpl> examAnswerList) {
-        examService.submitExamAllAnswer(new ObjectId(examId), examAnswerList);
+        examService.submitExamAllAnswer(examId, examAnswerList);
         System.out.println("=========");
         System.out.println(examAnswerList);
         return new ResponseEntity<>(null, HttpStatus.CREATED);

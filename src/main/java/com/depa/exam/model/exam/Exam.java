@@ -39,6 +39,9 @@ public class Exam {
 //        this.examType = ExamType.TRADITIONAL;
         if (examDTO.getQuestions() != null) {
             examDTO.getQuestions().forEach(fieldDTO -> {
+                System.out.println("Debug question ID DTO");
+                System.out.println(fieldDTO.getId());
+                System.out.println(">>>>>>>>>>>>>>>.");
                 this.questions.add(fieldDTO.toQuestion());
             });
         }
