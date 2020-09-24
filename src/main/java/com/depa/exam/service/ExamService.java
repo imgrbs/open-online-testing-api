@@ -4,6 +4,7 @@ import com.depa.exam.dto.ExamAnswerDTO;
 import com.depa.exam.dto.ExamDTO;
 import com.depa.exam.dto.impl.ExamAnswerDTOImpl;
 import com.depa.exam.dto.impl.ExamExcludeQuestionDTOImpl;
+import com.depa.exam.model.answer.ExamAnswer;
 import com.depa.exam.model.exam.Exam;
 import com.depa.exam.repository.ExamRepository;
 import org.bson.types.ObjectId;
@@ -23,7 +24,7 @@ public interface ExamService {
 
     ExamDTO toExamDTO(Exam exam);
 
-    public void submitExamAllAnswer(String examId,List<ExamAnswerDTOImpl> examAnswer);
+    public void submitExamAllAnswer(String examId,List<ExamAnswer> examAnswer);
 
     public ExamExcludeQuestionDTOImpl getExamTopicByExamId(String uid);
     

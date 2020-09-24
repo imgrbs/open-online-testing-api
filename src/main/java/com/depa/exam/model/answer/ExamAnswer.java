@@ -29,9 +29,17 @@ public class ExamAnswer {
     @Id
     private String answerId;
     
-    private String questionType;
+    private String userId;
     
-    private List<String> answer;
+    private double score;
     
+    private List<QuestionAnswer> questionAnswerList;
+    
+    private boolean isGradingExamAnswerFinish;
+
+    @Override
+    public String toString() {
+        return "ExamAnswer{" + "answerId=" + answerId + ", userId=" + userId + ", score=" + score + ", isGradingExamAnswerFinish=" + isGradingExamAnswerFinish + '}';
+    }
     
 }

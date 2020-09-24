@@ -21,15 +21,5 @@ import org.bson.types.ObjectId;
 @Setter
 public class ExamAnswerDTOImpl implements ExamAnswerDTO{
     
-    private String questionId;
-    
-    private String questionType;
-    
-    private List<String> answer;
-
-    @Override
-    public String toString() {
-        return "ExamAnswerDTOImpl{" + "questionId=" + questionId + ", questionType=" + questionType + ", answer=" + answer + '}';
-    }
     
 }

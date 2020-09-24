@@ -5,6 +5,7 @@ import com.depa.exam.dto.ExamDTO;
 import com.depa.exam.dto.impl.ExamAnswerDTOImpl;
 import com.depa.exam.dto.impl.ExamDTOImpl;
 import com.depa.exam.dto.impl.ExamExcludeQuestionDTOImpl;
+import com.depa.exam.model.answer.ExamAnswer;
 import com.depa.exam.service.CategoryService;
 import com.depa.exam.service.ExamService;
 import com.depa.exam.service.internal.ExamServiceImpl;
@@ -17,6 +18,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jwt.JwtDecoders;
 
 @Setter
 @RestController
@@ -66,10 +71,20 @@ public class ExamController {
     }
 
     @PostMapping("/exam/{examId}/answer/submit")
-    public ResponseEntity<ExamDTO> submitExamAllAnswer(@PathVariable String examId, @RequestBody List<ExamAnswerDTOImpl> examAnswerList) {
+    public ResponseEntity<ExamDTO> submitExamAllAnswer(
+            HttpServletRequest request,
+            @RequestHeader(name = "Authorization", required = false) String jwt,
+            @PathVariable String examId, @RequestBody List<ExamAnswer> examAnswerList) {
         examService.submitExamAllAnswer(examId, examAnswerList);
         System.out.println("=========");
+        System.out.println(SecurityContextHolder.getContext().getAuthentication().getDetails().toString());
         System.out.println(examAnswerList);
+        return new ResponseEntity<>(null, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/grading/exam/{examId}/static")
+    public ResponseEntity<ExamDTO> staticGrading(@PathVariable String examId) {
+        System.out.println("=========");
         return new ResponseEntity<>(null, HttpStatus.CREATED);
     }
 
