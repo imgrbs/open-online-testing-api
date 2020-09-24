@@ -52,7 +52,7 @@ public class ExamController {
     }
 
     @GetMapping("/exam/{uid}/questions")
-    public ResponseEntity<ExamDTO> getExamDetailById(@PathVariable ObjectId uid) {
+    public ResponseEntity<ExamDTO> getExamDetailById(@PathVariable String uid) {
         ExamDTO exam = examService.generateExamination(uid);
         return new ResponseEntity<>(exam, HttpStatus.OK);
     }

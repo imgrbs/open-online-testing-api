@@ -43,10 +43,10 @@ public class QuestionDTOImpl implements QuestionDTO {
         return ObjectiveQuestion.create(name, choices, attributes, categories);
     }
     
-    public void setId(String id){
-        System.out.println("Question ID !!!");
-        this.id = new ObjectId(id);
-        System.out.println(this.id.toHexString());
-    }
+//    public void setId(String id){
+//        System.out.println("Question ID !!!");
+//        this.id = new ObjectId(id);
+//        System.out.println(this.id.toHexString());
+//    }
 
 }

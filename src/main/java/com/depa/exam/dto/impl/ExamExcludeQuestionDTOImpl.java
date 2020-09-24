@@ -24,7 +24,7 @@ import org.bson.types.ObjectId;
 @Getter
 @Setter
 public class ExamExcludeQuestionDTOImpl implements ExamDTO{
-    private ObjectId id;
+    private String id;
     private String name;
     private String description;
     private List<QuestionDTOImpl> questions;

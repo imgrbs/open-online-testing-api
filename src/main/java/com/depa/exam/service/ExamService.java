@@ -17,7 +17,7 @@ public interface ExamService {
 
     List<ExamDTO> getExams();
     
-    ExamDTO generateExamination(ObjectId id);
+    ExamDTO generateExamination(String id);
 
     ExamDTO getExamById(String id);
 
@@ -25,7 +25,7 @@ public interface ExamService {
 
     public void submitExamAllAnswer(ObjectId examId,List<ExamAnswerDTOImpl> examAnswer);
 
-    public ExamExcludeQuestionDTOImpl getExamTopicByExamId(ObjectId uid);
+    public ExamExcludeQuestionDTOImpl getExamTopicByExamId(String uid);
     
     
 }

@@ -48,7 +48,7 @@ public class TraditionalTesting implements ExaminationStrategy {
         return exams;
     }
 
-    public ExamDTO getExamById(ObjectId id) {
+    public ExamDTO getExamById(String id) {
         System.out.println("!! Repository is null");
         System.out.println(examRepository);
         Optional<Exam> get = examRepository.findById(id);
@@ -60,7 +60,7 @@ public class TraditionalTesting implements ExaminationStrategy {
         return new ExamExcludeQuestionDTOImpl(exam);
     }
 
-    public void submitExamAllAnswer(ObjectId examId, List<ExamAnswerDTOImpl> examAnswer) {
+    public void submitExamAllAnswer(String examId, List<ExamAnswerDTOImpl> examAnswer) {
         System.out.println(examId);
         System.out.println("=============");
         System.out.println(examAnswer);

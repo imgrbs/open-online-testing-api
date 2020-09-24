@@ -55,7 +55,7 @@ public class ExamServiceImpl implements ExamService {
         return toExamDTO(examRepository.findById(id).get());
     }
     
-    public ExamExcludeQuestionDTOImpl getExamTopicByExamId(ObjectId id) {
+    public ExamExcludeQuestionDTOImpl getExamTopicByExamId(String id) {
         System.out.println(" Get Exam by ID : "+id);
         return new ExamExcludeQuestionDTOImpl(examRepository.findById(id).get());
     }
@@ -66,7 +66,7 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
-    public ExamDTO generateExamination(ObjectId examId) {
+    public ExamDTO generateExamination(String examId) {
         System.out.println(examId);
         ExamDTO examFromDatabase = this.getExamById(examId);
         if (examFromDatabase.getType().equals(ExamType.TRADITIONAL)) {
