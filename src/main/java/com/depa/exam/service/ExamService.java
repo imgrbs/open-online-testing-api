@@ -19,7 +19,7 @@ public interface ExamService {
     
     ExamDTO generateExamination(ObjectId id);
 
-    ExamDTO getExamById(ObjectId id);
+    ExamDTO getExamById(String id);
 
     ExamDTO toExamDTO(Exam exam);
 

@@ -3,7 +3,6 @@ package com.depa.exam.service.internal;
 import com.depa.exam.dto.ExamDTO;
 import com.depa.exam.model.exam.Exam;
 import com.depa.exam.repository.ExamRepository;
-import org.bson.types.ObjectId;
 import org.hamcrest.CoreMatchers;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -73,7 +72,7 @@ class ExamServiceImplTest {
 
     @Test
     void testGetExamByObjectId() {
-        ObjectId id = new ObjectId(RAW_ID);
+        String id = RAW_ID;
         Exam expectedExam = createExam();
 
         expectedGetFormByUid(id, expectedExam);
@@ -86,7 +85,7 @@ class ExamServiceImplTest {
         Assert.assertThat(actualExam.getCategories().size(), CoreMatchers.equalTo(0));
     }
 
-    private void expectedGetFormByUid(ObjectId id, Exam expectedExam) {
+    private void expectedGetFormByUid(String id, Exam expectedExam) {
         mockery.checking(new Expectations() {
             {
                 oneOf(mockExamRepository).findById(id);

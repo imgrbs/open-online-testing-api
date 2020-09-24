@@ -16,7 +16,7 @@ import java.util.List;
 @Getter
 public class QuestionDTOImpl implements QuestionDTO {
 
-    private ObjectId id;
+    private String id;
     private String name;
     private QuestionType type;
     private List<Attribute> attributes;

@@ -2,7 +2,6 @@ package com.depa.exam.dto;
 
 import com.depa.exam.dto.impl.ExamDTOImpl;
 import com.depa.exam.model.exam.Exam;
-import org.bson.types.ObjectId;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
@@ -33,8 +32,7 @@ class ExamDTOTest {
 
     @Test
     void testToExam() {
-        ObjectId id = new ObjectId("5f03163c00657756d47d0884");
-        Exam exam = new Exam(id, "exam name", "exam description", new ArrayList<>(), new ArrayList<>());
+        Exam exam = new Exam("5f03163c00657756d47d0884", "exam name", "exam description", new ArrayList<>(), new ArrayList<>());
         ExamDTOImpl underTest = new ExamDTOImpl(exam);
 
         Exam actual = underTest.toExam();

@@ -17,7 +17,7 @@ import java.util.List;
 @Getter
 @Setter
 public class ExamDTOImpl implements ExamDTO {
-    private ObjectId id;
+    private String id;
     private String name;
     private String description;
     private List<QuestionDTOImpl> questions;

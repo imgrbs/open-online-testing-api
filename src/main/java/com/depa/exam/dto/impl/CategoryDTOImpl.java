@@ -12,7 +12,7 @@ import org.bson.types.ObjectId;
 @Setter
 @NoArgsConstructor
 public class CategoryDTOImpl implements CategoryDTO {
-    private ObjectId id;
+    private String id;
     private String label;
     private String backgroundColor;
     private String color;

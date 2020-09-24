@@ -6,7 +6,6 @@ import com.depa.exam.model.category.Category;
 import com.depa.exam.model.category.CategoryBuilder;
 import com.depa.exam.repository.CategoryRepository;
 import com.depa.exam.service.CategoryService;
-import org.bson.types.ObjectId;
 import org.hamcrest.CoreMatchers;
 import org.jmock.Expectations;
 import org.jmock.integration.junit4.JUnit4Mockery;
@@ -19,6 +18,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class CategoryServiceImplTest {
+    public static final String RAW_ID = "5f03163c00657756d47d0884";
+
     JUnit4Mockery mockery = new JUnit4Mockery();
 
     private CategoryService underTest;
@@ -92,7 +93,7 @@ public class CategoryServiceImplTest {
 
     private Category createCategoryFromDB(Category category) {
         Category categoryFromDB = new Category();
-        categoryFromDB.setId(ObjectId.get());
+        categoryFromDB.setId(RAW_ID);
         categoryFromDB.setLabel(category.getLabel());
         categoryFromDB.setBackgroundColor("#32a852");
         categoryFromDB.setColor("#c0c0c0");
