@@ -8,6 +8,7 @@ import com.depa.exam.dto.impl.ExamExcludeQuestionDTOImpl;
 import com.depa.exam.model.answer.ExamAnswer;
 import com.depa.exam.model.exam.Exam;
 import com.depa.exam.model.exam.ExamType;
+import com.depa.exam.repository.ExamAnswerRepository;
 import com.depa.exam.repository.ExamRepository;
 import com.depa.exam.service.ExamService;
 import com.mongodb.client.MongoCollection;
@@ -37,6 +38,9 @@ public class ExamServiceImpl implements ExamService {
 
     @Autowired
     private AdaptiveTesting adaptiveTesting;
+    
+    @Autowired
+    private ExamAnswerRepository examAnswerRepository;
 
     @Override
     public ExamDTO createExam(ExamDTO examDTO) {
@@ -83,10 +87,11 @@ public class ExamServiceImpl implements ExamService {
         return examFromDatabase;
     }
 
-    public void submitExamAllAnswer(
-            String examId, List<ExamAnswer> examAnswer) {
+    @Override
+    public ExamAnswer submitExamAllAnswer(String examId, ExamAnswer examAnswer) {
         System.out.println(examAnswer);
-
+        ExamAnswer savedExamAnswer = examAnswerRepository.save(examAnswer);
+        return savedExamAnswer;
     }
 
 }

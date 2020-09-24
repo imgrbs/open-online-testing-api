@@ -6,6 +6,7 @@ import com.depa.exam.dto.impl.ExamAnswerDTOImpl;
 import com.depa.exam.dto.impl.ExamDTOImpl;
 import com.depa.exam.dto.impl.ExamExcludeQuestionDTOImpl;
 import com.depa.exam.model.answer.ExamAnswer;
+import com.depa.exam.model.answer.QuestionAnswer;
 import com.depa.exam.service.CategoryService;
 import com.depa.exam.service.ExamService;
 import com.depa.exam.service.internal.ExamServiceImpl;
@@ -71,15 +72,18 @@ public class ExamController {
     }
 
     @PostMapping("/exam/{examId}/answer/submit")
-    public ResponseEntity<ExamDTO> submitExamAllAnswer(
+    public ResponseEntity submitExamAllAnswer(
             HttpServletRequest request,
             @RequestHeader(name = "Authorization", required = false) String jwt,
-            @PathVariable String examId, @RequestBody List<ExamAnswer> examAnswerList) {
-        examService.submitExamAllAnswer(examId, examAnswerList);
-        System.out.println("=========");
+            @PathVariable String examId, @RequestBody List<QuestionAnswer> questionAnswer) {
+        ExamAnswer examAnswer = new ExamAnswer();
+        System.out.println("=== UserID ===");
         System.out.println(SecurityContextHolder.getContext().getAuthentication().getDetails().toString());
-        System.out.println(examAnswerList);
-        return new ResponseEntity<>(null, HttpStatus.CREATED);
+        examAnswer.setQuestionAnswerList(questionAnswer);
+        examAnswer.setUserId("user_id_from_db_jwt");
+        ExamAnswer submitExamAllAnswer = examService.submitExamAllAnswer(examId, examAnswer);
+        System.out.println(examAnswer);
+        return new ResponseEntity<>(submitExamAllAnswer, HttpStatus.CREATED);
     }
 
     @PostMapping("/grading/exam/{examId}/static")

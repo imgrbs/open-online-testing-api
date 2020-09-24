@@ -19,7 +19,7 @@ import org.bson.types.ObjectId;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ExamAnswerDTOImpl implements ExamAnswerDTO{
+public class ExamAnswerDTOImpl {
     
     
 }

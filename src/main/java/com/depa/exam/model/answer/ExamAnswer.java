@@ -39,7 +39,8 @@ public class ExamAnswer {
 
     @Override
     public String toString() {
-        return "ExamAnswer{" + "answerId=" + answerId + ", userId=" + userId + ", score=" + score + ", isGradingExamAnswerFinish=" + isGradingExamAnswerFinish + '}';
+        return "ExamAnswer{" + "answerId=" + answerId + ", userId=" + userId + ", score=" + score + ", questionAnswerList=" + questionAnswerList + ", isGradingExamAnswerFinish=" + isGradingExamAnswerFinish + '}';
     }
-    
+
+
 }

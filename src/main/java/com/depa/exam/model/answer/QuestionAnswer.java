@@ -5,6 +5,7 @@
  */
 package com.depa.exam.model.answer;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,7 @@ public class QuestionAnswer {
     
     private String questionId;
     
-    private String answer;
+    private List<String> answer;
     
     private boolean isGradeQuestionAnswerFinish;
     
