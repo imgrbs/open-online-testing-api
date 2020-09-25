@@ -15,7 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 public class Category {
     @Id
-    private ObjectId id;
+    private String id;
 
     private String label;
 
@@ -31,12 +31,12 @@ public class Category {
     }
 
     public static class Builder implements CategoryBuilder {
-        private ObjectId id;
+        private String id;
         private String label;
         private String backgroundColor;
         private String color;
 
-        public CategoryBuilder id(ObjectId id) {
+        public CategoryBuilder id(String id) {
             this.id = id;
             return this;
         }

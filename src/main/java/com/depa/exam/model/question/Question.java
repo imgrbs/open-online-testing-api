@@ -19,16 +19,16 @@ import java.util.List;
 public abstract class Question {
 
     @Id
-    private ObjectId id;
+    private String id;
 
     private String name;
 
-    private QuestionType type;
+    private QuestionType type = QuestionType.OBJECTIVE;
 
     private List<Attribute> attributes;
 
     private List<CategoryDTOImpl> categories;
-
+    
     public Question(QuestionType type) {
         this.type = type;
     }

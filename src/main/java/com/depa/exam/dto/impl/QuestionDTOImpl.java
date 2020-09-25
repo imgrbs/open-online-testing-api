@@ -16,7 +16,7 @@ import java.util.List;
 @Getter
 public class QuestionDTOImpl implements QuestionDTO {
 
-    private ObjectId id;
+    private String id;
     private String name;
     private QuestionType type;
     private List<Attribute> attributes;
@@ -38,8 +38,15 @@ public class QuestionDTOImpl implements QuestionDTO {
     @Override
     public Question toQuestion() {
         if (type.equals(QuestionType.SUBJECTIVE)) {
-            return SubjectiveQuestion.create(name, attributes, categories);
+            return SubjectiveQuestion.create(id,name, attributes, categories);
         }
-        return ObjectiveQuestion.create(name, choices, attributes, categories);
+        return ObjectiveQuestion.create(id,name, choices, attributes, categories);
     }
+    
+//    public void setId(String id){
+//        System.out.println("Question ID !!!");
+//        this.id = new ObjectId(id);
+//        System.out.println(this.id.toHexString());
+//    }
+
 }

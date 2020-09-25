@@ -22,7 +22,7 @@ public class UserController {
 	@PreAuthorize("hasRole('USER')")
 	public User getCurrentUser(Authentication authentication) {
 		UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-		return (User) userRepository.findById(new ObjectId(userPrincipal.getId()))
+		return (User) userRepository.findById(userPrincipal.getId())
 				.orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
 	}
 }

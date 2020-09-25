@@ -18,23 +18,23 @@ import lombok.Setter;
 @Setter
 @Getter
 public class UserImpl implements User, UserPrincipal {
-	@Id
-	private ObjectId id;
-	private String name;
-	private String username;
-	private String email;
-	@JsonIgnore
-	private String password;
-	private String imageUrl;
-	private String displayName;
-	private AuthProvider provider;
-	private String providerId;
+    @Id
+    private String id;
+    private String name;
+    private String username;
+    private String email;
+    @JsonIgnore
+    private String password;
+    private String imageUrl;
+    private String displayName;
+    private AuthProvider provider;
+    private String providerId;
 	private Map<String, Object> attributes;
 
-	private UserImpl(String email) {
-		this.id = new ObjectId();
-		this.email = email;
-	}
+    private UserImpl(String email) {
+        this.id = new ObjectId().toHexString();
+        this.email = email;
+    }
 
 	protected static UserImpl create(String email) {
 		UserImpl user = new UserImpl(email);

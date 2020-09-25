@@ -24,7 +24,10 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryDTO createCategory(CategoryDTO categoryDTO) {
+        System.out.println("======= Create CAtagory ========");
+        System.out.println("Label From Request: " + categoryDTO.getLabel());
         Optional<Category> categoryFromDB = categoryRepository.findByLabel(categoryDTO.getLabel());
+        System.out.println("Label From DB: " + categoryFromDB.get());
         Category categoryForSave;
         if (categoryFromDB.isPresent()) {
             categoryForSave = buildCategory(categoryDTO, categoryFromDB);

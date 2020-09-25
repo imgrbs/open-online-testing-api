@@ -11,7 +11,7 @@
     <groupId>com.depa</groupId>
     <artifactId>testing-system</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>testing-system</name>
+    <name>testing-system-tae</name>
     <description>Form Management project powered by Spring Boot.</description>
 
     <properties>
@@ -19,6 +19,18 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.8.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.8.0</version>
+            <scope>compile</scope>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -120,16 +132,25 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <systemPropertyVariables>
+                        <MONGO_PASSWORD>mock</MONGO_PASSWORD>
+                        <FACEBOOK_SECRET>mock</FACEBOOK_SECRET>
+                        <FACEBOOK_ID>mock</FACEBOOK_ID>
+                        <GOOGLE_ID>mock</GOOGLE_ID>
+                        <GOOGLE_SECRET>mock</GOOGLE_SECRET>
+                    </systemPropertyVariables>
+                </configuration>
             </plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>11</source>
-					<target>11</target>
-				</configuration>
-			</plugin>
-		</plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
 </project>

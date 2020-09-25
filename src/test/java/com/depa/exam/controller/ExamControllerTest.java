@@ -61,7 +61,7 @@ class ExamControllerTest {
 
     private CategoryDTOImpl createCategoryDTO() {
         CategoryDTOImpl categoryDTO = new CategoryDTOImpl();
-        categoryDTO.setId(new ObjectId());
+        categoryDTO.setId(RAW_ID);
         categoryDTO.setLabel("history");
         categoryDTO.setBackgroundColor("#000000");
         categoryDTO.setColor("#ffffff");
@@ -69,7 +69,7 @@ class ExamControllerTest {
     }
 
     private Exam createExam(List<CategoryDTOImpl> categories) {
-        return new Exam(new ObjectId(RAW_ID), "Exam Set 1", "Set A", new ArrayList<>(), categories);
+        return new Exam(RAW_ID, "Exam Set 1", "Set A", new ArrayList<>(), categories);
     }
 
     private ExamDTOImpl createExamDTO(Exam exam) {
@@ -131,7 +131,7 @@ class ExamControllerTest {
         expectedGetExamById(expectedExam.getId(), expectedExamDTO);
         expectedToExamDTO(expectedExam, expectedExamDTO);
 
-        ResponseEntity<ExamDTO> actual = underTest.getExamByObjectId(expectedExam.getId());
+        ResponseEntity<ExamDTO> actual = underTest.getExamDetailById(expectedExam.getId());
 
         ExamDTO actualExam = actual.getBody();
 
@@ -150,7 +150,7 @@ class ExamControllerTest {
         });
     }
 
-    private void expectedGetExamById(ObjectId id, ExamDTO expectedExam) {
+    private void expectedGetExamById(String id, ExamDTO expectedExam) {
         mockery.checking(new Expectations() {
             {
                 oneOf(mockExamService).getExamById(id);

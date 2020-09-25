@@ -40,13 +40,13 @@ public class TokenProvider {
                 .compact();
     }
 
-    public ObjectId getUserIdFromToken(String token) {
+    public String getUserIdFromToken(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(appProperties.getAuth().getTokenSecret())
                 .parseClaimsJws(token)
                 .getBody();
         if (ObjectId.isValid(claims.getSubject())) {
-            return new ObjectId(claims.getSubject());
+            return claims.getSubject();
         }
         throw new BadRequestException("Bad subject");
     }

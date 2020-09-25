@@ -12,7 +12,7 @@ import org.bson.types.ObjectId;
 @Setter
 @NoArgsConstructor
 public class CategoryDTOImpl implements CategoryDTO {
-    private ObjectId id;
+    private String id;
     private String label;
     private String backgroundColor;
     private String color;
@@ -34,4 +34,9 @@ public class CategoryDTOImpl implements CategoryDTO {
                 .color(this.color)
                 .build();
     }
+//
+//    @Override
+//    public String toString() {
+//        return "CategoryDTOImpl{" + "id=" + id + ", label=" + label + ", backgroundColor=" + backgroundColor + ", color=" + color + '}';
+//    }
 }

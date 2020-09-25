@@ -30,7 +30,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 	}
 
 	@Transactional
-	public UserDetails loadUserById(ObjectId id) {
+	public UserDetails loadUserById(String id) {
 		User user = userRepository.findById(id).get();
 		return UserPrincipal.create(user);
 	}

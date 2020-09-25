@@ -12,7 +12,7 @@ public interface User {
 
     String getAuthProvider();
 
-    ObjectId getId();
+    String getId();
 
     String getPassword();
 

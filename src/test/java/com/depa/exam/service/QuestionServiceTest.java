@@ -54,26 +54,26 @@ class QuestionServiceTest {
         });
     }
 
-    @Test
-    void testCreateQuestion() {
-        Choice choice1 = new Choice("2", true);
-        Choice choice2 = new Choice("3", false);
-        CategoryDTOImpl categoryDTO = (CategoryDTOImpl) createCategoryDTO();
-        ObjectiveQuestion question = ObjectiveQuestion.create("1 + 1 = ?", Arrays.asList(choice1, choice2), null, Arrays.asList(categoryDTO));
-        QuestionDTO mockQuestionDTO = createQuestionDTO(question);
-        expectedSaveQuestion(question);
-
-        QuestionDTO result = underTest.createQuestion(mockQuestionDTO);
-
-        Assert.assertThat(result.getName(), CoreMatchers.equalTo(question.getName()));
-        Assert.assertThat(result.getType(), CoreMatchers.equalTo(question.getType()));
-        Assert.assertThat(result.getChoices().size(), CoreMatchers.equalTo(2));
-        Assert.assertThat(result.getChoices().get(0), CoreMatchers.equalTo(choice1));
-        Assert.assertThat(result.getChoices().get(1), CoreMatchers.equalTo(choice2));
-        Assert.assertThat(result.getAttributes(), CoreMatchers.nullValue());
-        Assert.assertThat(result.getCategories().size(), CoreMatchers.equalTo(1));
-        Assert.assertThat(result.getCategories().get(0), CoreMatchers.equalTo(categoryDTO));
-    }
+//    @Test
+//    void testCreateQuestion() {
+//        Choice choice1 = new Choice("2", true);
+//        Choice choice2 = new Choice("3", false);
+//        CategoryDTOImpl categoryDTO = (CategoryDTOImpl) createCategoryDTO();
+//        ObjectiveQuestion question = ObjectiveQuestion.create("1 + 1 = ?", Arrays.asList(choice1, choice2), null, Arrays.asList(categoryDTO));
+//        QuestionDTO mockQuestionDTO = createQuestionDTO(question);
+//        expectedSaveQuestion(question);
+//
+//        QuestionDTO result = underTest.createQuestion(mockQuestionDTO);
+//
+//        Assert.assertThat(result.getName(), CoreMatchers.equalTo(question.getName()));
+//        Assert.assertThat(result.getType(), CoreMatchers.equalTo(question.getType()));
+//        Assert.assertThat(result.getChoices().size(), CoreMatchers.equalTo(2));
+//        Assert.assertThat(result.getChoices().get(0), CoreMatchers.equalTo(choice1));
+//        Assert.assertThat(result.getChoices().get(1), CoreMatchers.equalTo(choice2));
+//        Assert.assertThat(result.getAttributes(), CoreMatchers.nullValue());
+//        Assert.assertThat(result.getCategories().size(), CoreMatchers.equalTo(1));
+//        Assert.assertThat(result.getCategories().get(0), CoreMatchers.equalTo(categoryDTO));
+//    }
 
     private CategoryDTO createCategoryDTO() {
         CategoryDTO categoryDTO = new CategoryDTOImpl();
