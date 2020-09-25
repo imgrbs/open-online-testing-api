@@ -23,9 +23,8 @@ import com.depa.user.dto.LoginRequest;
 import com.depa.user.dto.SignUpRequest;
 import com.depa.user.dto.UserPrincipal;
 import com.depa.user.model.user.User;
-import com.depa.user.model.user.impl.UserImpl;
+import com.depa.user.model.user.impl.UserFactory;
 import com.depa.user.repository.UserRepository;
-import com.depa.user.security.config.AuthProvider;
 import com.depa.user.security.exception.BadRequestException;
 import com.depa.user.service.TokenProvider;
 
@@ -33,58 +32,46 @@ import com.depa.user.service.TokenProvider;
 @RequestMapping("/auth")
 public class AuthController {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+	@Autowired
+	private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private UserRepository userRepository;
+	@Autowired
+	private UserRepository userRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private TokenProvider tokenProvider;
+	@Autowired
+	private TokenProvider tokenProvider;
 
-    @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+	@PostMapping("/login")
+	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginRequest.getEmail(),
-                        loginRequest.getPassword()
-                )
-        );
+		Authentication authentication = authenticationManager
+				.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+		SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-        String token = tokenProvider.createToken(userPrincipal.getId().toString());
-        return ResponseEntity.ok(new AuthResponse(token));
-    }
+		UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+		String token = tokenProvider.createToken(userPrincipal.getId().toString());
+		return ResponseEntity.ok(new AuthResponse(token));
+	}
 
-    @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
-        if(userRepository.existsByEmail(signUpRequest.getEmail())) {
-            throw new BadRequestException("Email address already in use.");
-        }
+	@PostMapping("/signup")
+	public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
+		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+			throw new BadRequestException("Email address already in use.");
+		}
 
-        // Creating user's account
-        User user = new UserImpl();
-        user.setName(signUpRequest.getName());
-        user.setEmail(signUpRequest.getEmail());
-        user.setPassword(signUpRequest.getPassword());
-        user.setProvider(AuthProvider.local);
+		// Creating user's account
+		User user = UserFactory.create(signUpRequest, "local");
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		User result = userRepository.save(user);
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+		URI location = ServletUriComponentsBuilder.fromCurrentContextPath().path("/user/me").buildAndExpand(result.getId())
+				.toUri();
 
-        User result = userRepository.save(user);
-
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentContextPath().path("/user/me")
-                .buildAndExpand(result.getId()).toUri();
-
-        return ResponseEntity.created(location)
-                .body(new ApiResponse(true, "User registered successfully@"));
-    }
+		return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully@"));
+	}
 
 }

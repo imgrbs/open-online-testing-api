@@ -1,6 +1,5 @@
 package com.depa.user.dto;
 
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
@@ -13,7 +12,7 @@ import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import com.depa.user.model.user.User;
-import com.depa.user.model.user.impl.UserImpl;
+import com.depa.user.model.user.impl.UserFactory;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,80 +24,82 @@ import lombok.Setter;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class UserPrincipal implements OAuth2User, UserDetails {
-    private String id;
-    private String username;
-    private String email;
-    private String password;
-    private Collection<? extends GrantedAuthority> authorities;
-    private Map<String, Object> attributes;
+	private String id;
+	private String username;
+	private String email;
+	private String password;
+	private Collection<? extends GrantedAuthority> authorities;
+	private Map<String, Object> attributes;
 
-    private UserPrincipal(String id, String email, String password) {
-        this.id = id;
-        this.email = email;
-        this.username = email;
-        this.password = password;
-    }
+	private UserPrincipal(ObjectId id, String email, String password) {
+		this.id = id.toString();
+		this.email = email;
+		this.username = email;
+		this.password = password;
+	}
 
+	private UserPrincipal(String email, Collection<? extends GrantedAuthority> authorities, Map<String, Object> attributes) {
+		this.email = email;
+		this.authorities = authorities;
+		this.attributes = attributes;
+	}
 
-    private static UserPrincipal create(User user, Collection<? extends GrantedAuthority> authorities,
-            Map<String, Object> attributes) {
-        UserPrincipal userPrincipal = new UserPrincipal(
-                user.getId(),
-                user.getEmail(),
-                user.getPassword()
-        );
+	private static UserPrincipal create(User user, Collection<? extends GrantedAuthority> authorities,
+			Map<String, Object> attributes) {
+		UserPrincipal userPrincipal = new UserPrincipal(user.getId(), user.getEmail(), user.getPassword());
 
-        if (authorities.isEmpty()) {
-            authorities = Collections.
-                    singletonList(new SimpleGrantedAuthority("ROLE_USER"));
-        }
-        userPrincipal.setAuthorities(authorities);
+		if (authorities.isEmpty()) {
+			authorities = Collections.
+					singletonList(new SimpleGrantedAuthority("ROLE_USER"));
+		}
+		userPrincipal.setAuthorities(authorities);
 
-        userPrincipal.setAttributes(attributes);
+		userPrincipal.setAttributes(attributes);
 
-        return userPrincipal;
-    }
+		return userPrincipal;
+	}
 
-    public static UserPrincipal create(User user, Map<String, Object> attributes) {
-        UserPrincipal userPrincipal = UserPrincipal.create(user);
-        userPrincipal.setAttributes(attributes);
-        return userPrincipal;
-    }
+	public static UserPrincipal create(User user, Map<String, Object> attributes) {
+		UserPrincipal userPrincipal = UserPrincipal.create(user);
+		userPrincipal.setAttributes(attributes);
+		return userPrincipal;
+	}
 
-    public static UserPrincipal create(Object principal) {
-        if (principal instanceof DefaultOidcUser) {
-            DefaultOidcUser user = (DefaultOidcUser) principal;
-            return create(UserImpl.create(user.getEmail()), user.getAuthorities(), user.getAttributes());
-        }
-        if (principal instanceof User) {
-            User user = (User) principal;
-            return create(user, Collections.emptyList(), Collections.emptyMap());
-        }
-        return (UserPrincipal) principal;
-    }
+	public static UserPrincipal create(Object principal) {
+		if (principal instanceof DefaultOidcUser) {
+			DefaultOidcUser user = (DefaultOidcUser) principal;
+			UserPrincipal userPrincipal = new UserPrincipal(user.getEmail(), user.getAuthorities(), user.getAttributes());
+			return create(UserFactory.create(userPrincipal, "local"));
+		}
+		if (principal instanceof User) {
+			User user = (User) principal;
+			return create(user, Collections.emptyList(), user.getAttributes());
+		}
+		return (UserPrincipal) principal;
+	}
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
 
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
 
-    @Override
-    public String getName() {
-        return String.valueOf(id);
-    }
+	@Override
+	public String getName() {
+		return String.valueOf(id);
+	}
 }

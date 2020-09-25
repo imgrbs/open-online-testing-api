@@ -1,8 +1,8 @@
 package com.depa.user.model.user;
 
-import org.bson.types.ObjectId;
+import java.util.Map;
 
-import com.depa.user.security.config.AuthProvider;
+import org.bson.types.ObjectId;
 
 public interface User {
 
@@ -22,8 +22,6 @@ public interface User {
 
     String getUsername();
 
-    void setProvider(AuthProvider provider);
-
     void setProviderId(String providerId);
 
     void setName(String name);
@@ -33,4 +31,8 @@ public interface User {
     void setEmail(String email);
 
     void setImageUrl(String imageUrl);
+
+    Map<String, Object> getAttributes();
+
+    void setAttributes(Map<String, Object> attributes);
 }

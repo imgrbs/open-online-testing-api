@@ -1,7 +1,6 @@
 package com.depa.user.service.internal;
 
 import com.depa.user.model.user.User;
-import com.depa.user.model.user.impl.UserImpl;
 import com.depa.user.repository.UserRepository;
 import com.depa.user.service.UserService;
 import org.codehaus.jackson.map.ObjectMapper;
