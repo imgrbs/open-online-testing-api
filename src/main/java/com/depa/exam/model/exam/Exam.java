@@ -36,6 +36,8 @@ public class Exam {
         this.name = examDTO.getName();
         this.description = examDTO.getDescription();
         this.questions = new ArrayList<>();
+        this.endAt = examDTO.getEndAt();
+        this.startAt = examDTO.getStartAt();
 //        this.examType = ExamType.TRADITIONAL;
         if (examDTO.getQuestions() != null) {
             examDTO.getQuestions().forEach(fieldDTO -> {

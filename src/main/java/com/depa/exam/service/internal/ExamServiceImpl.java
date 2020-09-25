@@ -38,15 +38,20 @@ public class ExamServiceImpl implements ExamService {
 
     @Autowired
     private AdaptiveTesting adaptiveTesting;
-    
+
     @Autowired
     private ExamAnswerRepository examAnswerRepository;
 
     @Override
     public ExamDTO createExam(ExamDTO examDTO) {
+
         System.out.println("!!! Create Exam DTO !!!");
         System.out.println(examDTO.toExam().getQuestions().get(0).getId());
-        Exam exam = examRepository.save(examDTO.toExam());
+        System.out.println("===== To date Service ====");
+        Exam toExam = examDTO.toExam();
+        System.out.println(toExam.getStartAt());
+        System.out.println(toExam.getEndAt());
+        Exam exam = examRepository.save(toExam);
         return toExamDTO(exam);
     }
 

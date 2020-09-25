@@ -49,6 +49,9 @@ public class ExamController {
         });
         System.out.println("!!!!! Get Question ID !!!!");
         System.out.println(exam.getQuestions().get(0).getId());
+        System.out.println("===== date ====");
+        System.out.println(exam.getStartAt());
+        System.out.println(exam.getEndAt());
         ExamDTO createdExam = examService.createExam(exam);
         return new ResponseEntity<>(createdExam, HttpStatus.CREATED);
     }

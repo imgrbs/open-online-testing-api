@@ -17,6 +17,7 @@ import java.util.List;
 @Getter
 @Setter
 public class ExamDTOImpl implements ExamDTO {
+
     private String id;
     private String name;
     private String description;
@@ -32,6 +33,8 @@ public class ExamDTOImpl implements ExamDTO {
         this.description = exam.getDescription();
         this.questions = new ArrayList<>();
         this.categories = exam.getCategories();
+        this.endAt = exam.getEndAt();
+        this.startAt = exam.getStartAt();
 
         if (exam.getQuestions() != null) {
             exam.getQuestions().forEach(field -> {
@@ -42,11 +45,20 @@ public class ExamDTOImpl implements ExamDTO {
 
     @Override
     public Exam toExam() {
-        System.out.println("toExam()");
-        System.out.println(this.getQuestions().get(0).getId());
-        return new Exam(this);
+        System.out.println("DTO EXAM Imple  to eXam()m()");
+        System.out.println(this.getStartAt());
+        System.out.println(this.getEndAt());
+        Exam convertedExam = new Exam(this);
+        System.out.println("!!!! converted exam !!!");
+        System.out.println(convertedExam);
+        return convertedExam;
+    }
+
+    @Override
+    public String toString() {
+        return "ExamDTOImpl{" + "id=" + id + ", name=" + name + ", description=" + description + ", questions=" + questions + ", categories=" + categories + ", startAt=" + startAt + ", endAt=" + endAt + ", type=" + type + '}';
     }
     
-  
+    
 
 }
