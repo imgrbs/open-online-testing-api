@@ -18,7 +18,7 @@ public class ObjectiveQuestion extends Question {
         super(type);
     }
 
-    private static ObjectiveQuestion create(String id, List<Attribute> attributes, List<Choice> choices, List<CategoryDTOImpl> categories) {
+    public static ObjectiveQuestion create(String id, List<Attribute> attributes, List<Choice> choices, List<CategoryDTOImpl> categories) {
         ObjectiveQuestion field = new ObjectiveQuestion(QuestionType.OBJECTIVE);
         field.setId(id);
         field.setAttributes(attributes);
