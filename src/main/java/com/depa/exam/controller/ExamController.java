@@ -10,6 +10,9 @@ import com.depa.exam.model.answer.QuestionAnswer;
 import com.depa.exam.service.CategoryService;
 import com.depa.exam.service.ExamService;
 import com.depa.exam.service.internal.ExamServiceImpl;
+import com.depa.user.dto.UserPrincipal;
+import com.depa.user.model.user.User;
+import com.depa.user.repository.UserRepository;
 import java.util.Collections;
 import lombok.Setter;
 import org.bson.types.ObjectId;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.JwtDecoders;
 
@@ -31,6 +35,9 @@ import org.springframework.security.oauth2.jwt.JwtDecoders;
  * /v2 is method that extend by son for safety migration
  */
 public class ExamController {
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private ExamService examService;
@@ -76,14 +83,17 @@ public class ExamController {
 
     @PostMapping("/exam/{examId}/answer/submit")
     public ResponseEntity submitExamAllAnswer(
-            HttpServletRequest request,
+            Authentication authentication,
             @RequestHeader(name = "Authorization", required = false) String jwt,
             @PathVariable String examId, @RequestBody List<QuestionAnswer> questionAnswer) {
         ExamAnswer examAnswer = new ExamAnswer();
         System.out.println("=== UserID ===");
         System.out.println(SecurityContextHolder.getContext().getAuthentication().getDetails().toString());
         examAnswer.setQuestionAnswerList(questionAnswer);
-        examAnswer.setUserId("user_id_from_db_jwt");
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+        User user =(User) userRepository.findById(userPrincipal.getId()).get();
+        System.out.println("OMG GET id !!!: " +user.getId());
+        examAnswer.setUserId(user.getId());
         ExamAnswer submitExamAllAnswer = examService.submitExamAllAnswer(examId, examAnswer);
         System.out.println(examAnswer);
         return new ResponseEntity<>(submitExamAllAnswer, HttpStatus.CREATED);
