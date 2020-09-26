@@ -1,0 +1,19 @@
+version: '3.7'
+
+services:
+  depa-testing-api:
+    build:
+      context: .
+      dockerfile: Dockerfile-dev
+    volumes:
+      - ./src:/app/src
+      - ./app_start.sh:/app/app_start.sh
+    command: sh app_start.sh
+    ports:
+      - 8080:8080
+    environment:
+      - mongo_password
+      - GOOGLE_ID
+      - GOOGLE_SECRET
+      - FACEBOOK_ID
+      - FACEBOOK_SECRET
