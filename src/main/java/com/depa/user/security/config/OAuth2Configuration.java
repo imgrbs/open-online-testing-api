@@ -1,10 +1,5 @@
 package com.depa.user.security.config;
 
-import com.depa.user.security.config.filter.TokenAuthenticationFilter;
-import com.depa.user.security.repository.HttpCookieOAuth2AuthorizationRequestRepository;
-import com.depa.user.security.service.CustomOAuth2UserService;
-import com.depa.user.security.service.CustomUserDetailsService;
-import com.depa.user.security.service.OAuth2AuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -23,8 +18,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
-import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.depa.user.security.config.filter.TokenAuthenticationFilter;
+import com.depa.user.security.repository.HttpCookieOAuth2AuthorizationRequestRepository;
+import com.depa.user.security.service.CustomOAuth2UserService;
+import com.depa.user.security.service.CustomUserDetailsService;
+import com.depa.user.security.service.OAuth2AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -152,8 +152,8 @@ public class OAuth2Configuration extends WebSecurityConfigurerAdapter {
 
     public ClientRegistrationRepository clientRegistrationRepository() {
         return new InMemoryClientRegistrationRepository(
-                this.googleClientRegistration()
-//                this.facebookClientRegistration()
+                this.googleClientRegistration(),
+                this.facebookClientRegistration()
         );
     }
 
