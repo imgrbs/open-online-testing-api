@@ -123,7 +123,7 @@ Subsystems ระบบประกอบด้วย 4 ส่วนหลัก
 ### โครงสร้างของโปรเจกต์
 
 ```
-depa-testing-api
+open-online-testing-api
 ├── src
 │   ├── main
 │   │   ├── java.com.depa.exam
