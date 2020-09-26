@@ -27,13 +27,17 @@ public class CategoryServiceImpl implements CategoryService {
         System.out.println("======= Create CAtagory ========");
         System.out.println("Label From Request: " + categoryDTO.getLabel());
         Optional<Category> categoryFromDB = categoryRepository.findByLabel(categoryDTO.getLabel());
-        System.out.println("Label From DB: " + categoryFromDB.get());
+        System.out.println("after find");
+        System.out.println(categoryFromDB);
         Category categoryForSave;
         if (categoryFromDB.isPresent()) {
+            System.out.println("is Present !!!");
             categoryForSave = buildCategory(categoryDTO, categoryFromDB);
         } else {
+            System.out.println("Not present !!!");
             categoryForSave = categoryDTO.toCategory();
         }
+        System.out.println("Going to save !!!");
         Category result = categoryRepository.save(categoryForSave);
         return new CategoryDTOImpl(result);
     }
