@@ -16,7 +16,7 @@
 * [Become a maintainer](become-a-maintainer)
 
 ## Code of Conduct
-dd
+
 Open Online Testing Service - API  ได้นำ Code of Conduct จาก [Contributor Covenant](https://www.contributor-covenant.org/) มาปรับใช้ และเราคาดหวังว่าผู้ที่เข้ามาส่วนรวมกับโปรเจกต์จะยึดมั่นในสิ่งนี้
 ดังนั้นการที่คุณอ่าน [code of conduct ที่ลิงก์นี้](/docs/CODE_OF_CONDUCT.md) จะช่วยให้คุณเข้าใจว่าสิ่งไหนควรทำและสิ่งไหนที่ไม่
 
