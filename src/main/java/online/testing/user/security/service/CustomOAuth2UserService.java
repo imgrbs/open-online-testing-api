@@ -15,8 +15,8 @@ import org.springframework.util.StringUtils;
 import online.testing.user.dto.OAuth2UserInfo;
 import online.testing.user.dto.OAuth2UserInfoFactory;
 import online.testing.user.dto.UserPrincipal;
-import online.testing.user.model.user.User;
 import online.testing.user.model.user.impl.UserFactory;
+import online.testing.user.model.user.impl.UserImpl;
 import online.testing.user.repository.UserRepository;
 import online.testing.user.security.config.AuthProvider;
 import online.testing.user.security.exception.OAuth2AuthenticationProcessingException;
@@ -49,8 +49,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 			throw new OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider");
 		}
 
-		Optional<User> userOptional = userRepository.findByEmail(oAuth2UserInfo.getEmail());
-		User user;
+		Optional<UserImpl> userOptional = userRepository.findByEmail(oAuth2UserInfo.getEmail());
+		UserImpl user;
 		if (userOptional.isPresent()) {
 			user = userOptional.get();
 			if (!user.getProvider().equals(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()))) {
@@ -66,16 +66,18 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 		return UserPrincipal.create(user, oAuth2User.getAttributes());
 	}
 
-	private User registerNewUser(OAuth2UserRequest oAuth2UserRequest, OAuth2UserInfo oAuth2UserInfo) {
+	private UserImpl registerNewUser(OAuth2UserRequest oAuth2UserRequest, OAuth2UserInfo oAuth2UserInfo) {
 		String registrationId = oAuth2UserRequest.getClientRegistration().getRegistrationId();
-		User user = UserFactory.create(oAuth2UserInfo, registrationId);
-		return userRepository.save(user);
+		UserImpl user = UserFactory.create(oAuth2UserInfo, registrationId);
+		userRepository.save(user);
+		return user;
 	}
 
-	private User updateExistingUser(User existingUser, OAuth2UserInfo oAuth2UserInfo) {
+	private UserImpl updateExistingUser(UserImpl existingUser, OAuth2UserInfo oAuth2UserInfo) {
 		existingUser.setName(oAuth2UserInfo.getName());
 		existingUser.setImageUrl(oAuth2UserInfo.getImageUrl());
-		return userRepository.save(existingUser);
+		userRepository.save(existingUser);
+		return existingUser;
 	}
 
 }

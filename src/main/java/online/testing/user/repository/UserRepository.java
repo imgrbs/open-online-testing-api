@@ -1,17 +1,17 @@
 package online.testing.user.repository;
 
-import online.testing.user.model.user.User;
+import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import online.testing.user.model.user.impl.UserImpl;
 
 @Repository
-public interface UserRepository extends MongoRepository<User, String> {
-    Optional<User> findByEmail(String email);
+public interface UserRepository extends MongoRepository<UserImpl, String> {
+    Optional<UserImpl> findByEmail(String email);
 
-    Optional<User> findById(String id);
+    Optional<UserImpl> findById(String id);
 
     Boolean existsByEmail(String email);
 }

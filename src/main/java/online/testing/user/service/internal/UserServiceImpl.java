@@ -1,8 +1,8 @@
 package online.testing.user.service.internal;
 
-import online.testing.user.model.user.User;
-import online.testing.user.repository.UserRepository;
-import online.testing.user.service.UserService;
+import java.util.Map;
+import java.util.Optional;
+
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -10,8 +10,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Map;
-import java.util.Optional;
+import online.testing.user.model.user.impl.UserImpl;
+import online.testing.user.repository.UserRepository;
+import online.testing.user.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -35,9 +36,8 @@ public class UserServiceImpl implements UserService {
         return this.authAttributes.get("email");
     }
 
-    public Optional<User> getUser(Authentication authentication) {
+    public Optional<UserImpl> getUser(Authentication authentication) {
         mapAuthentication(authentication);
-        String displayName = getDisplayName();
         String email = getEmail();
         return userRepository.findByEmail(email);
     }

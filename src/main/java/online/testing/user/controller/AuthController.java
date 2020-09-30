@@ -22,8 +22,8 @@ import online.testing.user.dto.AuthResponse;
 import online.testing.user.dto.LoginRequest;
 import online.testing.user.dto.SignUpRequest;
 import online.testing.user.dto.UserPrincipal;
-import online.testing.user.model.user.User;
 import online.testing.user.model.user.impl.UserFactory;
+import online.testing.user.model.user.impl.UserImpl;
 import online.testing.user.repository.UserRepository;
 import online.testing.user.security.exception.BadRequestException;
 import online.testing.user.service.TokenProvider;
@@ -64,11 +64,11 @@ public class AuthController {
         }
 
         // Creating user's account
-        User user = UserFactory.create(signUpRequest, "local");
+        UserImpl user = UserFactory.create(signUpRequest, "local");
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        User result = userRepository.save(user);
+        userRepository.save(user);
 
-        URI location = ServletUriComponentsBuilder.fromCurrentContextPath().path("/user/me").buildAndExpand(result.getId())
+        URI location = ServletUriComponentsBuilder.fromCurrentContextPath().path("/user/me").buildAndExpand(user.getId())
                 .toUri();
 
         return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully@"));

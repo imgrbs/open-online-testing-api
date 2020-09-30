@@ -17,16 +17,15 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import lombok.SneakyThrows;
 import online.testing.user.dto.UserPrincipal;
-import online.testing.user.model.user.User;
 import online.testing.user.model.user.impl.UserFactory;
+import online.testing.user.model.user.impl.UserImpl;
 import online.testing.user.repository.UserRepository;
 import online.testing.user.security.config.AppProperties;
 import online.testing.user.security.exception.BadRequestException;
 import online.testing.user.security.repository.HttpCookieOAuth2AuthorizationRequestRepository;
 import online.testing.user.service.TokenProvider;
-
-import lombok.SneakyThrows;
 
 @Component
 public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
@@ -82,7 +81,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 			UserPrincipal userPrincipal = UserPrincipal.create(authentication.getPrincipal());
 			UserDetails userDetails = userDetailsService.loadUserByUsername(userPrincipal.getEmail());
 			if (userDetails == null) {
-				User user = UserFactory.create(userPrincipal, getRegistrationId(authentication));
+				UserImpl user = UserFactory.create(userPrincipal, getRegistrationId(authentication));
 				userRepository.save(user);
 				String token = tokenProvider.createToken(user.getId().toString());
 				return UriComponentsBuilder.fromUriString(targetUrl).queryParam("token", token).build().toUriString();

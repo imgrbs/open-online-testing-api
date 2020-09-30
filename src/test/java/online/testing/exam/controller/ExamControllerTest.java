@@ -50,7 +50,7 @@ class ExamControllerTest {
         Assert.assertThat(actual.getStatusCode(), CoreMatchers.equalTo(HttpStatus.CREATED));
 
         ExamDTO actualExam = actual.getBody();
-        
+
         Assert.assertThat(actualExam.getName(), CoreMatchers.equalTo("Exam Set 1"));
         Assert.assertThat(actualExam.getDescription(), CoreMatchers.equalTo("Set A"));
         Assert.assertThat(actualExam.getQuestions().size(), CoreMatchers.equalTo(0));

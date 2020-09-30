@@ -7,7 +7,7 @@ import online.testing.user.model.user.User;
 
 public class UserFactory {
 
-	public static User create(UserPrincipal userPrincipal, String registrationId) {
+	public static UserImpl create(UserPrincipal userPrincipal, String registrationId) {
 		User user;
 
 		switch (registrationId) {
@@ -27,7 +27,7 @@ public class UserFactory {
 		setEmail(userPrincipal, user);
 		setPassword(userPrincipal, user);
 		setAttributes(userPrincipal, user);
-		return user;
+		return (UserImpl) user;
 	}
 
 	private static void setAttributes(UserPrincipal userPrincipal, User user) {
