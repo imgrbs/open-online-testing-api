@@ -123,11 +123,10 @@ class ExamServiceImplTest {
     void testGetExams() {
         User user = createUser();
         UserPrincipal userPrincipal = UserPrincipal.create(user);
-
         Exam exam = createExam();
         List<Exam> expectedExams = new ArrayList<>();
         expectedExams.add(exam);
-        expectFindAll(expectedExams);
+        expectFindByUserId(userPrincipal, expectedExams);
 
         List<ExamDTO> actualExams = underTest.getExams(userPrincipal.getId());
 
@@ -138,10 +137,10 @@ class ExamServiceImplTest {
         Assert.assertThat(actualExams.get(0).getCategories().size(), CoreMatchers.equalTo(0));
     }
 
-    private void expectFindAll(List<Exam> expectedExams) {
+    private void expectFindByUserId(UserPrincipal userPrincipal, List<Exam> expectedExams) {
         mockery.checking(new Expectations() {
             {
-                oneOf(mockExamRepository).findAll();
+                oneOf(mockExamRepository).findByOwnerId(userPrincipal.getId());
                 will(returnValue(expectedExams));
             }
         });

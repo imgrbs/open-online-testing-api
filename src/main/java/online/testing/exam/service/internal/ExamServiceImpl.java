@@ -46,7 +46,7 @@ public class ExamServiceImpl implements ExamService {
 
     @Override
     public List<ExamDTO> getExams(String ownerId) {
-        List<Exam> queryExams = this.examRepository.findAll();
+        List<Exam> queryExams = this.examRepository.findByOwnerId(ownerId);
         ArrayList<ExamDTO> exams = new ArrayList<>();
         queryExams.forEach(exam -> exams.add(toExamDTO(exam)));
         return exams;
