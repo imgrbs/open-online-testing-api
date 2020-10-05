@@ -27,6 +27,8 @@ public class QuestionDTOImpl implements QuestionDTO {
     private List<Choice> choices;
     private List<CategoryDTOImpl> categories;
 
+    private String ownerId;
+
     public QuestionDTOImpl(Question question) {
         this.id = question.getId();
         this.name = question.getName();

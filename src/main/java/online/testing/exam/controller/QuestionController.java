@@ -41,8 +41,13 @@ public class QuestionController {
     }
 
     @PostMapping("/question")
-    public ResponseEntity<QuestionDTO> createQuestion(@RequestBody QuestionDTOImpl request) {
+    public ResponseEntity<QuestionDTO> createQuestion(
+            Principal principal,
+            @RequestBody QuestionDTOImpl request
+     ) {
+        UserPrincipal userPrincipal = (UserPrincipal) ((UsernamePasswordAuthenticationToken) principal).getPrincipal();
         QuestionDTO question = questionService.createQuestion(request);
+        question.setOwnerId(userPrincipal.getId());
         question.getCategories().forEach(categoryDTO -> {
             categoryService.createCategory(categoryDTO);
         });

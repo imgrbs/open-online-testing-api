@@ -17,7 +17,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
-import online.testing.exam.dto.CategoryDTO;
 import online.testing.exam.dto.QuestionDTO;
 import online.testing.exam.dto.impl.CategoryDTOImpl;
 import online.testing.exam.dto.impl.QuestionDTOImpl;
@@ -89,12 +88,26 @@ class QuestionControllerTest {
 
 	@Test
 	void testCreateQuestion() {
+		User user = createUser();
+		UserPrincipal userPrincipal = UserPrincipal.create(user, new HashMap<>());
+		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userPrincipal, null);
+
 		CategoryDTOImpl categoryDTO = createCategoryDTO();
 		Question question = SubjectiveQuestion.create("1 + 1 = ?", null, Arrays.asList(categoryDTO));
 		QuestionDTOImpl request = new QuestionDTOImpl(question);
-		expectedCreateQuestion(request, categoryDTO);
+		request.setOwnerId(userPrincipal.getId());
 
-		ResponseEntity<QuestionDTO> result = underTest.createQuestion(request);
+		mockery.checking(new Expectations() {
+			{
+				oneOf(mockQuestionService).createQuestion(request);
+				will(returnValue(request));
+
+				oneOf(mockCategoryService).createCategory(categoryDTO);
+				will(returnValue(categoryDTO));
+			}
+		});
+
+		ResponseEntity<QuestionDTO> result = underTest.createQuestion(token, request);
 
 		mockery.assertIsSatisfied();
 		Assert.assertThat(result.getStatusCode(), CoreMatchers.equalTo(HttpStatus.CREATED));
@@ -107,17 +120,5 @@ class QuestionControllerTest {
 		categoryDTO.setBackgroundColor("#000000");
 		categoryDTO.setColor("#ffffff");
 		return categoryDTO;
-	}
-
-	private void expectedCreateQuestion(QuestionDTO request, CategoryDTO categoryDTO) {
-		mockery.checking(new Expectations() {
-			{
-				oneOf(mockQuestionService).createQuestion(request);
-				will(returnValue(request));
-
-				oneOf(mockCategoryService).createCategory(categoryDTO);
-				will(returnValue(categoryDTO));
-			}
-		});
 	}
 }
