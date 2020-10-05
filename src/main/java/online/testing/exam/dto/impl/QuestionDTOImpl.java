@@ -43,9 +43,14 @@ public class QuestionDTOImpl implements QuestionDTO {
 
     @Override
     public Question toQuestion() {
+        Question question;
         if (type.equals(QuestionType.SUBJECTIVE)) {
-            return SubjectiveQuestion.create(id,name, attributes, categories);
+            question = SubjectiveQuestion.create(id, name, attributes, categories);
+        } else {
+            question = ObjectiveQuestion.create(id,name, choices, attributes, categories);
         }
-        return ObjectiveQuestion.create(id,name, choices, attributes, categories);
+
+        question.setOwnerId(ownerId);
+        return question;
     }
 }

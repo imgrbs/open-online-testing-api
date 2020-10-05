@@ -46,8 +46,8 @@ public class QuestionController {
             @RequestBody QuestionDTOImpl request
      ) {
         UserPrincipal userPrincipal = (UserPrincipal) ((UsernamePasswordAuthenticationToken) principal).getPrincipal();
+        request.setOwnerId(userPrincipal.getId());
         QuestionDTO question = questionService.createQuestion(request);
-        question.setOwnerId(userPrincipal.getId());
         question.getCategories().forEach(categoryDTO -> {
             categoryService.createCategory(categoryDTO);
         });
