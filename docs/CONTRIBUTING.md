@@ -12,6 +12,7 @@
   * [Subsystems ของระบบ](#subsystems-ของระบบ)
   * [โครงสร้างของโปรเจกต์](#โครงสร้างของโปรเจกต์)
 * [การออกแบบเชิงสถาปัตยกรรมระบบ](#การออกแบบเชิงสถาปัตยกรรมระบบ)
+* [แนวทางการออกแบบระบบ](#แนวทางการออกแบบระบบ)
 * [การส่ง Pull Request](#การส่ง-pull-request)
 * [Become a maintainer](become-a-maintainer)
 
@@ -155,6 +156,15 @@ open-online-testing-api
 ## การออกแบบเชิงสถาปัตยกรรมระบบ
 
 สามารถดูรายละเอียดการออกแบบสถาปัตยกรรมของระบบ Open Online Testing System (OOTS) ได้ที่ [WIKI](https://github.com/imgrbs/open-online-testing-api/wiki)
+
+## แนวทางการออกแบบระบบ
+
+พวกเราให้ความสำคัญเป็นอย่างยิ่งกับการออกแบบซอฟต์แวร์ที่ดี ที่ทำให้โปรแกรมอ่านได้ง่าย บำรุงรักษาได้ (maintainability) ยึดหยุ่นต่อการต่อขยาย (extensibility) เพื่อการนั้นแล้วเราอยากให้คุณที่จะมาช่วยเรา อยากให้ยึดเรื่อง software design ของโปรแกรมเป็นสำคัญ เช่น SOLID principles ขอบคุณความรู้จากบล็อก [หลักการของแข็ง? SOLID Principles](https://link.medium.com/oHwBvexzeab)
+
+จะดีเป็นอย่างยิ่งหากคุณสามารถประยุกต์เรื่อง Design Patterns ได้
+สำหรับเนื้อหาเกี่ยวกับ design patterns สามารถอ่านได้ที่บล็อก
+- [มารู้จักกับ Adapter Pattern กันเถอะ](https://link.medium.com/k0exmFKfp9)
+- [มารู้จักกับ Facade Pattern กันเถอะ](https://link.medium.com/C8sh6vj4K7)
 
 ## การส่ง Pull Request
 
