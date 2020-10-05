@@ -23,6 +23,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class UserPrincipal implements OAuth2User, UserDetails {
+	private static SimpleGrantedAuthority ROLE_USER = new SimpleGrantedAuthority("ROLE_USER");;
 	private String id;
 	private String username;
 	private String email;
@@ -49,7 +50,7 @@ public class UserPrincipal implements OAuth2User, UserDetails {
 
 		if (authorities.isEmpty()) {
 			authorities = Collections.
-					singletonList(new SimpleGrantedAuthority("ROLE_USER"));
+					singletonList(ROLE_USER);
 		}
 		userPrincipal.setAuthorities(authorities);
 

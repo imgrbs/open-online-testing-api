@@ -1,21 +1,22 @@
 package online.testing.user.service;
 
 import java.util.Date;
+import java.util.HashMap;
 
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import online.testing.user.security.config.AppProperties;
-import online.testing.user.security.exception.BadRequestException;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.UnsupportedJwtException;
+import online.testing.user.security.config.AppProperties;
+import online.testing.user.security.exception.BadRequestException;
 
 @Service
 public class TokenProvider {
@@ -32,12 +33,15 @@ public class TokenProvider {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + appProperties.getAuth().getTokenExpirationMsec());
 
-        return Jwts.builder()
-                .setSubject(userId)
-                .setIssuedAt(now)
-                .setExpiration(expiryDate)
-                .signWith(SignatureAlgorithm.HS512, appProperties.getAuth().getTokenSecret())
-                .compact();
+        JwtBuilder jwtBuilder = Jwts.builder().setSubject(userId).setIssuedAt(now).setExpiration(expiryDate)
+                .signWith(SignatureAlgorithm.HS512, appProperties.getAuth().getTokenSecret());
+
+        HashMap<String, Object> claims = new HashMap<>();
+        claims.put("x-user-type", "ROLE_USER");
+
+        jwtBuilder.addClaims(claims);
+
+        return jwtBuilder.compact();
     }
 
     public String getUserIdFromToken(String token) {
