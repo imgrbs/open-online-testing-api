@@ -1,10 +1,12 @@
 package online.testing.exam.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,13 +45,18 @@ public class ExamController {
     private CategoryService categoryService;
 
     @PostMapping("/exam")
-    public ResponseEntity<ExamDTO> createExam(@RequestBody ExamDTOImpl exam) {
+    public ResponseEntity<ExamDTO> createExam(
+            Principal principal,
+            @RequestBody ExamDTOImpl exam
+    ) {
+        UserPrincipal userPrincipal = (UserPrincipal) ((UsernamePasswordAuthenticationToken) principal).getPrincipal();
+
         exam.getQuestions().forEach(categoryDTO -> {
             categoryDTO.getCategories().forEach((category) -> {
                 categoryService.createCategory(category);
             });
         });
-        ExamDTO createdExam = examService.createExam(exam);
+        ExamDTO createdExam = examService.createExam(exam, userPrincipal.getId());
         return new ResponseEntity<>(createdExam, HttpStatus.CREATED);
     }
 
