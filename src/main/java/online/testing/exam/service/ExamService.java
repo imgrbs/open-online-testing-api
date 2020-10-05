@@ -11,7 +11,7 @@ import online.testing.exam.repository.ExamRepository;
 public interface ExamService {
     void setExamRepository(ExamRepository mockExamRepository);
 
-    ExamDTO createExam(ExamDTO exam, String id);
+    ExamDTO createExam(ExamDTO exam, String ownerId);
 
     List<ExamDTO> getExams(String ownerId);
     

@@ -37,8 +37,9 @@ public class ExamServiceImpl implements ExamService {
     private ExamAnswerRepository examAnswerRepository;
 
     @Override
-    public ExamDTO createExam(ExamDTO examDTO, String id) {
+    public ExamDTO createExam(ExamDTO examDTO, String ownerId) {
         Exam toExam = examDTO.toExam();
+        toExam.setOwnerId(ownerId);
         Exam exam = examRepository.save(toExam);
         return toExamDTO(exam);
     }
