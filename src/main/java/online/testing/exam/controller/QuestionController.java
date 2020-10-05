@@ -1,17 +1,25 @@
 package online.testing.exam.controller;
 
-import online.testing.exam.dto.QuestionDTO;
-import online.testing.exam.dto.impl.QuestionDTOImpl;
-import online.testing.exam.service.CategoryService;
-import online.testing.exam.service.QuestionService;
-import lombok.Setter;
+import java.security.Principal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import lombok.Setter;
+import online.testing.exam.dto.QuestionDTO;
+import online.testing.exam.dto.impl.QuestionDTOImpl;
+import online.testing.exam.service.CategoryService;
+import online.testing.exam.service.QuestionService;
+import online.testing.user.dto.UserPrincipal;
 
 @Setter
 @RestController
@@ -25,8 +33,10 @@ public class QuestionController {
     private CategoryService categoryService;
 
     @GetMapping("/questions")
-    public ResponseEntity<List<QuestionDTO>> getQuestions() {
-        List<QuestionDTO> questions = questionService.getQuestions();
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<List<QuestionDTO>> getQuestions(Principal principal) {
+        UserPrincipal userPrincipal = (UserPrincipal) ((UsernamePasswordAuthenticationToken) principal).getPrincipal();
+        List<QuestionDTO> questions = questionService.getQuestionsByUserId(userPrincipal.getId());
         return new ResponseEntity<>(questions, HttpStatus.OK);
     }
 

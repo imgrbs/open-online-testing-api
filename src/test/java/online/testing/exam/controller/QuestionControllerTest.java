@@ -1,13 +1,11 @@
 package online.testing.exam.controller;
 
-import online.testing.exam.dto.CategoryDTO;
-import online.testing.exam.dto.QuestionDTO;
-import online.testing.exam.dto.impl.CategoryDTOImpl;
-import online.testing.exam.dto.impl.QuestionDTOImpl;
-import online.testing.exam.model.question.Question;
-import online.testing.exam.model.question.SubjectiveQuestion;
-import online.testing.exam.service.CategoryService;
-import online.testing.exam.service.QuestionService;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.hamcrest.CoreMatchers;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -17,81 +15,109 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import online.testing.exam.dto.CategoryDTO;
+import online.testing.exam.dto.QuestionDTO;
+import online.testing.exam.dto.impl.CategoryDTOImpl;
+import online.testing.exam.dto.impl.QuestionDTOImpl;
+import online.testing.exam.model.question.Question;
+import online.testing.exam.model.question.SubjectiveQuestion;
+import online.testing.exam.service.CategoryService;
+import online.testing.exam.service.QuestionService;
+import online.testing.user.dto.UserPrincipal;
+import online.testing.user.model.user.User;
 
 class QuestionControllerTest {
-    private final Mockery mockery = new JUnit4Mockery();
+	private final Mockery mockery = new JUnit4Mockery();
 
-    private QuestionController underTest;
-    private QuestionService mockQuestionService;
-    private CategoryService mockCategoryService;
+	private QuestionController underTest;
+	private QuestionService mockQuestionService;
+	private CategoryService mockCategoryService;
 
-    @BeforeEach
-    void setUp() {
-        underTest = new QuestionController();
-        mockQuestionService = mockery.mock(QuestionService.class);
-        underTest.setQuestionService(mockQuestionService);
-        mockCategoryService = mockery.mock(CategoryService.class);
-        underTest.setCategoryService(mockCategoryService);
-    }
+	@BeforeEach
+	void setUp() {
+		underTest = new QuestionController();
+		mockQuestionService = mockery.mock(QuestionService.class);
+		underTest.setQuestionService(mockQuestionService);
+		mockCategoryService = mockery.mock(CategoryService.class);
+		underTest.setCategoryService(mockCategoryService);
+	}
 
-    @Test
-    void testGetQuestionsShouldReturnListOfQuestionModel() {
-        SubjectiveQuestion expectedQuestion = SubjectiveQuestion.create("1 + 1 = ?", null, new ArrayList<>());
-        QuestionDTO expectedQuestionDTO = new QuestionDTOImpl(expectedQuestion);
-        expectedGetQuestions(expectedQuestionDTO);
+	@Test
+	void testGetQuestionsShouldReturnListOfQuestionModel() {
+		User user = createUser();
+		UserPrincipal principal = UserPrincipal.create(user, new HashMap<>());
+		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(principal, null);
+		SubjectiveQuestion expectedQuestion = SubjectiveQuestion.create("1 + 1 = ?", null, new ArrayList<>());
+		QuestionDTO expectedQuestionDTO = new QuestionDTOImpl(expectedQuestion);
 
-        ResponseEntity<List<QuestionDTO>> result = underTest.getQuestions();
-        List<QuestionDTO> actualResult = result.getBody();
+		expectGetQuestions(principal, expectedQuestionDTO);
 
-        Assert.assertThat(actualResult.size(), CoreMatchers.equalTo(1));
-        Assert.assertThat(actualResult.get(0), CoreMatchers.equalTo(expectedQuestionDTO));
-    }
+		ResponseEntity<List<QuestionDTO>> result = underTest.getQuestions(token);
+		List<QuestionDTO> actualResult = result.getBody();
 
-    @Test
-    void testCreateQuestion() {
-        CategoryDTOImpl categoryDTO = createCategoryDTO();
-        Question question = SubjectiveQuestion.create("1 + 1 = ?", null, Arrays.asList(categoryDTO));
-        QuestionDTOImpl request = new QuestionDTOImpl(question);
-        expectedCreateQuestion(request, categoryDTO);
+		Assert.assertThat(actualResult.size(), CoreMatchers.equalTo(1));
+		Assert.assertThat(actualResult.get(0), CoreMatchers.equalTo(expectedQuestionDTO));
+	}
 
-        ResponseEntity<QuestionDTO> result = underTest.createQuestion(request);
+	private void expectGetQuestions(UserPrincipal principal, QuestionDTO expectedQuestionDTO) {
+		mockery.checking(new Expectations() {
+			{
+				oneOf(mockQuestionService).getQuestionsByUserId(principal.getId());
+				will(returnValue(Arrays.asList(expectedQuestionDTO)));
+			}
+		});
+	}
 
-        mockery.assertIsSatisfied();
-        Assert.assertThat(result.getStatusCode(), CoreMatchers.equalTo(HttpStatus.CREATED));
-        Assert.assertThat(result.getBody(), CoreMatchers.equalTo(request));
-    }
+	private User createUser() {
+		User user = mockery.mock(User.class);
+		mockery.checking(new Expectations() {
+			{
+				oneOf(user).getId();
+				will(returnValue("xxx"));
+				oneOf(user).getEmail();
+				will(returnValue("depa@gmail.com"));
+				oneOf(user).getPassword();
+				will(returnValue("xxx"));
+				oneOf(user).getAttributes();
+				will(returnValue(Map.of()));
+			}
+		});
+		return user;
+	}
 
-    private CategoryDTOImpl createCategoryDTO() {
-        CategoryDTOImpl categoryDTO = new CategoryDTOImpl();
-        categoryDTO.setLabel("history");
-        categoryDTO.setBackgroundColor("#000000");
-        categoryDTO.setColor("#ffffff");
-        return categoryDTO;
-    }
+	@Test
+	void testCreateQuestion() {
+		CategoryDTOImpl categoryDTO = createCategoryDTO();
+		Question question = SubjectiveQuestion.create("1 + 1 = ?", null, Arrays.asList(categoryDTO));
+		QuestionDTOImpl request = new QuestionDTOImpl(question);
+		expectedCreateQuestion(request, categoryDTO);
 
-    private void expectedCreateQuestion(QuestionDTO request, CategoryDTO categoryDTO) {
-        mockery.checking(new Expectations() {
-            {
-                oneOf(mockQuestionService).createQuestion(request);
-                will(returnValue(request));
+		ResponseEntity<QuestionDTO> result = underTest.createQuestion(request);
 
-                oneOf(mockCategoryService).createCategory(categoryDTO);
-                will(returnValue(categoryDTO));
-            }
-        });
-    }
+		mockery.assertIsSatisfied();
+		Assert.assertThat(result.getStatusCode(), CoreMatchers.equalTo(HttpStatus.CREATED));
+		Assert.assertThat(result.getBody(), CoreMatchers.equalTo(request));
+	}
 
-    private void expectedGetQuestions(QuestionDTO expectedQuestionDTO) {
-        mockery.checking(new Expectations() {
-            {
-                oneOf(mockQuestionService).getQuestions();
-                will(returnValue(Arrays.asList(expectedQuestionDTO)));
-            }
-        });
-    }
+	private CategoryDTOImpl createCategoryDTO() {
+		CategoryDTOImpl categoryDTO = new CategoryDTOImpl();
+		categoryDTO.setLabel("history");
+		categoryDTO.setBackgroundColor("#000000");
+		categoryDTO.setColor("#ffffff");
+		return categoryDTO;
+	}
 
+	private void expectedCreateQuestion(QuestionDTO request, CategoryDTO categoryDTO) {
+		mockery.checking(new Expectations() {
+			{
+				oneOf(mockQuestionService).createQuestion(request);
+				will(returnValue(request));
+
+				oneOf(mockCategoryService).createCategory(categoryDTO);
+				will(returnValue(categoryDTO));
+			}
+		});
+	}
 }
