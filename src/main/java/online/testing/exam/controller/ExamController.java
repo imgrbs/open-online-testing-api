@@ -73,8 +73,11 @@ public class ExamController {
     }
 
     @GetMapping("/exams")
-    public ResponseEntity<List<ExamDTO>> getExams() {
-        List<ExamDTO> exams = examService.getExams();
+    public ResponseEntity<List<ExamDTO>> getExams(Principal principal) {
+        UserPrincipal userPrincipal = (UserPrincipal) ((UsernamePasswordAuthenticationToken) principal).getPrincipal();
+
+        List<ExamDTO> exams = examService.getExams(userPrincipal.getId());
+
         return new ResponseEntity<>(exams, HttpStatus.OK);
     }
 

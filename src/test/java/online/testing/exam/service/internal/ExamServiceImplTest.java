@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import online.testing.exam.dto.ExamDTO;
 import online.testing.exam.model.exam.Exam;
 import online.testing.exam.repository.ExamRepository;
+import online.testing.user.dto.UserPrincipal;
 import online.testing.user.model.user.User;
 
 class ExamServiceImplTest {
@@ -35,14 +36,15 @@ class ExamServiceImplTest {
     @Test
     public void testCreateExam() {
         User user = createUser();
+        UserPrincipal userPrincipal = UserPrincipal.create(user, Map.of());
 
         Exam exam = createExam();
-        exam.setOwnerId(user.getId());
+        exam.setOwnerId(userPrincipal.getId());
         ExamDTO examDTO = mockery.mock(ExamDTO.class);
         expectedToExam(examDTO, exam);
         expectedSaveExam(exam);
 
-        ExamDTO actual = underTest.createExam(examDTO, user.getId());
+        ExamDTO actual = underTest.createExam(examDTO, userPrincipal.getId());
 
         Assert.assertThat(actual.getName(), CoreMatchers.equalTo("Interview 2020"));
         Assert.assertThat(actual.getDescription(), CoreMatchers.equalTo("Interviewing new jobbers."));
@@ -119,12 +121,15 @@ class ExamServiceImplTest {
 
     @Test
     void testGetExams() {
+        User user = createUser();
+        UserPrincipal userPrincipal = UserPrincipal.create(user);
+
         Exam exam = createExam();
         List<Exam> expectedExams = new ArrayList<>();
         expectedExams.add(exam);
         expectFindAll(expectedExams);
 
-        List<ExamDTO> actualExams = underTest.getExams();
+        List<ExamDTO> actualExams = underTest.getExams(userPrincipal.getId());
 
         Assert.assertThat(actualExams.size(), CoreMatchers.equalTo(expectedExams.size()));
         Assert.assertThat(actualExams.get(0).getName(), CoreMatchers.equalTo(exam.getName()));

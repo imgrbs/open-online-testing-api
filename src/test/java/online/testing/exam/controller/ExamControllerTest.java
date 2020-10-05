@@ -124,13 +124,28 @@ class ExamControllerTest {
 
     @Test
     void testGetExams() {
+        UserPrincipal userPrincipal = UserPrincipal.create(user);
+
         Exam exam = createExam(new ArrayList<>());
         List<ExamDTO> expectedExams = new ArrayList<>();
         expectedExams.add(createExamDTO(exam));
 
-        expectedGetExams(expectedExams, exam);
+        mockery.checking(new Expectations() {
+            {
+                oneOf(mockExamService).getExams(userPrincipal.getId());
+                will(returnValue(expectedExams));
 
-        ResponseEntity<List<ExamDTO>> actualExam = underTest.getExams();
+                oneOf(mockExamService).toExamDTO(exam);
+                will(returnValue(new ExamDTOImpl(exam)));
+
+                oneOf(mockExamService).getExams(userPrincipal.getId());
+                will(returnValue(expectedExams));
+            }
+        });
+
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userPrincipal, null);
+
+        ResponseEntity<List<ExamDTO>> actualExam = underTest.getExams(token);
 
         Assert.assertThat(actualExam.getStatusCode(), CoreMatchers.equalTo(HttpStatus.OK));
         Assert.assertThat(actualExam.getBody().size(), CoreMatchers.equalTo(1));
@@ -138,21 +153,6 @@ class ExamControllerTest {
         Assert.assertThat(actualExam.getBody().get(0).getDescription(), CoreMatchers.equalTo(exam.getDescription()));
         Assert.assertThat(actualExam.getBody().get(0).getQuestions().size(), CoreMatchers.equalTo(0));
         Assert.assertThat(actualExam.getBody().get(0).getCategories().size(), CoreMatchers.equalTo(0));
-    }
-
-    private void expectedGetExams(List<ExamDTO> expectedExams, Exam exam) {
-        mockery.checking(new Expectations() {
-            {
-                oneOf(mockExamService).getExams();
-                will(returnValue(expectedExams));
-
-                oneOf(mockExamService).toExamDTO(exam);
-                will(returnValue(new ExamDTOImpl(exam)));
-
-                oneOf(mockExamService).getExams();
-                will(returnValue(expectedExams));
-            }
-        });
     }
 
     @Test

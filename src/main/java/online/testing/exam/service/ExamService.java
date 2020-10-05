@@ -13,7 +13,7 @@ public interface ExamService {
 
     ExamDTO createExam(ExamDTO exam, String id);
 
-    List<ExamDTO> getExams();
+    List<ExamDTO> getExams(String ownerId);
     
     ExamDTO generateExamination(String id);
 
