@@ -34,7 +34,7 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public List<QuestionDTO> getQuestionsByUserId(String userId) {
-        List<Question> questions = questionRepository.findByUserId(userId);
+        List<Question> questions = questionRepository.findByOwnerId(userId);
 
         if (questions.size() == 0) {
             return null;

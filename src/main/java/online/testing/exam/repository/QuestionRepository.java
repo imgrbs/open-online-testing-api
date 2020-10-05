@@ -9,5 +9,5 @@ import online.testing.exam.model.question.Question;
 
 @Repository
 public interface QuestionRepository extends MongoRepository<Question, String> {
-	List<Question> findByUserId(String userId);
+	List<Question> findByOwnerId(String userId);
 }
