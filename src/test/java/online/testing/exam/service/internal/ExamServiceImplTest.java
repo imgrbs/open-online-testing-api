@@ -2,6 +2,7 @@ package online.testing.exam.service.internal;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.hamcrest.CoreMatchers;
@@ -15,6 +16,8 @@ import org.junit.jupiter.api.Test;
 import online.testing.exam.dto.ExamDTO;
 import online.testing.exam.model.exam.Exam;
 import online.testing.exam.repository.ExamRepository;
+import online.testing.user.dto.UserPrincipal;
+import online.testing.user.model.user.User;
 
 class ExamServiceImplTest {
     private Mockery mockery = new JUnit4Mockery();
@@ -32,17 +35,38 @@ class ExamServiceImplTest {
 
     @Test
     public void testCreateExam() {
+        User user = createUser();
+        UserPrincipal userPrincipal = UserPrincipal.create(user, Map.of());
+
         Exam exam = createExam();
+        exam.setOwnerId(userPrincipal.getId());
         ExamDTO examDTO = mockery.mock(ExamDTO.class);
         expectedToExam(examDTO, exam);
         expectedSaveExam(exam);
 
-        ExamDTO actual = underTest.createExam(examDTO);
+        ExamDTO actual = underTest.createExam(examDTO, userPrincipal.getId());
 
         Assert.assertThat(actual.getName(), CoreMatchers.equalTo("Interview 2020"));
         Assert.assertThat(actual.getDescription(), CoreMatchers.equalTo("Interviewing new jobbers."));
         Assert.assertThat(actual.getQuestions().size(), CoreMatchers.equalTo(0));
         Assert.assertThat(actual.getCategories().size(), CoreMatchers.equalTo(0));
+    }
+
+    private User createUser() {
+        User user = mockery.mock(User.class);
+        mockery.checking(new Expectations() {
+            {
+                oneOf(user).getId();
+                will(returnValue("xxx"));
+                oneOf(user).getEmail();
+                will(returnValue("depa@gmail.com"));
+                oneOf(user).getPassword();
+                will(returnValue("xxx"));
+                oneOf(user).getAttributes();
+                will(returnValue(Map.of()));
+            }
+        });
+        return user;
     }
 
     private void expectedToExam(ExamDTO examDTO, Exam exam) {
@@ -97,12 +121,14 @@ class ExamServiceImplTest {
 
     @Test
     void testGetExams() {
+        User user = createUser();
+        UserPrincipal userPrincipal = UserPrincipal.create(user);
         Exam exam = createExam();
         List<Exam> expectedExams = new ArrayList<>();
         expectedExams.add(exam);
-        expectFindAll(expectedExams);
+        expectFindByUserId(userPrincipal, expectedExams);
 
-        List<ExamDTO> actualExams = underTest.getExams();
+        List<ExamDTO> actualExams = underTest.getExams(userPrincipal.getId());
 
         Assert.assertThat(actualExams.size(), CoreMatchers.equalTo(expectedExams.size()));
         Assert.assertThat(actualExams.get(0).getName(), CoreMatchers.equalTo(exam.getName()));
@@ -111,10 +137,10 @@ class ExamServiceImplTest {
         Assert.assertThat(actualExams.get(0).getCategories().size(), CoreMatchers.equalTo(0));
     }
 
-    private void expectFindAll(List<Exam> expectedExams) {
+    private void expectFindByUserId(UserPrincipal userPrincipal, List<Exam> expectedExams) {
         mockery.checking(new Expectations() {
             {
-                oneOf(mockExamRepository).findAll();
+                oneOf(mockExamRepository).findByOwnerId(userPrincipal.getId());
                 will(returnValue(expectedExams));
             }
         });

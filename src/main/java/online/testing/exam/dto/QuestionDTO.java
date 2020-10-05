@@ -1,12 +1,12 @@
 package online.testing.exam.dto;
 
+import java.util.List;
+
 import online.testing.exam.dto.impl.CategoryDTOImpl;
 import online.testing.exam.model.question.Attribute;
 import online.testing.exam.model.question.Choice;
 import online.testing.exam.model.question.Question;
 import online.testing.exam.model.question.QuestionType;
-
-import java.util.List;
 
 public interface QuestionDTO {
 
@@ -35,5 +35,6 @@ public interface QuestionDTO {
     public String getId();
     
     public void setId(String id);
-    
+
+    void setOwnerId(String ownerId);
 }

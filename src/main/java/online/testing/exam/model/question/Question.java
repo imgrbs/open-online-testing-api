@@ -1,15 +1,15 @@
 package online.testing.exam.model.question;
 
-import online.testing.exam.dto.impl.CategoryDTOImpl;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import online.testing.exam.dto.impl.CategoryDTOImpl;
 
 
 @Document("questions")
@@ -28,7 +28,9 @@ public abstract class Question {
     private List<Attribute> attributes;
 
     private List<CategoryDTOImpl> categories;
-    
+
+    private String ownerId;
+
     public Question(QuestionType type) {
         this.type = type;
     }

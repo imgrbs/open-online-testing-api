@@ -1,17 +1,17 @@
 package online.testing.exam.service.internal;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import lombok.Setter;
 import online.testing.exam.dto.QuestionDTO;
 import online.testing.exam.dto.impl.QuestionDTOImpl;
 import online.testing.exam.model.question.Question;
 import online.testing.exam.repository.QuestionRepository;
 import online.testing.exam.service.QuestionService;
-import lombok.Setter;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Setter
 @Service
@@ -30,6 +30,21 @@ public class QuestionServiceImpl implements QuestionService {
     public QuestionDTO createQuestion(QuestionDTO questionDTO) {
         Question question = questionRepository.save(questionDTO.toQuestion());
         return new QuestionDTOImpl(question);
+    }
+
+    @Override
+    public List<QuestionDTO> getQuestionsByUserId(String userId) {
+        List<Question> questions = questionRepository.findByOwnerId(userId);
+
+        if (questions.size() == 0) {
+            return null;
+        }
+
+        List<QuestionDTO> dto = new ArrayList<>();
+        for (Question question : questions) {
+            dto.add(new QuestionDTOImpl(question));
+        }
+        return dto;
     }
 
 }

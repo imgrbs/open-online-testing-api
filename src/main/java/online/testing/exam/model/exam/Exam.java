@@ -32,6 +32,8 @@ public class Exam {
     private List<CategoryDTOImpl> categories = new ArrayList<>();
     private ExamType type;
 
+    private String ownerId;
+
     public Exam(ExamDTO examDTO) {
         this.name = examDTO.getName();
         this.description = examDTO.getDescription();

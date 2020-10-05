@@ -37,15 +37,16 @@ public class ExamServiceImpl implements ExamService {
     private ExamAnswerRepository examAnswerRepository;
 
     @Override
-    public ExamDTO createExam(ExamDTO examDTO) {
+    public ExamDTO createExam(ExamDTO examDTO, String ownerId) {
         Exam toExam = examDTO.toExam();
+        toExam.setOwnerId(ownerId);
         Exam exam = examRepository.save(toExam);
         return toExamDTO(exam);
     }
 
     @Override
-    public List<ExamDTO> getExams() {
-        List<Exam> queryExams = this.examRepository.findAll();
+    public List<ExamDTO> getExams(String ownerId) {
+        List<Exam> queryExams = this.examRepository.findByOwnerId(ownerId);
         ArrayList<ExamDTO> exams = new ArrayList<>();
         queryExams.forEach(exam -> exams.add(toExamDTO(exam)));
         return exams;

@@ -27,6 +27,8 @@ public class QuestionDTOImpl implements QuestionDTO {
     private List<Choice> choices;
     private List<CategoryDTOImpl> categories;
 
+    private String ownerId;
+
     public QuestionDTOImpl(Question question) {
         this.id = question.getId();
         this.name = question.getName();
@@ -41,9 +43,14 @@ public class QuestionDTOImpl implements QuestionDTO {
 
     @Override
     public Question toQuestion() {
+        Question question;
         if (type.equals(QuestionType.SUBJECTIVE)) {
-            return SubjectiveQuestion.create(id,name, attributes, categories);
+            question = SubjectiveQuestion.create(id, name, attributes, categories);
+        } else {
+            question = ObjectiveQuestion.create(id,name, choices, attributes, categories);
         }
-        return ObjectiveQuestion.create(id,name, choices, attributes, categories);
+
+        question.setOwnerId(ownerId);
+        return question;
     }
 }
