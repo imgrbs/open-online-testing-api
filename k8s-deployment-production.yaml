@@ -8,7 +8,7 @@ metadata:
     app: depa-backend
     version: LABEL_VERSION
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: depa-backend
@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: depa-backend
-          image: AZ_CONTAINER_REGISTRY_URL/dev/depa-backend:IMAGE_BUILD_ID
+          image: linxianer12/open-online-testing-api:IMAGE_BUILD_ID
           imagePullPolicy: Always
           readinessProbe:
             tcpSocket:
