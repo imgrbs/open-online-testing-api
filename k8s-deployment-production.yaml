@@ -31,17 +31,17 @@ spec:
             # ดึง ConfigMap จาก Kubernetes มาใช้ config Redirect OAuth URL
             - name: SECURITY_REDIRECT_URI
               valueFrom:
-                secretKeyRef:
+                configMapKeyRef:
                   name: depa-backend-configmap
                   key: SECURITY_REDIRECT_URI
             - name: AUTOHRIZED_REDIRECT_URIS
               valueFrom:
-                secretKeyRef:
+                configMapKeyRef:
                   name: depa-backend-configmap
                   key: AUTOHRIZED_REDIRECT_URIS
             - name: BASE_URL
               valueFrom:
-                secretKeyRef:
+                configMapKeyRef:
                   name: depa-backend-configmap
                   key: BASE_URL
             # ดึง Secret จาก Kubernetes มาใช้ config credential
