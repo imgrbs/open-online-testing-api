@@ -13,7 +13,8 @@ pipeline {
         FACEBOOK_SECRET = credentials('DEPA_FACEBOOK_SECRET')
         GOOGLE_ID = credentials('DEPA_GOOGLE_ID')
         GOOGLE_SECRET = credentials('DEPA_GOOGLE_SECRET')
-        CONTAINER_IMAGE = 'dev/depa-backend'
+        CONTAINER_REGISTRY_URL='https://registry-1.docker.io/v2/'
+        CONTAINER_IMAGE = 'linxianer12/open-online-testing-api'
         AZ_AKS_NAME = "kube-devops"
         AZ_AKS_RESOUCE_GROUP = "Elasticsearch-Stack"
         // ชื่อของเครื่องที่ต้องการจะ Hold Approve ก่อนที่จะ Deploy ขึ้นไป
@@ -94,7 +95,7 @@ pipeline {
                     unstash 'java-artifact'
                     def FULL_CONTAINER_IMAGE_PATH = "${AZ_CONTAINER_REGISTRY_URL}/${CONTAINER_IMAGE}:${env.TAG_VERSION}"
                     env.FULL_CONTAINER_IMAGE_PATH = FULL_CONTAINER_IMAGE_PATH.replaceAll('/', "\\\\/")
-                    docker.withRegistry("https://${AZ_CONTAINER_REGISTRY_URL}", '77ae6c02-d40b-4bae-82bf-ade4eeff03e3') {
+                    docker.withRegistry("https://${AZ_CONTAINER_REGISTRY_URL}", '2846f756-a434-495b-852b-8922980f769d') {
                         def newApp = docker.build "${env.FULL_CONTAINER_IMAGE_PATH}"
                         newApp.push()
                     }

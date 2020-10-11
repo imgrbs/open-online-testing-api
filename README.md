@@ -47,6 +47,8 @@ Container Image
 (https://hub.docker.com/repository/docker/linxianer12/open-online-testing-api)
 Backend URL:
 
+ระบบจะประกอบไปด้วยเครื่อง Jenkins สำหรับใช้ในการ Deploy ซึ่งสำหรับวิธีการ Config นั้นจะมีคำอธิบายอยู่ที่
+
 
 ## Contribution
 
