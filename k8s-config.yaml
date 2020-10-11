@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: depa-backend-deployment-final
+  name: depa-backend-configmap
   annotations:
     kubernetes.io/change-cause: "[ADD] Final Deploy"
   labels:
@@ -28,12 +28,6 @@ spec:
             port: 8080
           initialDelaySeconds: 5
         env:
-        - name: SERVER_ENVIRONMENT
-          value: "dev"
-        - name: BRANCH
-          value: "dev"
-        - name: VERSION
-          value: "v1.0.1"
         - name: MONGO_PASSWORD
           value: "INPUT_MONGO_PASSWORD"
         - name: FACEBOOK_ID
@@ -45,11 +39,11 @@ spec:
         - name: GOOGLE_SECRET
           value: "INPUT_GOOGLE_SECRET"
         - name: SECURITY_REDIRECT_URI
-          value: "INPUT_SECURITY_REDIRECT_URI"
+          value: "depa-frontend-service:3000/oauth2/redirect"
         - name: AUTOHRIZED_REDIRECT_URIS
-          value: "INPUT_AUTOHRIZED_REDIRECT_URIS"
+          value: "depa-frontend-service:3000/oauth2/redirect"
         - name: BASE_URL
-          value: "INPUT_BASE_URL"
+          value: "depa-frontend-service:3000/oauth2/redirect"
         resources:
           limits:
             memory: "756Mi"

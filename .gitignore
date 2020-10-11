@@ -6,7 +6,7 @@ target/
 nbactions*.xml
 ืิnb*.xml
 ืิ
-cm.yaml
+cm*.yaml
 oots
 ### STS ###
 .apt_generated

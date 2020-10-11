@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: depa-backend-deployment-refactor
+  annotations:
+    kubernetes.io/change-cause: "ENV_CHANGE_CAUSE_MESSAGE"
+  labels:
+    app: depa-backend
+    version: LABEL_VERSION
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: depa-backend
+      version: LABEL_VERSION
+  template:
+    metadata:
+      labels:
+        app: depa-backend
+        version: LABEL_VERSION
+    spec:
+      containers:
+        - name: depa-backend
+          image: AZ_CONTAINER_REGISTRY_URL/dev/depa-backend:IMAGE_BUILD_ID
+          imagePullPolicy: Always
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 5
+          env:
+            # ดึง ConfigMap จาก Kubernetes มาใช้ config Redirect OAuth URL
+            - name: SECURITY_REDIRECT_URI
+              valueFrom:
+                secretKeyRef:
+                  name: depa-backend-configmap
+                  key: SECURITY_REDIRECT_URI
+            - name: AUTOHRIZED_REDIRECT_URIS
+              valueFrom:
+                secretKeyRef:
+                  name: depa-backend-configmap
+                  key: AUTOHRIZED_REDIRECT_URIS
+            - name: BASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: depa-backend-configmap
+                  key: BASE_URL
+            # ดึง Secret จาก Kubernetes มาใช้ config credential
+            - name: MONGO_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: depa-backend-secret
+                  key: MONGO_PASSWORD
+            - name: FACEBOOK_ID
+              valueFrom:
+                secretKeyRef:
+                  name: depa-backend-secret
+                  key: FACEBOOK_ID
+            - name: FACEBOOK_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: depa-backend-secret
+                  key: FACEBOOK_SECRET
+            - name: GOOGLE_ID
+              valueFrom:
+                secretKeyRef:
+                  name: depa-backend-secret
+                  key: GOOGLE_ID
+            - name: GOOGLE_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: depa-backend-secret
+                  key: GOOGLE_SECRET
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "300m"
+          ports:
+            - containerPort: 8080
