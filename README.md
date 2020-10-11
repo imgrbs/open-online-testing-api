@@ -62,6 +62,80 @@ kubectl apply -f deployment-production.yaml
 
 ```
 
+สำหรับการติดตั้ง Service Mesh ใน Kubernetes นั้นเราจะเลือกเป็น Istio Version 1.6 หรือจะใช้ Version มากกว่านี้ก็ได้แต่ผู้เขียนทดลองบน Version 1.6 ภายใต้ Environment ของ Azure Kubernetes Service
+```
+linxianer12@Laptop:~$ kubectl version -oyaml
+clientVersion:
+  buildDate: "2020-08-13T16:12:48Z"
+  compiler: gc
+  gitCommit: 9f2892aab98fe339f3bd70e3c470144299398ace
+  gitTreeState: clean
+  gitVersion: v1.18.8
+  goVersion: go1.13.15
+  major: "1"
+  minor: "18"
+  platform: linux/amd64
+serverVersion:
+  buildDate: "2020-06-24T19:54:11Z"
+  compiler: gc
+  gitCommit: 5737fe2e0b8e92698351a853b0d07f9c39b96736
+  gitTreeState: clean
+  gitVersion: v1.17.7
+  goVersion: go1.13.6
+  major: "1"
+  minor: "17"
+  platform: linux/amd64
+
+  linxianer12@Laptop:~$ istioctl version -oyaml
+clientVersion:
+  golang_version: go1.14.2
+  revision: f508fdd78eb0d3444e2bc2b3f36966d904c5db52-dirty
+  status: Modified
+  tag: 1.6.5
+  version: 1.6.5
+
+dataPlaneVersion:
+- ID: depa-backend-deployment-68555c584d-8hnfw.default
+  IstioVersion: 1.6.5
+- ID: redis-slave-0.default
+  IstioVersion: 1.6.5
+- ID: depa-backend-deployment-refactor-6775cd6ddb-tnc7t.default
+  IstioVersion: 1.6.5
+- ID: depa-backend-deployment-master-76f444758c-mptdk.default
+  IstioVersion: 1.6.5
+- ID: istio-ingressgateway-54c6695cdd-nchfx.istio-system
+  IstioVersion: 1.6.5
+- ID: depa-backend-deployment-final-568c4cb8cf-jz5l2.default
+  IstioVersion: 1.6.5
+- ID: depa-backend-deployment-refactor-6775cd6ddb-5kpnd.default
+  IstioVersion: 1.6.5
+- ID: details-v1-78db589446-rphtj.microservice
+  IstioVersion: 1.6.5
+- ID: depa-frontend-deployment-5969789d64-crkkf.default
+  IstioVersion: 1.6.5
+- ID: mysql-7b794c7595-q78kh.default
+  IstioVersion: 1.6.5
+- ID: istio-egressgateway-57b9c7d65b-2qrz4.istio-system
+  IstioVersion: 1.6.5
+- ID: kong-kong-6f784b6686-bdrmj.kong
+  IstioVersion: 1.6.5
+- ID: prometheus-7d8596bd56-8pz2d.istio-system
+  IstioVersion: 1.6.5
+meshVersion:
+- Component: pilot
+  Info:
+    golang_version: go1.14.2
+    revision: f508fdd78eb0d3444e2bc2b3f36966d904c5db52-dirty
+    status: Modified
+    tag: 1.6.5
+    version: 1.6.5
+```
+1. ให้ทำการโหลด binary สำหรับ execute มาจาก Istio และทำการวางไฟล์ execute ไว้ยัง Directory ที่ต้องการและเซ็ท environment PATH ของเครื่องให้ชี้ไปยัง directory ของเรา
+2. ทดสอบว่าสามารถ Execute Binary ได้หรือไม่ผ่านการเรียกใช้คำสี่ง istioctl 
+```
+istioctl version -oyaml
+```
+Istio นั้นจะมีการทำงานดั่งบทความนี้
 
 
 
