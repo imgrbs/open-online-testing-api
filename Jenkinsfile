@@ -13,7 +13,7 @@ pipeline {
         FACEBOOK_SECRET = credentials('DEPA_FACEBOOK_SECRET')
         GOOGLE_ID = credentials('DEPA_GOOGLE_ID')
         GOOGLE_SECRET = credentials('DEPA_GOOGLE_SECRET')
-        CONTAINER_REGISTRY_URL='https://registry-1.docker.io/v2/'
+        CONTAINER_REGISTRY_URL='registry-1.docker.io/v2/'
         CONTAINER_IMAGE = 'linxianer12/open-online-testing-api'
         AZ_AKS_NAME = "kube-devops"
         AZ_AKS_RESOUCE_GROUP = "Elasticsearch-Stack"
