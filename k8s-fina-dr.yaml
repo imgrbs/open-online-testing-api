@@ -1,0 +1,14 @@
+kind: DestinationRule
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: depa-backend-service
+  namespace: default
+spec:
+  host: depa-backend-service.default.svc.cluster.local
+  subsets:
+    - labels:
+        version: edgy
+      name: edgy
+    - labels:
+        version: production
+      name: production

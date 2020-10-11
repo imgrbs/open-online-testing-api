@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: depa-backend-deployment-final
+  annotations:
+    kubernetes.io/change-cause: "[ADD] Final Deploy"
+  labels:
+    app: depa-backend
+    version: final
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: depa-backend
+      version: final
+  template:
+    metadata:
+      labels:
+        app: depa-backend
+        version: final
+    spec:
+      containers:
+      - name: depa-backend
+        image: linxianer12/oots:v1.0.2
+        imagePullPolicy: Always
+        readinessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 5
+        env:
+        - name: SERVER_ENVIRONMENT
+          value: "dev"
+        - name: BRANCH
+          value: "dev"
+        - name: VERSION
+          value: "v1.0.1"
+        - name: MONGO_PASSWORD
+          value: "INPUT_MONGO_PASSWORD"
+        - name: FACEBOOK_ID
+          value: "INPUT_FACEBOOK_ID"
+        - name: FACEBOOK_SECRET
+          value: "INPUT_FACEBOOK_SECRET"
+        - name: GOOGLE_ID
+          value: "INPUT_GOOGLE_ID"
+        - name: GOOGLE_SECRET
+          value: "INPUT_GOOGLE_SECRET"
+        - name: SECURITY_REDIRECT_URI
+          value: "INPUT_SECURITY_REDIRECT_URI"
+        - name: AUTOHRIZED_REDIRECT_URIS
+          value: "INPUT_AUTOHRIZED_REDIRECT_URIS"
+        - name: BASE_URL
+          value: "INPUT_BASE_URL"
+        resources:
+          limits:
+            memory: "756Mi"
+            cpu: "300m"
+        ports:
+          - containerPort: 8080

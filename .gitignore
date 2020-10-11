@@ -6,7 +6,8 @@ target/
 nbactions*.xml
 ืิnb*.xml
 ืิ
-
+cm.yaml
+oots
 ### STS ###
 .apt_generated
 .classpath
