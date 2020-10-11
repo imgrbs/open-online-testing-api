@@ -93,9 +93,9 @@ pipeline {
                 script {
                     sh 'echo ============= Build Docker Image and Push ==================='
                     unstash 'java-artifact'
-                    def FULL_CONTAINER_IMAGE_PATH = "${AZ_CONTAINER_REGISTRY_URL}/${CONTAINER_IMAGE}:${env.TAG_VERSION}"
+                    def FULL_CONTAINER_IMAGE_PATH = "${CONTAINER_REGISTRY_URL}/${CONTAINER_IMAGE}:${env.TAG_VERSION}"
                     env.FULL_CONTAINER_IMAGE_PATH = FULL_CONTAINER_IMAGE_PATH.replaceAll('/', "\\\\/")
-                    docker.withRegistry("https://${AZ_CONTAINER_REGISTRY_URL}", '2846f756-a434-495b-852b-8922980f769d') {
+                    docker.withRegistry("https://${CONTAINER_REGISTRY_URL}", '2846f756-a434-495b-852b-8922980f769d') {
                         def newApp = docker.build "${env.FULL_CONTAINER_IMAGE_PATH}"
                         newApp.push()
                     }

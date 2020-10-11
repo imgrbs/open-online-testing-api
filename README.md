@@ -48,6 +48,7 @@ Container Image
 Backend URL:
 
 ระบบจะประกอบไปด้วยเครื่อง Jenkins สำหรับใช้ในการ Deploy ซึ่งสำหรับวิธีการ Config นั้นจะมีคำอธิบายอยู่ที่
+ติดตั้ง Code Ready Container หรือ Minikube สำหรับการใช้ Run ใน Local Environment ซึ่ง Code Ready Container นั้นจะให้ Environment เสมือนโปรแกรมทำงานอยู่บน Openshift จริงๆ หรือจะใช้เป็น Minikube ก็ได้เช่นกัน
 
 
 ## Contribution
