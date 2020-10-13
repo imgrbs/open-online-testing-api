@@ -1,0 +1,155 @@
+apiVersion: v1
+items:
+- apiVersion: networking.istio.io/v1beta1
+  kind: VirtualService
+  metadata:
+    name: darkrelease-backend-service
+    namespace: default
+  spec:
+    gateways:
+    - istio-system/istio-ingress-gateway
+    hosts:
+    - api.production.devopsculture.tk
+    http:
+    - match:
+      - headers:
+          x-user-type:
+            exact: DEVELOPER
+      route:
+      - destination:
+          host: depa-backend-service.default.svc.cluster.local
+          subset: edgy
+    - route:
+      - destination:
+          host: depa-backend-service.default.svc.cluster.local
+          subset: production
+- apiVersion: networking.istio.io/v1beta1
+  kind: VirtualService
+  metadata:
+    annotations:
+    labels:
+      kiali_wizard: weighted_routing
+    name: depa-backend-service
+    namespace: default
+  spec:
+    hosts:
+    - depa-backend-service.default.svc.cluster.local
+    http:
+    - match:
+      - headers:
+          x-user-type:
+            exact: DEVELOPER
+      route:
+      - destination:
+          host: depa-backend-service.default.svc.cluster.local
+          subset: edgy
+    - route:
+      - destination:
+          host: depa-backend-service.default.svc.cluster.local
+          subset: final
+- apiVersion: networking.istio.io/v1beta1
+  kind: VirtualService
+  metadata:
+    name: edge-depa-backend-virtualservice
+    namespace: default
+  spec:
+    gateways:
+    - istio-system/istio-ingress-gateway
+    hosts:
+    - api.opencloudnative.online
+    http:
+    - match:
+      - uri:
+          regex: /?(.*)
+      route:
+      - destination:
+          host: depa-backend-service.default.svc.cluster.local
+          subset: edgy
+      - destination:
+          host: depa-backend-service.default.svc.cluster.local
+          subset: final
+        weight: 100
+- apiVersion: networking.istio.io/v1beta1
+  kind: VirtualService
+  metadata:
+    name: edge-depa-frontend-virtualservice
+    namespace: default
+  spec:
+    gateways:
+    - istio-system/istio-ingress-gateway
+    hosts:
+    - depa.opencloudnative.online
+    http:
+    - match:
+      - uri:
+          regex: /?(.*)
+      route:
+      - destination:
+          host: depa-frontend-service.default.svc.cluster.local
+          subset: final
+- apiVersion: networking.istio.io/v1beta1
+  kind: DestinationRule
+  metadata:
+    name: depa-backend-service
+    namespace: default
+  spec:
+    host: depa-backend-service.default.svc.cluster.local
+    subsets:
+    - labels:
+        version: edgy
+      name: edgy
+    - labels:
+        version: production
+      name: production
+    - labels:
+        version: final
+      name: final
+    - labels:
+        version: REFACTOR
+      name: REFACTOR
+- apiVersion: networking.istio.io/v1beta1
+  kind: DestinationRule
+  metadata:
+    name: depa-frontend-service
+    namespace: default
+  spec:
+    host: depa-frontend-service.default.svc.cluster.local
+    subsets:
+    - labels:
+        version: final
+      name: final
+- apiVersion: networking.istio.io/v1beta1
+  kind: Gateway
+  metadata:
+    name: istio-ingress-gateway
+    namespace: istio-system
+  spec:
+    selector:
+      istio: ingressgateway
+    servers:
+    - hosts:
+      - opencloudnative.online
+      - depa.opencloudnative.online
+      - api.opencloudnative.online
+      port:
+        name: https
+        number: 443
+        protocol: HTTPS
+      tls:
+        credentialName: opencloudnative-tk-tls-prod
+        httpsRedirect: true
+        mode: SIMPLE
+    - hosts:
+      - opencloudnative.online
+      - depa.opencloudnative.online
+      - api.opencloudnative.online
+      port:
+        name: http
+        number: 80
+        protocol: HTTP
+      tls:
+        httpsRedirect: true
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""

@@ -163,7 +163,17 @@ meshVersion:
 2. ทดสอบว่าสามารถ Execute Binary ได้หรือไม่ผ่านการเรียกใช้คำสี่ง istioctl 
 ```
 istioctl version -oyaml
+
+istioctl install 
+# หลังจากติดตั้ง istio แล้วเราต้องทำการแปะ label istio-injection=enabled ด้วยเพื่อให้ istio ทำการ inject side-car ไปยัง Namespace นั้น
+
+kubectl label namespace default --label istio-injection=enabled
+
+kubectl apply -f servicemesh/backend-servicemesh.yaml
+# ติดตั้ง Service Mesh ทั้งหมดที่มีในระบบ
 ```
+
+
 Istio นั้นจะมีการทำงานดั่งบทความนี้
 
 สำหรับการทำ CI/ CD นั้นก็จะมีการออกแบบดั่งบทความนี้
