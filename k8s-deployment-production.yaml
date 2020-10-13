@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: depa-backend-deployment-refactor
+  name: depa-backend-deployment-final
   annotations:
     kubernetes.io/change-cause: "ENV_CHANGE_CAUSE_MESSAGE"
   labels:

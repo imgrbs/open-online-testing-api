@@ -93,9 +93,8 @@ pipeline {
                 script {
                     sh 'echo ============= Build Docker Image and Push ==================='
                     unstash 'java-artifact'
-                     def FULL_CONTAINER_IMAGE_PATH = "${CONTAINER_IMAGE}:${env.TAG_VERSION}"
-               //     def FULL_CONTAINER_IMAGE_PATH = "${CONTAINER_REGISTRY_URL}/${CONTAINER_IMAGE}:${env.TAG_VERSION}"
-                   env.FULL_CONTAINER_IMAGE_PATH = FULL_CONTAINER_IMAGE_PATH.replaceAll('/', "\\\\/")
+                    def FULL_CONTAINER_IMAGE_PATH = "${CONTAINER_IMAGE}:${env.TAG_VERSION}"
+                    env.FULL_CONTAINER_IMAGE_PATH = FULL_CONTAINER_IMAGE_PATH.replaceAll('/', "\\\\/")
                     docker.withRegistry("", '2846f756-a434-495b-852b-8922980f769d') {
                         def newApp = docker.build "${env.FULL_CONTAINER_IMAGE_PATH}"
                         newApp.push()
@@ -162,7 +161,6 @@ pipeline {
                     sh "sed -i 's/ENV_CHANGE_CAUSE_MESSAGE/[IMAGE] ${env.FULL_CONTAINER_IMAGE_PATH} - ${env.COMMIT_MESSAGE}/g' ${env.K8S_DEPLOY_YAML_PROFILE}"
                     // กำหนด Labels Tag ของ App
                     sh "sed -i 's/LABEL_VERSION/${env.LABEL_VERSION}/g' ${env.K8S_DEPLOY_YAML_PROFILE}"
-
                     // สั่ง apply resource ไปยัง K8S
                     sh "echo =========================================="
                     sh "echo ============ Deploy to Kubernetes to ${env.SERVER_ENVIRONMENT} API ============="

@@ -47,12 +47,34 @@ Container Image
 (https://hub.docker.com/repository/docker/linxianer12/open-online-testing-api)
 Backend URL:
 
+### ความต้องการของ dependency
+- Docker for desktop v1.18.8 (เปิดใช้งาน Kubernetes)/ Code Ready Container (OKD 4)
+- Istioctl Binary version v1.6
+
 ระบบจะประกอบไปด้วยเครื่อง Jenkins สำหรับใช้ในการ Deploy ซึ่งสำหรับวิธีการ Config นั้นจะมีคำอธิบายอยู่ที่
 ติดตั้ง Code Ready Container หรือ Minikube สำหรับการใช้ Run ใน Local Environment ซึ่ง Code Ready Container นั้นจะให้ Environment เสมือนโปรแกรมทำงานอยู่บน Openshift จริงๆ หรือจะใช้เป็น Minikube ก็ได้เช่นกัน
 ซึ่งสำหรับรายละเอียด Process ของ DevOps อย่างละเอียดสามารถอ่านได้ที่
 โดยเราจะทำการติดตั้งโปรแกรมผ่านคำสั่ง และให้เราทำการแก้ไข Environment ใน Configmap และ Secret ของ Kubernetes ให้ถูกต้องตามความต้องการใช้งานของเรา
 ซึ่งการที่เราแยก Configuration ออกมาอีก Layer หนึ่งนั้นจะทำให้ Application ของเราได้คุณสมบัติของความเป็น 12 Factors มากยิ่งขึ้น และมีความยิดหยุ่นในเชิงของการออกแบบ Software Architect 
 
+### การติดตั้ง Secret และ ConfigMap ผ่าน Imperative CommandLine
+
+```
+ kubectl create configmap depa-backend-configmap --from-literal="SECURITY_REDIRECT_URI=depa-frontend-service:3000/oauth2/redirect"  --from-literal="AUTOHRIZED_REDIRECT_URIS=depa-frontend-service:3000/oauth2/redirect"  --from-literal="BASE_URL=depa-frontend-service:3000/oauth2/redirect" --dry-run=client -oyaml | kubectl apply -f -
+
+kubectl create secret generic depa-backend-secret --from-literal="MONGO_PASSWORD=your_password"  --from-literal="FACEBOOK_ID=facebook_id"  --from-literal="FACEBOOK_SECRET=your_facebook_secret"  --from-literal="GOOGLE_ID=419816776318-qfu7r0npl3e28vlv57v51t6110tqjb9p.apps.googleusercontent.com"  --from-literal="GOOGLE_SECRET=your_google_secret"  --dry-run=client -oyaml | kubectl apply -f -
+```
+เราสามารถใช้ Command เพื่อสร้าง ConfigMap และ Secret โดยสังเกตดูที่คำสั่ง -oyaml นั้นหมายถึง output จะออกมาเป็น yaml file เราสามารถนำผลลัพธ์จากคำสั่งนี้มาบันทึกเป็นไฟล์จริงๆในเครื่องก็ได้โดยการเพิ่ม redirection 
+ดั่งเช่นคำสั่งนี้แทนการ pipe ไปหา คำสั่ง kubectl apply -f - และเราจะได้ไฟล์มาไว้ใช้ในครั้งหน้าต่อไปได้
+** ... หมายถึงการ repeat argument ดั่งข้างต้นทั้งหมด
+```
+kubectl create configmap depa-backend-configmap ... -oyaml    > configmap.yaml
+
+kubectl create secret generic depa-backend-secret ... -oyaml  > secret.yaml
+```
+
+### การติดตั้ง Application ใน Kubernetes Cluster
+ส่วนการใช้
 ```
 kubectl apply -f configmap.yaml
 
@@ -60,7 +82,14 @@ kubectl apply -f secret.yaml
 
 kubectl apply -f deployment-production.yaml
 
+kubectl apply -f k8s-service-production.yaml
 ```
+
+1. ConfigMap นั้นใช้สำหรับเก็บ Envionment Variable ของ Container ที่เราใช้งานเช่น URL ของ OAuth Redirection
+2. Secret นั้นมีลักษณะเหมือนกับ ConfigMap เพียงแต่จะใช้ในการเก็บข้อมูลที่มีความ sensitive เช่นรหัส Database ซึ่งจะถูก Encode ด้วย Base64 (ไม่ได้ทำ Encryption ให้ปลอดภัยแต่แค่ช่วยในการทำ Confusion ไม่ให้เผลอเห็นโดยตรงเฉยๆ ถ้าอยากเพิ่มความปลอดภัยอีกระดับหนึ่งเราก็จะต้องมี Account ที่มี Permission ต่ำๆที่ไม่สามารถอ่าน secret จาก namespace ได้)
+3. Deployment คือการ Configuration Container ว่าราละเอียดของ Image ที่มาใช้รายละเอียดของ Port ต่างๆ
+4. Service คือ DNS Resolution ใน Kubernetes Cluster ซึ่งใช้ในการทำ Service Discovery ให้เราสามารถ Request endpoint ของ Application ที่เรา Deploy ใน Cluster ผ่าน DomainName แทนการเรียกผ่าน IP แทนนั้นเอง 
+
 
 สำหรับการติดตั้ง Service Mesh ใน Kubernetes นั้นเราจะเลือกเป็น Istio Version 1.6 หรือจะใช้ Version มากกว่านี้ก็ได้แต่ผู้เขียนทดลองบน Version 1.6 ภายใต้ Environment ของ Azure Kubernetes Service
 ```
