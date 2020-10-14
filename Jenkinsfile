@@ -72,26 +72,27 @@ pipeline {
             }
 
             steps {
-       
-            
 
-                def input_params = input message: 'Build Java with Maven',
+                script{
+                    def input_params = input message: 'Build Java with Maven',
                         parameters : [
                             choice(name: 'isSkipTest', choices: [true,false], description: 'ต้องการข้าม Test ไหม ?'),
                         ]
-                if(input_params.isSkipTest == true){
-                    script {
-                        sh 'echo Skip Test !'
-                        sh 'mvn -B -DskipTests clean package'
+                    if(input_params.isSkipTest == true){
+                        script {
+                            sh 'echo Skip Test !'
+                            sh 'mvn -B -DskipTests clean package'
+                        }
+                    }else{
+                        withMaven {
+                            sh 'echo Build with Testing ! '
+                            sh 'mvn clean package'
+                        }
                     }
-                }else{
-                    withMaven {
-                        sh 'echo Build with Testing ! '
-                        sh 'mvn clean package'
-                    }
+                    archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+                    stash name: 'java-artifact', includes: '**/target/*.jar'
+
                 }
-                archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
-                stash name: 'java-artifact', includes: '**/target/*.jar'
 
             }
             
