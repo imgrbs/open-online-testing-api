@@ -35,4 +35,8 @@ public interface User {
     Map<String, Object> getAttributes();
 
     void setAttributes(Map<String, Object> attributes);
+    
+    void setRole(String role);
+    
+    String getRole();
 }

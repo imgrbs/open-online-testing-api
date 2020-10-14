@@ -15,6 +15,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.UnsupportedJwtException;
+import online.testing.user.dto.UserPrincipal;
 import online.testing.user.security.config.AppProperties;
 import online.testing.user.security.exception.BadRequestException;
 
@@ -38,6 +39,24 @@ public class TokenProvider {
 
         HashMap<String, Object> claims = new HashMap<>();
         claims.put("x-user-type", "ROLE_USER");
+
+        jwtBuilder.addClaims(claims);
+
+        return jwtBuilder.compact();
+    }
+
+    public String createToken(UserPrincipal userPrincipal) {
+        System.out.println("Create Token With Role From Database");
+        String userId = userPrincipal.getId();
+        String roleFromPrincipalThatQueryFromDB = userPrincipal.getRole();
+        Date now = new Date();
+        Date expiryDate = new Date(now.getTime() + appProperties.getAuth().getTokenExpirationMsec());
+
+        JwtBuilder jwtBuilder = Jwts.builder().setSubject(userId).setIssuedAt(now).setExpiration(expiryDate)
+                .signWith(SignatureAlgorithm.HS512, appProperties.getAuth().getTokenSecret());
+
+        HashMap<String, Object> claims = new HashMap<>();
+        claims.put("x-user-type", roleFromPrincipalThatQueryFromDB);
 
         jwtBuilder.addClaims(claims);
 
@@ -70,4 +89,5 @@ public class TokenProvider {
         }
         return false;
     }
+
 }

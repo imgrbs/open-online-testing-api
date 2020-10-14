@@ -22,6 +22,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String email) {
 	    try {
             User user = userRepository.findByEmail(email).get();
+                System.out.println("!!! loadUserByName Role Custom UserDetail Service !!!!");
+                System.out.println(user.getRole());
 		    return UserPrincipal.create(user);
         } catch (NoSuchElementException e) {
 	        return null;

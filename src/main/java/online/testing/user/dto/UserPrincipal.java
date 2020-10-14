@@ -30,6 +30,7 @@ public class UserPrincipal implements OAuth2User, UserDetails {
 	private String password;
 	private Collection<? extends GrantedAuthority> authorities;
 	private Map<String, Object> attributes;
+        private String role = "ROLE_USER";
 
 	private UserPrincipal(String id, String email, String password) {
 		this.id = id.toString();
@@ -37,25 +38,34 @@ public class UserPrincipal implements OAuth2User, UserDetails {
 		this.username = email;
 		this.password = password;
 	}
+        
+        private UserPrincipal(String id, String email, String password, String role) {
+		this.id = id.toString();
+		this.email = email;
+		this.username = email;
+		this.password = password;
+                this.role =role;
+	}
 
 	private UserPrincipal(String email, Collection<? extends GrantedAuthority> authorities, Map<String, Object> attributes) {
 		this.email = email;
 		this.authorities = authorities;
 		this.attributes = attributes;
 	}
-
+        
 	private static UserPrincipal create(User user, Collection<? extends GrantedAuthority> authorities,
 			Map<String, Object> attributes) {
-		UserPrincipal userPrincipal = new UserPrincipal(user.getId(), user.getEmail(), user.getPassword());
-
+            UserPrincipal userPrincipal = new UserPrincipal(user.getId(), user.getEmail(), user.getPassword(),user.getRole());
+//		UserPrincipal userPrincipal = new UserPrincipal(user.getId(), user.getEmail(), user.getPassword());
+                System.out.println("58 Singleton1!!!");
 		if (authorities.isEmpty()) {
 			authorities = Collections.
 					singletonList(ROLE_USER);
 		}
 		userPrincipal.setAuthorities(authorities);
-
 		userPrincipal.setAttributes(attributes);
-
+                System.out.println("User principal get Role from Create");
+                System.out.println(userPrincipal.getRole());
 		return userPrincipal;
 	}
 
@@ -68,10 +78,13 @@ public class UserPrincipal implements OAuth2User, UserDetails {
 	public static UserPrincipal create(Object principal) {
 		if (principal instanceof DefaultOidcUser) {
 			DefaultOidcUser user = (DefaultOidcUser) principal;
-			UserPrincipal userPrincipal = new UserPrincipal(user.getEmail(), user.getAuthorities(), user.getAttributes());
+                        UserPrincipal userPrincipal = new UserPrincipal(user.getEmail(), user.getAuthorities(), user.getAttributes());
+			//without role
+                        //UserPrincipal userPrincipal = new UserPrincipal(user.getEmail(), user.getAuthorities(), user.getAttributes());
 			return create(UserFactory.create(userPrincipal, "local"));
 		}
 		if (principal instanceof User) {
+                    System.out.println("User Class!!!");
 			User user = (User) principal;
 			return create(user, Collections.emptyList(), user.getAttributes());
 		}

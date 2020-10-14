@@ -89,4 +89,16 @@ public class GoogleUserAdapter implements User {
     public void setAttributes(Map<String, Object> attributes) {
         user.setAttributes(attributes);
     }
+
+    @Override
+    public void setRole(String role) {
+        user.setRole(role);
+    }
+
+    @Override
+    public String getRole() {
+        return user.getRole();
+    }
+    
+    
 }

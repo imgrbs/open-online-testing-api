@@ -30,6 +30,8 @@ public class UserImpl implements User, UserPrincipal {
     private AuthProvider provider;
     private String providerId;
 	private Map<String, Object> attributes;
+        
+    private String role="ROLE_USER";    
 
     private UserImpl(String email) {
         this.id = new ObjectId().toHexString();
