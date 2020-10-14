@@ -79,8 +79,8 @@ pipeline {
                             choice(name: 'IS_SKIP_TEST', choices: ["true","false"], description: 'ต้องการข้าม Test ไหม ?')
                         ]
                     sh "echo !!!!!!"
-                    sh "echo ${input_maven.IS_SKIP_TEST}"
                     def isSkipTest = input_maven.IS_SKIP_TEST
+                    sh "echo ${isSkipTest}"
 
                     if("${isSkipTest}" == "true"){
                         script {
