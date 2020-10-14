@@ -71,13 +71,21 @@ pipeline {
                 }
             }
 
-            steps {
-                script {
-                    sh 'echo ==='
-                    sh 'mvn -B -DskipTests clean package'
+            // steps {
+            //     script {
+            //         sh 'echo ==='
+            //         sh 'mvn clean package'
+            //         // sh 'mvn -B -DskipTests clean package'
+            //         // archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+            //         stash name: 'java-artifact', includes: '**/target/*.jar'
+            //     }
+            // }
+
+            withMaven {
+                sh 'mvn clean package'
+                    // sh 'mvn -B -DskipTests clean package'
                     // archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
-                    stash name: 'java-artifact', includes: '**/target/*.jar'
-                }
+                stash name: 'java-artifact', includes: '**/target/*.jar'
             }
         }
 
