@@ -74,15 +74,15 @@ pipeline {
             steps {
 
                 script{
-                    def input_params = input message: 'Build Java with Maven',
+                    def input_maven = input message: 'Build Java with Maven',
                         parameters : [
-                            choice(name: 'IS_SKIP_TEST', choices: [true,false], description: 'ต้องการข้าม Test ไหม ?')
+                            choice(name: 'IS_SKIP_TEST', choices: ["true","false"], description: 'ต้องการข้าม Test ไหม ?')
                         ]
                     sh "echo !!!!!!"
-                    sh "echo ${input_params.IS_SKIP_TEST}"
-                    def isSkipTest = input_params.IS_SKIP_TEST
+                    sh "echo ${input_maven.IS_SKIP_TEST}"
+                    def isSkipTest = input_maven.IS_SKIP_TEST
 
-                    if("${isSkipTest}" == true){
+                    if("${isSkipTest}" == "true"){
                         script {
                             sh 'echo Skip Test !'
                             sh 'mvn -B -DskipTests clean package'
