@@ -78,7 +78,7 @@ pipeline {
                         parameters : [
                             choice(name: 'isSkipTest', choices: [true,false], description: 'ต้องการข้าม Test ไหม ?'),
                         ]
-                    isSkipTest = input_params.isSkipTest
+                    def isSkipTest = input_params.isSkipTest
                     if(isSkipTest == true){
                         script {
                             sh 'echo Skip Test !'
