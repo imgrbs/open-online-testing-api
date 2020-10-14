@@ -82,19 +82,17 @@ pipeline {
                 if(input_params.isSkipTest == true){
                     script {
                         sh 'echo Skip Test !'
-                        sh 'mvn clean package'
-                        // sh 'mvn -B -DskipTests clean package'
-                        // archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
-                        stash name: 'java-artifact', includes: '**/target/*.jar'
+                        sh 'mvn -B -DskipTests clean package'
                     }
                 }else{
                     withMaven {
+                        sh 'echo Build with Testing ! '
                         sh 'mvn clean package'
-                            // sh 'mvn -B -DskipTests clean package'
-                            // archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
-                        stash name: 'java-artifact', includes: '**/target/*.jar'
                     }
                 }
+                archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+                stash name: 'java-artifact', includes: '**/target/*.jar'
+
             }
             
         }
