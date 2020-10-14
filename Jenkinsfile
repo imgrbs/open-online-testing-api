@@ -78,7 +78,8 @@ pipeline {
                         parameters : [
                             choice(name: 'isSkipTest', choices: [true,false], description: 'ต้องการข้าม Test ไหม ?'),
                         ]
-                    if(input_params.isSkipTest == true){
+                    isSkipTest = input_params.isSkipTest
+                    if(isSkipTest == true){
                         script {
                             sh 'echo Skip Test !'
                             sh 'mvn -B -DskipTests clean package'
