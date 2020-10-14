@@ -76,10 +76,12 @@ pipeline {
                 script{
                     def input_params = input message: 'Build Java with Maven',
                         parameters : [
-                            choice(name: 'isSkipTest', choices: [true,false], description: 'ต้องการข้าม Test ไหม ?'),
+                            choice(name: 'IS_SKIP_TEST', choices: [true,false], description: 'ต้องการข้าม Test ไหม ?')
                         ]
-                    def isSkipTest = input_params.isSkipTest
-                    sh "echo ${isSkipTest}"
+                    sh "echo !!!!!!"
+                    sh "echo ${input_params.IS_SKIP_TEST}"
+                    def isSkipTest = input_params.IS_SKIP_TEST
+
                     if("${isSkipTest}" == true){
                         script {
                             sh 'echo Skip Test !'
