@@ -72,28 +72,30 @@ pipeline {
             }
 
             steps {
-            //     script {
-            //         sh 'echo ==='
-            //         sh 'mvn clean package'
-            //         // sh 'mvn -B -DskipTests clean package'
-            //         // archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
-            //         stash name: 'java-artifact', includes: '**/target/*.jar'
-            //     }
-                script{
-                    sh "echo ===="
-
-                }
-                withMaven {
-                    sh 'mvn clean package'
-                        // sh 'mvn -B -DskipTests clean package'
-                        // archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
-                    stash name: 'java-artifact', includes: '**/target/*.jar'
-                }
-               
-            }
-
+       
             
 
+                def input_params = input message: 'Build Java with Maven',
+                        parameters : [
+                            choice(name: 'isSkipTest', choices: [true,false], description: 'ต้องการข้าม Test ไหม ?'),
+                        ]
+                if(input_params.isSkipTest == true){
+                    script {
+                        sh 'echo Skip Test !'
+                        sh 'mvn clean package'
+                        // sh 'mvn -B -DskipTests clean package'
+                        // archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+                        stash name: 'java-artifact', includes: '**/target/*.jar'
+                    }
+                }else{
+                    withMaven {
+                        sh 'mvn clean package'
+                            // sh 'mvn -B -DskipTests clean package'
+                            // archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+                        stash name: 'java-artifact', includes: '**/target/*.jar'
+                    }
+                }
+            }
             
         }
 
