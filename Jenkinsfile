@@ -78,8 +78,8 @@ pipeline {
                         parameters : [
                             choice(name: 'SKIPTEST', choices: ["true","false"], description: 'ต้องการข้าม Test ไหม ?')
                         ]
-                    sh "echo ${input_maven.SKIPTEST} !!!!!!"
-                    def isSkipTest = input_maven.MOCK
+                    sh "echo ${input_maven} !!!!!!"
+                    def isSkipTest = input_maven
                     sh "echo ${isSkipTest}"
 
                     if("${isSkipTest}" == "true"){
