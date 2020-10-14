@@ -83,15 +83,16 @@ pipeline {
                     sh "echo ===="
 
                 }
-               
-            }
-
-             withMaven {
+                withMaven {
                     sh 'mvn clean package'
                         // sh 'mvn -B -DskipTests clean package'
                         // archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
                     stash name: 'java-artifact', includes: '**/target/*.jar'
                 }
+               
+            }
+
+            
 
             
         }
