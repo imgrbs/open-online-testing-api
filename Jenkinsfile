@@ -71,7 +71,7 @@ pipeline {
                 }
             }
 
-            // steps {
+            steps {
             //     script {
             //         sh 'echo ==='
             //         sh 'mvn clean package'
@@ -79,14 +79,15 @@ pipeline {
             //         // archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
             //         stash name: 'java-artifact', includes: '**/target/*.jar'
             //     }
-            // }
-
-            withMaven {
-                sh 'mvn clean package'
-                    // sh 'mvn -B -DskipTests clean package'
-                    // archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
-                stash name: 'java-artifact', includes: '**/target/*.jar'
+                withMaven {
+                    sh 'mvn clean package'
+                        // sh 'mvn -B -DskipTests clean package'
+                        // archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+                    stash name: 'java-artifact', includes: '**/target/*.jar'
+                }
             }
+
+            
         }
 
         stage('Build Docker') {
