@@ -81,7 +81,7 @@ pipeline {
                     sh "echo ${input_maven} !!!!!!"
                     def isSkipTest = input_maven
                     sh "echo ${isSkipTest}"
-
+                    // ถ้ามีแค่ item 1 ตัวใน array ของ jenkins จะไม่จำเป็นต้องใช้ dot เพื่อฟ access
                     if("${isSkipTest}" == "true"){
                         script {
                             sh 'echo Skip Test !'
