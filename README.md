@@ -44,7 +44,7 @@
 
 ## Infrastructer Diagram
 Container Image
-(https://hub.docker.com/repository/docker/linxianer12/open-online-testing-api)
+![Infrastructure Diagram](https://hub.docker.com/repository/docker/linxianer12/open-online-testing-api)
 Backend URL:
 
 ### ความต้องการของ dependency
