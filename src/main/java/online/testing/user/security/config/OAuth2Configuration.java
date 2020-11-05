@@ -106,7 +106,7 @@ public class OAuth2Configuration extends WebSecurityConfigurerAdapter {
                 .formLogin().disable().httpBasic().disable().exceptionHandling()
                 .authenticationEntryPoint(new RestAuthenticationEntryPoint()).and().authorizeRequests()
                 .antMatchers("/", "/error", "/favicon.ico", "/**/*.png", "/**/*.gif", "/**/*.svg", "/**/*.jpg", "/**/*.html",
-                        "/**/*.css", "/**/*.js")
+                        "/**/*.css", "/**/*.js","/swagger*/**","/webjars/**")
                 .permitAll().antMatchers(WHITELIST_URLS)
                 .permitAll()
                 .anyRequest()
