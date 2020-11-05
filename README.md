@@ -51,6 +51,8 @@ Backend URL:
 - Docker for desktop v1.18.8 (เปิดใช้งาน Kubernetes)/ Code Ready Container (OKD 4)
 - Istioctl Binary version v1.6
 
+
+![Infrastructure Diagram](https://i.ibb.co/zR42H0S/Infrastructure-Diagram-Page-2.png)
 ระบบจะประกอบไปด้วยเครื่อง Jenkins สำหรับใช้ในการ Deploy ซึ่งสำหรับวิธีการ Config นั้นจะมีคำอธิบายอยู่ที่
 ติดตั้ง Code Ready Container หรือ Minikube สำหรับการใช้ Run ใน Local Environment ซึ่ง Code Ready Container นั้นจะให้ Environment เสมือนโปรแกรมทำงานอยู่บน Openshift จริงๆ หรือจะใช้เป็น Minikube ก็ได้เช่นกัน
 ซึ่งสำหรับรายละเอียด Process ของ DevOps อย่างละเอียดสามารถอ่านได้ที่
