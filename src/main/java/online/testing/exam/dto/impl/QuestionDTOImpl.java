@@ -26,7 +26,7 @@ public class QuestionDTOImpl implements QuestionDTO {
     private List<Attribute> attributes;
     private List<Choice> choices;
     private List<CategoryDTOImpl> categories;
-
+    private boolean isMultipleChoose;
     private String ownerId;
 
     public QuestionDTOImpl(Question question) {
@@ -37,20 +37,36 @@ public class QuestionDTOImpl implements QuestionDTO {
         this.categories = question.getCategories();
 
         if (this.type.equals(QuestionType.OBJECTIVE)) {
-            this.choices = ((ObjectiveQuestion) question).getChoices();
+            ObjectiveQuestion objectiveQuestion = (ObjectiveQuestion) question;
+            this.choices = objectiveQuestion.getChoices();
+            this.isMultipleChoose = objectiveQuestion.isIsMultipleChoose();
         }
+        System.out.println(isMultipleChoose);
     }
 
+    /**
+     * it didnt use boolean multiplechoice that we have been implement
+     *
+     * @return
+     */
     @Override
     public Question toQuestion() {
         Question question;
         if (type.equals(QuestionType.SUBJECTIVE)) {
             question = SubjectiveQuestion.create(id, name, attributes, categories);
         } else {
-            question = ObjectiveQuestion.create(id,name, choices, attributes, categories);
-        }
+            question = ObjectiveQuestion.create(id, name, choices, attributes, categories);
+            System.out.println("!!! Multiple Choice Onject !!!");
+            System.out.println(((ObjectiveQuestion) question).isIsMultipleChoose());
 
+        }
         question.setOwnerId(ownerId);
         return question;
     }
+
+    @Override
+    public boolean getIsMultipleChoose() {
+        return isMultipleChoose;
+    }
+
 }

@@ -31,6 +31,12 @@ public class QuestionController {
 
     @Autowired
     private CategoryService categoryService;
+    
+    @GetMapping("/all/questions")
+    public ResponseEntity<List<QuestionDTO>> getQuestionsAll() {
+        List<QuestionDTO> questions = questionService.getQuestions();
+        return new ResponseEntity<>(questions, HttpStatus.OK);
+    }
 
     @GetMapping("/questions")
     @PreAuthorize("hasRole('USER')")

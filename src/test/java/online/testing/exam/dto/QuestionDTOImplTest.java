@@ -25,7 +25,7 @@ class QuestionDTOImplTest {
 
     @Test
     void testCreateObjectiveQuestionDTO() {
-        Question question = ObjectiveQuestion.create("1 + 1 = ?", new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        Question question = ObjectiveQuestion.create("1 + 1 = ?", new ArrayList<>(), new ArrayList<>() , new ArrayList<>());
 
         QuestionDTO questionDTO = new QuestionDTOImpl(question);
 

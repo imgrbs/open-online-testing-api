@@ -29,7 +29,7 @@ import online.testing.user.security.service.OAuth2AuthenticationSuccessHandler;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
-        securedEnabled = true,
+        securedEnabled = false,
         jsr250Enabled = true,
         prePostEnabled = true
 )
@@ -40,7 +40,8 @@ public class OAuth2Configuration extends WebSecurityConfigurerAdapter {
             "/oauth2/**",
             "/v2/api-docs",
             "/v2/api-docs/**",
-            "/swagger**"
+            "/swagger**",
+            "/all/**"
     };
 
     @Value("${baseUrl}")
@@ -106,7 +107,7 @@ public class OAuth2Configuration extends WebSecurityConfigurerAdapter {
                 .formLogin().disable().httpBasic().disable().exceptionHandling()
                 .authenticationEntryPoint(new RestAuthenticationEntryPoint()).and().authorizeRequests()
                 .antMatchers("/", "/error", "/favicon.ico", "/**/*.png", "/**/*.gif", "/**/*.svg", "/**/*.jpg", "/**/*.html",
-                        "/**/*.css", "/**/*.js","/swagger*/**","/webjars/**","/v2/api-docs")
+                        "/**/*.css", "/**/*.js","/swagger*/**","/webjars/**","/v2/api-docs","/all/**")
                 .permitAll().antMatchers(WHITELIST_URLS)
                 .permitAll()
                 .anyRequest()

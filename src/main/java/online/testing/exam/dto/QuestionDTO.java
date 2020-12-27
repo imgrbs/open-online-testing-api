@@ -37,4 +37,8 @@ public interface QuestionDTO {
     public void setId(String id);
 
     void setOwnerId(String ownerId);
+    
+    void setMultipleChoose(boolean isMultipleChoose);
+    
+    boolean getIsMultipleChoose();
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import lombok.Setter;
 import online.testing.exam.dto.QuestionDTO;
 import online.testing.exam.dto.impl.QuestionDTOImpl;
+import online.testing.exam.model.question.ObjectiveQuestion;
 import online.testing.exam.model.question.Question;
 import online.testing.exam.repository.QuestionRepository;
 import online.testing.exam.service.QuestionService;
@@ -28,6 +29,11 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public QuestionDTO createQuestion(QuestionDTO questionDTO) {
+        Question toQuestion = questionDTO.toQuestion();
+        System.out.println("!!!! 33 Create Question Parsing Value !!!");
+        System.out.println(((ObjectiveQuestion)toQuestion).isIsMultipleChoose());
+        System.out.println(((ObjectiveQuestion)toQuestion).toString());
+        System.out.println("====================");
         Question question = questionRepository.save(questionDTO.toQuestion());
         return new QuestionDTOImpl(question);
     }
