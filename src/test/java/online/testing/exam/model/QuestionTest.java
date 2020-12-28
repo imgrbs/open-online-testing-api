@@ -25,7 +25,7 @@ class QuestionTest {
 
     @Test
     public void testObjectiveQuestion() {
-        ObjectiveQuestion underTest = ObjectiveQuestion.create("input question", new ArrayList<>(), new ArrayList<>() ,new ArrayList<>());
+        ObjectiveQuestion underTest = ObjectiveQuestion.create("0", "input question", new ArrayList<>(), new ArrayList<>() ,new ArrayList<>());
 
         Assert.assertThat(underTest.getName(), CoreMatchers.equalTo("input question"));
         Assert.assertThat(underTest.getType(), CoreMatchers.equalTo(QuestionType.OBJECTIVE));

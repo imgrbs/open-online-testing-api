@@ -46,6 +46,9 @@ class UserFactoryTest {
 
 				oneOf(u).getAttributes();
 				will(returnValue(new HashMap<>()));
+
+				oneOf(u).getRole();
+				will(returnValue("USER"));
 			}
 		});
 		return u;

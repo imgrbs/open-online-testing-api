@@ -55,10 +55,7 @@ public class QuestionDTOImpl implements QuestionDTO {
         if (type.equals(QuestionType.SUBJECTIVE)) {
             question = SubjectiveQuestion.create(id, name, attributes, categories);
         } else {
-            question = ObjectiveQuestion.create(id, name, choices, attributes, categories);
-            System.out.println("!!! Multiple Choice Onject !!!");
-            System.out.println(((ObjectiveQuestion) question).isIsMultipleChoose());
-
+            question = ObjectiveQuestion.create(id, name, attributes, choices, categories);
         }
         question.setOwnerId(ownerId);
         return question;

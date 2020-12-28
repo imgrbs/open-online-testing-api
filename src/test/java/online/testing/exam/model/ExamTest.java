@@ -49,6 +49,7 @@ class ExamTest {
         List<QuestionDTOImpl> questions = new ArrayList<>();
         QuestionDTOImpl question1 = createQuestion(QuestionType.SUBJECTIVE);
         QuestionDTOImpl question2 = createQuestion(QuestionType.OBJECTIVE);
+        question2.setChoices(List.of());
         questions.add(question1);
         questions.add(question2);
         return questions;

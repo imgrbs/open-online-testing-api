@@ -55,6 +55,8 @@ class ExamControllerTest {
                 will(returnValue("xxx"));
                 oneOf(user).getAttributes();
                 will(returnValue(Map.of()));
+                oneOf(user).getRole();
+                will(returnValue("USER"));
             }
         });
         return user;

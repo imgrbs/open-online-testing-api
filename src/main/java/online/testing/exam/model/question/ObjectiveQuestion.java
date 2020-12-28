@@ -8,21 +8,16 @@ public class ObjectiveQuestion extends Question {
 
     private boolean isMultipleChoose;
 
-    public static Question create(String id, String name, List<Choice> choices, List<Attribute> attributes, List<CategoryDTOImpl> categories) {
-        ObjectiveQuestion question = create(id, attributes, choices, categories);
-        question.setName(name);
-        return question;
-    }
-
     private List<Choice> choices;
 
     public ObjectiveQuestion(QuestionType type) {
         super(type);
     }
 
-    public static ObjectiveQuestion create(String id, List<Attribute> attributes, List<Choice> choices, List<CategoryDTOImpl> categories) {
+    public static ObjectiveQuestion create(String id, String name, List<Attribute> attributes, List<Choice> choices, List<CategoryDTOImpl> categories) {
         ObjectiveQuestion field = new ObjectiveQuestion(QuestionType.OBJECTIVE);
         field.setId(id);
+        field.setName(name);
         field.setAttributes(attributes);
         field.setChoices(choices);
         field.setCategories(categories);
@@ -32,8 +27,6 @@ public class ObjectiveQuestion extends Question {
         field.setIsMultipleChoose(false);
         for (int i = 0; i < choiceSize; i++) {
             boolean isCorrectAnswer = field.getChoices().get(i).getIsCorrectAnswer();
-            System.out.println(isCorrectAnswer);
-            System.out.println(numberOfCorrectChoice);
             if (numberOfCorrectChoice > 1) {
                 field.setIsMultipleChoose(true);
                 break;
@@ -45,11 +38,6 @@ public class ObjectiveQuestion extends Question {
         return field;
     }
 
-//    public static ObjectiveQuestion create(String name, List<Choice> choices, List<Attribute> attributes, List<CategoryDTOImpl> categories) {
-//        ObjectiveQuestion question = create(attributes, choices, categories);
-//        question.setName(name);
-//        return question;
-//    }
     public List<Choice> getChoices() {
         return choices;
     }
