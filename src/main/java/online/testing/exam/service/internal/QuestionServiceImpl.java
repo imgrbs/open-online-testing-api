@@ -29,11 +29,6 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public QuestionDTO createQuestion(QuestionDTO questionDTO) {
-        Question toQuestion = questionDTO.toQuestion();
-        System.out.println("!!!! 33 Create Question Parsing Value !!!");
-        System.out.println(((ObjectiveQuestion)toQuestion).isIsMultipleChoose());
-        System.out.println(((ObjectiveQuestion)toQuestion).toString());
-        System.out.println("====================");
         Question question = questionRepository.save(questionDTO.toQuestion());
         return new QuestionDTOImpl(question);
     }
