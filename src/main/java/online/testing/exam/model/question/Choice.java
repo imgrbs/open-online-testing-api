@@ -14,11 +14,14 @@ import online.testing.exam.dto.impl.ChoiceDTO;
 @NoArgsConstructor
 public class Choice {
     private String label;
-    private Boolean isCorrectAnswer;
+    private boolean isCorrectAnswer;
 
     public static Choice fromDTO(ChoiceDTO choiceDTO) {
         Choice choice = new Choice();
         choice.setLabel(choiceDTO.getLabel());
+        if (choiceDTO.getIsCorrectAnswer() != null) {
+            choice.setCorrectAnswer(choiceDTO.getIsCorrectAnswer());
+        }
         return choice;
     }
 }

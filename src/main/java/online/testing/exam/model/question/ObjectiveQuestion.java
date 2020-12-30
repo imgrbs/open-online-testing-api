@@ -26,7 +26,7 @@ public class ObjectiveQuestion extends Question {
         int numberOfCorrectChoice = 0;
         field.setIsMultipleChoose(false);
         for (int i = 0; i < choiceSize; i++) {
-            boolean isCorrectAnswer = field.getChoices().get(i).getIsCorrectAnswer();
+            boolean isCorrectAnswer = field.getChoices().get(i).isCorrectAnswer();
             if (isCorrectAnswer == true) {
                 numberOfCorrectChoice++;
             }
