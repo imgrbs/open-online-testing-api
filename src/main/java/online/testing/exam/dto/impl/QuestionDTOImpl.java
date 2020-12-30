@@ -1,5 +1,6 @@
 package online.testing.exam.dto.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -24,7 +25,7 @@ public class QuestionDTOImpl implements QuestionDTO {
     private String name;
     private QuestionType type;
     private List<Attribute> attributes;
-    private List<Choice> choices;
+    private List<ChoiceDTO> choices;
     private List<CategoryDTOImpl> categories;
     private boolean isMultipleChoose;
     private String ownerId;
@@ -38,7 +39,12 @@ public class QuestionDTOImpl implements QuestionDTO {
 
         if (this.type.equals(QuestionType.OBJECTIVE)) {
             ObjectiveQuestion objectiveQuestion = (ObjectiveQuestion) question;
-            this.choices = objectiveQuestion.getChoices();
+
+            this.choices = new ArrayList<>();
+            for (Choice choice : objectiveQuestion.getChoices()) {
+                this.choices.add(ChoiceDTO.fromEntity(choice));
+
+            }
             this.isMultipleChoose = objectiveQuestion.isIsMultipleChoose();
         }
         System.out.println(isMultipleChoose);
@@ -55,6 +61,10 @@ public class QuestionDTOImpl implements QuestionDTO {
         if (type.equals(QuestionType.SUBJECTIVE)) {
             question = SubjectiveQuestion.create(id, name, attributes, categories);
         } else {
+            List<Choice> choices = new ArrayList<>();
+            for (ChoiceDTO choiceDTO : this.choices) {
+                choices.add(Choice.fromDTO(choiceDTO));
+            }
             question = ObjectiveQuestion.create(id, name, attributes, choices, categories);
         }
         question.setOwnerId(ownerId);

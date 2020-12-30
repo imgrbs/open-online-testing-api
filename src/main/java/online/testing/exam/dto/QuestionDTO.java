@@ -3,6 +3,7 @@ package online.testing.exam.dto;
 import java.util.List;
 
 import online.testing.exam.dto.impl.CategoryDTOImpl;
+import online.testing.exam.dto.impl.ChoiceDTO;
 import online.testing.exam.model.question.Attribute;
 import online.testing.exam.model.question.Choice;
 import online.testing.exam.model.question.Question;
@@ -24,9 +25,9 @@ public interface QuestionDTO {
 
     void setAttributes(List<Attribute> attributes);
 
-    List<Choice> getChoices();
+    List<ChoiceDTO> getChoices();
 
-    void setChoices(List<Choice> choices);
+    void setChoices(List<ChoiceDTO> choices);
 
     List<CategoryDTOImpl> getCategories();
 

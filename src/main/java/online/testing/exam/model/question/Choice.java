@@ -5,14 +5,20 @@
  */
 package online.testing.exam.model.question;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import online.testing.exam.dto.impl.ChoiceDTO;
 
 @Setter
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 public class Choice {
     private String label;
     private Boolean isCorrectAnswer;
+
+    public static Choice fromDTO(ChoiceDTO choiceDTO) {
+        Choice choice = new Choice();
+        choice.setLabel(choiceDTO.getLabel());
+        return choice;
+    }
 }
