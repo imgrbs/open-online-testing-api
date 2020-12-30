@@ -27,13 +27,12 @@ public class ObjectiveQuestion extends Question {
         field.setIsMultipleChoose(false);
         for (int i = 0; i < choiceSize; i++) {
             boolean isCorrectAnswer = field.getChoices().get(i).getIsCorrectAnswer();
-            if (numberOfCorrectChoice > 1) {
-                field.setIsMultipleChoose(true);
-                break;
-            }
             if (isCorrectAnswer == true) {
                 numberOfCorrectChoice++;
             }
+        }
+        if (numberOfCorrectChoice > 1) {
+            field.setIsMultipleChoose(true);
         }
         return field;
     }
